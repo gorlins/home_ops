@@ -1,0 +1,6 @@
+customization:
+  systemExtensions: # optional
+    officialExtensions: # optional
+      - siderolabs/qemu-guest-agent
+      - siderolabs/util-linux-tools
+      - siderolabs/iscsi-tools
