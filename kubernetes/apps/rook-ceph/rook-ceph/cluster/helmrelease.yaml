@@ -26,7 +26,7 @@ spec:
     route:
       dashboard:
         host:
-          name: rook.turbo.ac
+          name: rook.soybagel.com
           path: /
           pathType: PathPrefix
         parentRefs:
@@ -68,8 +68,7 @@ spec:
           requireMsgr2: true
       storage:
         useAllNodes: true
-        useAllDevices: false
-        devicePathFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBA800TFS_.*
+        useAllDevices: true
         config:
           osdsPerDevice: "1"
     cephBlockPools:
