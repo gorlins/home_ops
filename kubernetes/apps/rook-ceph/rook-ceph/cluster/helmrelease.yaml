@@ -32,7 +32,7 @@ spec:
         parentRefs:
           - name: internal
             namespace: kube-system
-            sectionName: https
+            sectionName: http
     cephClusterSpec:
       cephConfig:
         global:
@@ -50,6 +50,7 @@ spec:
       dashboard:
         enabled: true
         urlPrefix: /
+        port: 7000
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
