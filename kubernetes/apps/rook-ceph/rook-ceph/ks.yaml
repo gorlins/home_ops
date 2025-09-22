@@ -37,6 +37,10 @@ spec:
       app.kubernetes.io/name: *app
 #  components:
 #    - ../../../../components/gatus/guarded
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: rook-ceph
       namespace: *namespace
