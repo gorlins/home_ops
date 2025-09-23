@@ -272,6 +272,14 @@ task talos:apply-node IP=? MODE=?
 # e.g. task talos:apply-node IP=10.10.10.10 MODE=auto
 ```
 
+#### SG: I had to do this to add a node
+
+```sh
+cd talos
+talhelper gencommand apply -n 10.8.8.112
+talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=10.8.8.112 --file=./clusterconfig/kubernetes-talos-w3.yaml;
+```
+
 ### ⬆️ Updating Talos and Kubernetes versions
 
 > [!TIP]

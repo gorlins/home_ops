@@ -76,6 +76,57 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.8.8.8"
+  - hostname: "talos-w1"
+    ipAddress: "10.8.8.118"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/787b79bb847a07ebb9ae37396d015617266b1cef861107eaec85968ad7b40618
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:cc:3f:12"
+        dhcp: false
+        addresses:
+          - "10.8.8.118/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.8.8.1"
+        mtu: 1500
+  - hostname: "talos-w2"
+    ipAddress: "10.8.8.119"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/787b79bb847a07ebb9ae37396d015617266b1cef861107eaec85968ad7b40618
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:3a:43:88"
+        dhcp: false
+        addresses:
+          - "10.8.8.119/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.8.8.1"
+        mtu: 1500
+  - hostname: "talos-w3"
+    ipAddress: "10.8.8.112"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/787b79bb847a07ebb9ae37396d015617266b1cef861107eaec85968ad7b40618
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:aa:d4:ce"
+        dhcp: false
+        addresses:
+          - "10.8.8.112/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.8.8.1"
+        mtu: 1500
 
 # Global patches
 patches:
