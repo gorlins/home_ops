@@ -19,6 +19,25 @@ cniConfig:
   name: none
 
 nodes:
+  - hostname: "talos-pi"
+    ipAddress: "10.8.8.18"
+    installDisk: "/dev/mmcblk0"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "dc:a6:32:92:37:3e"
+        dhcp: false
+        addresses:
+          - "10.8.8.18/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.8.8.1"
+        mtu: 1500
+        vip:
+          ip: "10.8.8.8"
   - hostname: "talos-1"
     ipAddress: "10.8.8.128"
     installDisk: "/dev/sda"

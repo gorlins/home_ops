@@ -5,3 +5,4 @@ talosconfig
 kubernetes-talos-w3.yaml
 kubernetes-talos-w1.yaml
 kubernetes-talos-w2.yaml
+kubernetes-talos-pi.yaml
