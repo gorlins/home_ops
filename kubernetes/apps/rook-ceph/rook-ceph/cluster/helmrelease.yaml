@@ -54,6 +54,7 @@ spec:
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
+        allowMultiplePerNode: false
         modules:
           - name: diskprediction_local
             enabled: true
@@ -78,6 +79,12 @@ spec:
 #                      - talos-w3
       network:
         provider: host
+        hostNetwork: true
+        addressRanges:
+          public:
+            - "10.8.8.0/24"
+          cluster:
+            - "10.10.11.0/24"
         connections:
           requireMsgr2: true
       storage:
