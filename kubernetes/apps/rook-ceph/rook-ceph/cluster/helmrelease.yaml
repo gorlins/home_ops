@@ -83,8 +83,8 @@ spec:
         addressRanges:
           public:
             - "10.8.8.0/24"
-          cluster:
-            - "10.10.11.0/24"
+#          cluster:
+#            - "10.10.11.0/24"
         connections:
           requireMsgr2: true
       storage:
