@@ -16,8 +16,8 @@ spec:
   components:
     - ../../../../components/gatus/guarded
   dependsOn:
-    - name: longhorn-release
-      namespace: longhorn-system
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/observability/kube-prometheus-stack/app
   postBuild:
