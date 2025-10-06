@@ -16,7 +16,7 @@ spec:
   interval: 1m0s
   values:
     route:
-      longhorn-frontend:
+      longhorn-ui:
         hostnames:
           - "longhorn.${SECRET_DOMAIN}"
         parentRefs:
