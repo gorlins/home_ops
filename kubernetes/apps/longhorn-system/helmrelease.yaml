@@ -14,3 +14,13 @@ spec:
         name: longhorn-repo
       version: v1.10.*
   interval: 1m0s
+  values:
+    route:
+      longhorn-frontend:
+        hostnames:
+          - "longhorn.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+
