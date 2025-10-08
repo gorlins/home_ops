@@ -15,9 +15,9 @@ spec:
       name: sops-age
   components:
     - ../../../../components/gatus/guarded
-#  dependsOn:
-#    - name: rook-ceph-cluster
-#      namespace: rook-ceph
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/observability/kube-prometheus-stack/app
   postBuild:
