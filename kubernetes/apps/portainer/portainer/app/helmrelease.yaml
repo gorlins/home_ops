@@ -8,6 +8,7 @@ spec:
   interval: 1h
   chart:
     spec:
+      chart: portainer
       version: lts
       sourceRef:
         kind: HelmRepository
