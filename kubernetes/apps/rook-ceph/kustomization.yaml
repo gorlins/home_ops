@@ -8,4 +8,4 @@ components:
 resources:
   - ./rook-ceph/app.yaml
   - ./rook-ceph/cluster.yaml
-  - ./rook-ceph/external.yaml
+#  - ./rook-ceph/external.yaml
