@@ -5,8 +5,5 @@ kind: Kustomization
 namespace: portainer
 components:
   - ../../components/common
-dependsOn:
-  - name: rook-ceph-cluster
-    namespace: rook-ceph
 resources:
   - ./portainer/ks.yaml
