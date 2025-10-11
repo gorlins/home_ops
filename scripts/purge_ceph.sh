@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NODES=("talos-w1" "talos-w2" "talos-w3" "talos-spare")
+NODES=("talos-w1" "talos-w2" "talos-w3")
 
 read -p "Are you sure you want to continue? <y/N> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
