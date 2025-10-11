@@ -24,4 +24,5 @@ metadata:
 data:
   # Whether to start the discovery daemon to watch for raw storage devices on nodes in the cluster.
   # This daemon does not need to run if you are only going to create your OSDs based on StorageClassDeviceSets with PVCs.
-  ROOK_ENABLE_DISCOVERY_DAEMON: "true"
+#  ROOK_ENABLE_DISCOVERY_DAEMON: "true"
+  ROOK_ENABLE_DISCOVERY_DAEMON: "false"
