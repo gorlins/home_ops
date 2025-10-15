@@ -97,20 +97,10 @@ spec:
         connections:
           requireMsgr2: true
       storage:
-        useAllNodes: false
-        useAllDevices: false
+        useAllNodes: true
+        useAllDevices: true
         config:
           osdsPerDevice: "1"
-        nodes:
-          - name: talos-w1
-            devices:
-              - name: nvme0n1
-          - name: talos-w2
-            devices:
-              - name: nvme0n1
-          - name: talos-w3
-            devices:
-              - name: nvme0n1
     cephBlockPools:
       - name: ceph-blockpool
         spec:
