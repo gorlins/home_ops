@@ -65,6 +65,8 @@ spec:
         modules:
           - name: diskprediction_local
             enabled: true
+          - name: telemetry
+            enabled: true
           - name: insights
             enabled: true
           - name: pg_autoscaler
