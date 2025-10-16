@@ -6,7 +6,7 @@ namespace: rook-ceph
 components:
   - ../../components/common
 resources:
-  - ./rook-ceph/namespace.yaml
+#  - ./rook-ceph/namespace.yaml
   - ./rook-ceph/app.yaml
-  - ./rook-ceph/cluster.yaml
+#  - ./rook-ceph/cluster.yaml
 #  - ./rook-ceph/external.yaml
