@@ -8,7 +8,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: rook-release/rook-ceph
+      chart: rook-ceph
       sourceRef:
         kind: HelmRepository
         name: rook-release
