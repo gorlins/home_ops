@@ -86,8 +86,8 @@ spec:
 #                      - talos-w1
 #                      - talos-w2
 #                      - talos-w3
-#      network:
-#        provider: host
+      network:
+        provider: host
 #        hostNetwork: true  # This is legacy, do not use
 #        addressRanges:
 #          public:
