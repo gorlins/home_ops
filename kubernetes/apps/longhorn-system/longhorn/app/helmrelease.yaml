@@ -14,9 +14,8 @@ spec:
         kind: HelmRepository
         name: longhorn
   values:
-    defaultDataPath: /var/mnt/longhorn/
     route:
-      longhorn-frontend:
+      longhorn-ui:
         hostnames: ["longhorn.${SECRET_DOMAIN}"]
         parentRefs:
           - name: internal
