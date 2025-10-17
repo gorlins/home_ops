@@ -99,7 +99,7 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: true
-        deviceFilter: "^nvme*"
+        
         config:
           osdsPerDevice: "1"
     cephBlockPools:
