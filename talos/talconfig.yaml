@@ -179,3 +179,8 @@ controlPlane:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
 
+# Worker patches
+worker:
+  patches:
+    - "@./patches/worker/machine-kubelet.yaml"
+#    - "@./patches/worker/longhorn-volume.yaml"  # doesn't work here for some reason, apply manually
