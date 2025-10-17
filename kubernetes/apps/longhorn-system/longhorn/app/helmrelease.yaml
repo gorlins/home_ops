@@ -14,6 +14,9 @@ spec:
         kind: HelmRepository
         name: longhorn
   values:
+    defaultSettings:
+      # Set this so that we can use the Talos UserVolume
+      defaultDataPath: /var/mnt/longhorn
     route:
       longhorn-ui:
         hostnames: ["longhorn.${SECRET_DOMAIN}"]
