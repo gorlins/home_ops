@@ -9,7 +9,6 @@ spec:
   chart:
     spec:
       chart: portainer
-      version: lts
       sourceRef:
         kind: HelmRepository
         name: portainer
