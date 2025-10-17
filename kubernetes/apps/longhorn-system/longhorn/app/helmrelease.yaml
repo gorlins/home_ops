@@ -19,7 +19,9 @@ spec:
       defaultDataPath: /var/mnt/longhorn
     route:
       longhorn-ui:
-        hostnames: ["longhorn.${SECRET_DOMAIN}"]
+        enabled: true
+        hostnames:
+          - "longhorn.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: kube-system
