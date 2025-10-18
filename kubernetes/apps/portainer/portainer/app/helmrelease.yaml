@@ -19,7 +19,13 @@ spec:
   values:
     service:
       type: ClusterIP
+    ingress:
+      enabled: true
+      hosts:
+        - host: "portainer.${SECRET_DOMAIN}"
+          paths:
+            - path: "/"
     image:
       tag: lts
     tls:
-      force: false
+      force: true

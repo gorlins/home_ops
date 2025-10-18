@@ -20,4 +20,4 @@
           backendRefs:
             - name: portainer # Name of your backend Kubernetes Service
               namespace: portainer
-              port: 9000
+              port: 9443
