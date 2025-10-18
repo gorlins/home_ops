@@ -32,13 +32,13 @@ spec:
       namespace: kube-system
       sectionName: https
   hostnames:
-    - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+    - "longhorn.${SECRET_DOMAIN}"
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: "{{ .Release.Name }}-frontend"
-          namespace: "{{ .Release.Namespace }}"
+        - name: "longhorn-frontend"
+          namespace: *namespace
 #          port: 9000
