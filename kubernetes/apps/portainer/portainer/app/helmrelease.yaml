@@ -15,3 +15,10 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+  values:
+    service:
+      type: ClusterIP
+    image:
+      tag: lts
+    tls:
+      force: false
