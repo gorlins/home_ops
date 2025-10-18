@@ -23,7 +23,7 @@ spec:
       hosts:
         - host: "portainer.${SECRET_DOMAIN}"
           paths:
-            path: /
+            - path: /
     image:
       tag: lts
     tls:
