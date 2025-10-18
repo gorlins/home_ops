@@ -65,7 +65,7 @@ spec:
       replicas: 1
       persistence:
         enabled: true
-        storageClass: ceph-rbd
+        storageClass: longhorn
         size: 50Gi
     gateway:
       replicas: 0

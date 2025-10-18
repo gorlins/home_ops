@@ -181,6 +181,11 @@ controlPlane:
 
 # Worker patches
 worker:
+  userVolumes:
+    - name: longhorn
+      provisioning:
+        diskSelector:
+          match: "!system_disk"
+        minSize: 50GB
   patches:
     - "@./patches/worker/machine-kubelet.yaml"
-#    - "@./patches/worker/longhorn-volume.yaml"  # doesn't work here for some reason, apply manually
