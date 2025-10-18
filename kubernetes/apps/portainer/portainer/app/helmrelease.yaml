@@ -14,8 +14,8 @@ spec:
         kind: HelmRepository
         name: portainer
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: longhorn
+      namespace: longhorn-system
   values:
     service:
       type: ClusterIP
@@ -25,6 +25,8 @@ spec:
         - host: "portainer.${SECRET_DOMAIN}"
           paths:
             - path: "/"
+    persistence:
+      storageClass: longhorn
     image:
       tag: lts
     tls:
