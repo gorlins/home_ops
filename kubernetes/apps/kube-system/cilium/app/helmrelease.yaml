@@ -48,6 +48,10 @@ spec:
         enabled: true
       ui:
         enabled: true
+    ingressController:
+      enabled: true
+      default: true
+      loadbalancerMode: dedicated
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "10.42.0.0/16"
