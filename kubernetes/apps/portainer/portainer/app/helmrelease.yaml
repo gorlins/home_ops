@@ -28,4 +28,4 @@ spec:
     image:
       tag: lts
     tls:
-      force: true
+      force: false
