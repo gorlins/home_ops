@@ -112,12 +112,12 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.8.8.1"
         mtu: 1500
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:6a:00:a5"
-        dhcp: false
-        addresses:
-          - "10.10.11.118/24"
-        mtu: 9000
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:6a:00:a5"
+#        dhcp: false
+#        addresses:
+#          - "10.10.11.118/24"
+#        mtu: 9000
   - hostname: "talos-w2"
     ipAddress: "10.8.8.119"
     installDisk: "/dev/sda"
@@ -135,12 +135,12 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.8.8.1"
         mtu: 1500
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:c3:46:2a"
-        dhcp: false
-        addresses:
-          - "10.10.11.119/24"
-        mtu: 9000
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:c3:46:2a"
+#        dhcp: false
+#        addresses:
+#          - "10.10.11.119/24"
+#        mtu: 9000
   - hostname: "talos-w3"
     ipAddress: "10.8.8.112"
     installDisk: "/dev/sda"
@@ -158,12 +158,12 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.8.8.1"
         mtu: 1500
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:bd:11:9a"
-        dhcp: false
-        addresses:
-          - "10.10.11.112/24"
-        mtu: 9000
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:bd:11:9a"
+#        dhcp: false
+#        addresses:
+#          - "10.10.11.112/24"
+#        mtu: 9000
 
 # Global patches
 patches:
