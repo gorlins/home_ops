@@ -186,6 +186,11 @@ worker:
       provisioning:
         diskSelector:
           match: "!system_disk"
-        minSize: 50GB
+        minSize: 100GB
+    - name: local-path-storage
+      provisioning:
+        diskSelector:
+          match: "!system_disk"
+        maxSize: 100GB
   patches:
     - "@./patches/worker/machine-kubelet.yaml"
