@@ -22,8 +22,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: authentik-app
-        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
