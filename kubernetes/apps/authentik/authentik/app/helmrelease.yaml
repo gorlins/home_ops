@@ -16,35 +16,11 @@ spec:
       error_reporting:
         enabled: true
       postgresql:
-        - name: host
-          value: authentik-rw
-#          valueFrom:
-#            secretKeyRef:
-#              name: authentik-app # Name of your pre-existing Secret
-#              key: host   # Key within the Secret
-        - name: name
-          value: authentik
-#          valueFrom:
-#            secretKeyRef:
-#              name: authentik-app # Name of your pre-existing Secret
-#              key: user   # Key within the Secret
-        - name: password
-          valueFrom:
-            secretKeyRef:
-              name: authentik-app # Name of your pre-existing Secret
-              key: password   # Key within the Secret
-        - name: port
-          value: 5432
-#          valueFrom:
-#            secretKeyRef:
-#              name: authentik-app # Name of your pre-existing Secret
-#              key: port   # Key within the Secret
-        - name: user
-          value: authentik
-#          valueFrom:
-#            secretKeyRef:
-#              name: authentik-app # Name of your pre-existing Secret
-#              key: user   # Key within the Secret
+        host: "${{ secrets.host }}"
+        name: "${{ secrets.dbname }}"
+        password: "${{ secrets.password }}"
+        port: "${{ int secrets.port }}"
+        user: "${{ secrets.username }}"
 
     server:
       ingress:
