@@ -79,7 +79,7 @@ spec:
   rules:
     - backendRefs:
         - name: authentik
-          port: 80
+          port: 9000
       matches:
         - path:
             type: PathPrefix
