@@ -6,9 +6,4 @@ resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
   - ./repository.yaml
-configMapGenerator:
-  - name: cloudflare-tunnel-configmap
-    files:
-      - config.yaml=./resources/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./postres.yaml
