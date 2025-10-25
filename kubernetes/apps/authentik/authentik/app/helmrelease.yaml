@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: authentik
 spec:
-  chartRef:
-    kind: HelmRepository
-    name: authentik
+  interval: 1h
+  chart:
+    spec:
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
   values:
     authentik:
       env:
