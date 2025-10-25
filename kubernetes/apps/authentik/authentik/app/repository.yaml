@@ -6,3 +6,4 @@ metadata:
   name: authentik
 spec:
   url: https://charts.goauthentik.io
+  interval: 60m
