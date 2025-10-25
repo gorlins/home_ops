@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  instances: 3
+
+  bootstrap:
+    initdb:
+      database: authentik
+      owner: authentik
+
+  storage:
+    size: 1Gi
+    storageClass: local-path
