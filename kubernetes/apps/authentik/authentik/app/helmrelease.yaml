@@ -17,30 +17,34 @@ spec:
         enabled: true
       postgresql:
         - name: host
-          valueFrom:
-            secretKeyRef:
-              name: authentik-app # Name of your pre-existing Secret
-              key: host   # Key within the Secret
+          value: authentik-rw
+#          valueFrom:
+#            secretKeyRef:
+#              name: authentik-app # Name of your pre-existing Secret
+#              key: host   # Key within the Secret
         - name: name
-          valueFrom:
-            secretKeyRef:
-              name: authentik-app # Name of your pre-existing Secret
-              key: user   # Key within the Secret
+          value: authentik
+#          valueFrom:
+#            secretKeyRef:
+#              name: authentik-app # Name of your pre-existing Secret
+#              key: user   # Key within the Secret
         - name: password
           valueFrom:
             secretKeyRef:
               name: authentik-app # Name of your pre-existing Secret
               key: password   # Key within the Secret
         - name: port
-          valueFrom:
-            secretKeyRef:
-              name: authentik-app # Name of your pre-existing Secret
-              key: port   # Key within the Secret
+          value: 5432
+#          valueFrom:
+#            secretKeyRef:
+#              name: authentik-app # Name of your pre-existing Secret
+#              key: port   # Key within the Secret
         - name: user
-          valueFrom:
-            secretKeyRef:
-              name: authentik-app # Name of your pre-existing Secret
-              key: user   # Key within the Secret
+          value: authentik
+#          valueFrom:
+#            secretKeyRef:
+#              name: authentik-app # Name of your pre-existing Secret
+#              key: user   # Key within the Secret
 
     server:
       ingress:
