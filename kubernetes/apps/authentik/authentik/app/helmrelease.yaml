@@ -14,20 +14,14 @@ spec:
         name: authentik
   values:
     authentik:
-      env:
-        AUTHENTIK_SECRET_KEY:
-          valueFrom:
-            secretKeyRef:
-              name: authentik
-              key: secret_key
-#      secret_key: ""
+      secret_key: "${SECRET_KEY}"
       # This sends anonymous usage-data, stack traces on errors and
       # performance data to sentry.io, and is fully opt-in
       error_reporting:
         enabled: true
       postgresql:
         host: file:///postgres-creds/host
-        name: file:///postgres-creds/name
+        name: file:///postgres-creds/dbname
         user: file:///postgres-creds/username
         password: file:///postgres-creds/password
         port: file:///postgres-creds/port
