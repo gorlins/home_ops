@@ -17,7 +17,7 @@ spec:
     - name: postgres
       namespace: authentik
   interval: 1h
-  path: ./kubernetes/apps/authentik/authentik/app
+  path: ./kubernetes/apps/authentik/authentik
   postBuild:
     substituteFrom:
       - name: cluster-secrets
