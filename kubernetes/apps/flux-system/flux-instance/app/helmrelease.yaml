@@ -120,3 +120,11 @@ spec:
             target:
               kind: Deployment
               name: helm-controller
+          - # Enable global decryption
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --sops-age-secret=sops-age
+            target:
+              kind: Deployment
+              name: kustomize-controller
