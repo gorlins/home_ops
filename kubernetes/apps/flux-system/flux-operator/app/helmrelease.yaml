@@ -20,3 +20,5 @@ spec:
   values:
     serviceMonitor:
       create: true
+    extraArgs:
+      - -sops-age-secret=sops-age
