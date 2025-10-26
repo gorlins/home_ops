@@ -21,7 +21,9 @@ spec:
           - web
     providers:
       kubernetesGateway:
-        enabled: false
+        enabled: true
+        statusAddress:
+          ip: 10.8.8.6
     gateway:
       listeners:
         web:
