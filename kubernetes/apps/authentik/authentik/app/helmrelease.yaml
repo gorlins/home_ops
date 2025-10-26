@@ -79,8 +79,8 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - name: authentik
-          port: 9000
+        - name: authentik-server
+          port: 80
       matches:
         - path:
             type: PathPrefix
