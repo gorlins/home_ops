@@ -36,19 +36,18 @@ spec:
     server:
       route:
         main:
-          enabled: true
-          hostnames: [ "authentik.${SECRET_DOMAIN}" ]
-          parentRefs:
-            - name: external
-              namespace: kube-system
-              sectionName: https
+          enabled: false
+#          hostnames: [ "authentik.${SECRET_DOMAIN}" ]
+#          parentRefs:
+#            - name: external
+#              namespace: kube-system
+#              sectionName: https
 
       ingress:
         # Specify kubernetes ingress controller class name
-#        ingressClassName: nginx | traefik | kong
-        enabled: false
-#        hosts:
-#          - authentik.domain.tld
+        ingressClassName: traefik
+        enabled: true
+        hosts: ["authentik.${SECRET_DOMAIN}"]
       volumes:
         - name: postgres-creds
           secret:
