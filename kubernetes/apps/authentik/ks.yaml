@@ -18,6 +18,8 @@ spec:
       namespace: authentik
   interval: 1h
   path: ./kubernetes/apps/authentik/authentik
+  components:
+    - ../../components/common
   postBuild:
     substituteFrom:
       - name: cluster-secrets
