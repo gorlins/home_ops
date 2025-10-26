@@ -20,6 +20,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: authentik
+              namespace: authentik
               key: secret_key
 
       # This sends anonymous usage-data, stack traces on errors and
