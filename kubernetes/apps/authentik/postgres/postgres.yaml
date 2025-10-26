@@ -2,7 +2,6 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: authentik-postgres
-  namespace: authentik
 spec:
   instances: 3
 
