@@ -14,7 +14,14 @@ spec:
         name: authentik
   values:
     authentik:
-      secret_key: "${SECRET_KEY}"
+      secret_key: env://AUTHENTIK_SECRET_KEY
+      env:
+        AUTHENTIK_SECRET_KEY:
+          valueFrom:
+            secretKeyRef:
+              name: authentik
+              key: secret_key
+
       # This sends anonymous usage-data, stack traces on errors and
       # performance data to sentry.io, and is fully opt-in
       error_reporting:
