@@ -21,8 +21,6 @@ spec:
   components:
     - ../../components/common
   postBuild:
-    substitute:
-      NAMESPACE: "authentik"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
