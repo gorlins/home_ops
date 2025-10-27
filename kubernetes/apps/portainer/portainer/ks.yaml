@@ -14,15 +14,13 @@ spec:
       namespace: longhorn-system
   decryption:
     provider: sops
-    secretRef:
-      name: sops-age
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/portainer/portainer/app
+  path: ./kubernetes/apps/portainer/portainer
   prune: true
   retryInterval: 2m
   postBuild:
