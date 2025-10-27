@@ -11,15 +11,13 @@ spec:
       app.kubernetes.io/name: *app
   decryption:
     provider: sops
-    secretRef:
-      name: sops-age
   dependsOn:
     - name: postgres
       namespace: authentik
   interval: 1h
   path: ./kubernetes/apps/authentik/authentik
   components:
-    - ../../components/common
+    - ../../../components/common
   postBuild:
     substituteFrom:
       - name: cluster-secrets
