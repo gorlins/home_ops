@@ -2,8 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cluster-config
-stringData:
-  SECRET_DOMAIN: ENC[AES256_GCM,data:pc99OhWLqZPtJQDw,iv:g5/pyS22TUlxAY/qkKWSemPnfMaOaGvSnjo3/aDvK7s=,tag:Eb9oFQ534eM+mzSScvxNZw==,type:str]
+data:
+  SECRET_DOMAIN: ENC[AES256_GCM,data:F+EC0rHf/sAUNIKV,iv:2CU+2y9S0skyuAisQnTI0KLaX1e07H78WX9PPrGwQRM=,tag:HLsWgQBYX5pJc8RBjet70g==,type:str]
 sops:
   age:
     - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
@@ -15,8 +15,8 @@ sops:
         YVM4VXFzcnpQUVJ3Zy9TeVJKd2dUMjAKh2W92l31TmL0OnMze5Rzk/tGBb4vVdf8
         PQ9aBM1Rews6s654F/p6r5viMY8MZWTcfiaj3J2lsw0cOX+Onco6Iw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-10-27T02:15:36Z"
-  mac: ENC[AES256_GCM,data:bgLeyRMF2PNYdWc1yRKzOs9KEVWVlVKsj87R8MR7IQCwVcv8rtdHCvYpt7tAACXTB/11B2D0HCcKekRoD5jxuCsBNmvbcswoosVXzOStap71taMD9kcDjW3pf0aD0ortZz5EaSmq00LBTMcuCxvfoIKnFHUkq5u3hgW9J/pwWXs=,iv:/+yHGEApixVucWcBiURajXBGptqMSwTSZY2TQ4tKXrY=,tag:XftWA/KQs90X2zEPMpc5Kg==,type:str]
+  lastmodified: "2025-10-27T02:29:06Z"
+  mac: ENC[AES256_GCM,data:VyS+56VSgm4ukcrGQ4EVBenMXt3t71iWBUwHVM3z4vl43HdoyWR+i0Dqzo72GtgfJMp1G64w2DpKFg1w+xJTR4EFv3O50KevTfaP018PD0VjCfog21/Sf0WG6gaGGRvY2GYwe8R7mwoRD+YISa8BtZALH+rpclbpFpUmaSVu94Y=,iv:wgOz1V7l+Z9vk1A01ov6m9cQSo1/TNPDYVTtP395bcM=,tag:nZ82jKmTb7MIJOXa5oiTAA==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.10.2
