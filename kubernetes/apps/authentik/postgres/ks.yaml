@@ -13,8 +13,6 @@ spec:
     provider: sops
   interval: 1h
   path: ./kubernetes/apps/authentik/postgres
-  components:
-    - ../../../components/common
   postBuild:
     substituteFrom:
       - name: cluster-secrets
