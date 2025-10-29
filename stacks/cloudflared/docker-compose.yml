@@ -1,0 +1,11 @@
+services:
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    network_mode: host
+    command: tunnel run --no-autoupdate
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      # - .:/etc/hosts
+    environment:
+      TUNNEL_TOKEN:
