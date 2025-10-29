@@ -41,7 +41,6 @@ services:
   caddy:
     image: ghcr.io/caddybuilds/caddy-cloudflare:latest
     restart: always
-    container_name: caddy
     volumes:
       - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_certs:/certs
