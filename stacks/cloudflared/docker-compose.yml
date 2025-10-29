@@ -3,7 +3,7 @@ services:
     image: cloudflare/cloudflared:latest
     restart: unless-stopped
     network_mode: host
-    command: tunnel run --no-autoupdate
+    command: tunnel run
     volumes:
       - /etc/localtime:/etc/localtime:ro
       # - .:/etc/hosts
