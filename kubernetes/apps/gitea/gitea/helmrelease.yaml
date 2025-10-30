@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitea
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: gitea
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+  values:
+    gitea:
+      config:
+        database:
+          DB_TYPE: postgres
+          HOST: file:///postgres-creds/host
+          NAME: file:///postgres-creds/dbname
+          USER: file:///postgres-creds/username
+          PASSWD: file:///postgres-creds/password
+          SCHEMA: gitea
+          PORT: file:///postgres-creds/port
+
+    extraVolumes:
+      - name: postgres-creds
+        secret:
+          secretName: gitea-postgres-app
+
+    extraVolumeMounts:
+      - name: postgres-creds
+        mountPath: /postgres-creds
+        readOnly: true
+
+    postgresql:
+      enabled: false
+    postgresql-ha:
+      enabled: false
+

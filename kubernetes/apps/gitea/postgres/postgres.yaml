@@ -1,0 +1,15 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: gitea-postgres
+spec:
+  instances: 3
+
+  bootstrap:
+    initdb:
+      database: gitea
+      owner: gitea
+
+  storage:
+    size: 1Gi
+    storageClass: local-path
