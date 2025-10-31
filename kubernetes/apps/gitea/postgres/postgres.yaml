@@ -7,8 +7,9 @@ spec:
 
   bootstrap:
     initdb:
-      database: gitea
-      owner: gitea
+      database: giteadb
+      localeCollate: 'en_US.UTF-8'
+      localeCType: 'en_US.UTF-8'
 
   storage:
     size: 1Gi
