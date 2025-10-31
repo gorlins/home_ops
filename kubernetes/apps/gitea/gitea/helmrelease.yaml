@@ -15,14 +15,14 @@ spec:
   values:
     gitea:
       config:
-        database:
-          DB_TYPE: postgres
-          HOST: file:///postgres-creds/host
-          NAME: file:///postgres-creds/dbname
-          USER: file:///postgres-creds/username
-          PASSWD: file:///postgres-creds/password
-          SCHEMA: gitea
-          PORT: file:///postgres-creds/port
+#        database:
+#          DB_TYPE: postgres
+#          HOST: file:///postgres-creds/host
+#          NAME: file:///postgres-creds/dbname
+#          USER: file:///postgres-creds/username
+#          PASSWD: file:///postgres-creds/password
+#          SCHEMA: gitea
+#          PORT: file:///postgres-creds/port
       livenessProbe:
         enabled: true
 
@@ -37,7 +37,7 @@ spec:
         readOnly: true
 
     postgresql:
-      enabled: false
+      enabled: true
     postgresql-ha:
       enabled: false
 

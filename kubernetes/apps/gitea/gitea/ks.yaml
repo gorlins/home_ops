@@ -11,9 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   decryption:
     provider: sops
-  dependsOn:
-    - name: postgres
-      namespace: gitea
+#  dependsOn:
+#    - name: postgres
+#      namespace: gitea
   interval: 1h
   path: ./kubernetes/apps/gitea/gitea
   postBuild:
