@@ -20,8 +20,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: gitea-postgres-app
-        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:

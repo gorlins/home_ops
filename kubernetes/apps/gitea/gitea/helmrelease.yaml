@@ -18,7 +18,7 @@ spec:
     valkey:
       enabled: true
     postgresql:
-      enabled: false
+      enabled: true
     postgresql-ha:
       enabled: false
 
@@ -29,12 +29,21 @@ spec:
       config:
         database:
           DB_TYPE: postgres
-          HOST: "${host}"
-          NAME: "${dbname}"
-          USER: "${user}"
-          PASSWD: "${password}"
-          SCHEMA: "${dbname}"
+#          HOST: "${host}"
+#          NAME: "${dbname}"
+#          USER: "${user}"
+#          PASSWD: "${password}"
+#          SCHEMA: "${dbname}"
         indexer:
           ISSUE_INDEXER_TYPE: bleve
           REPO_INDEXER_ENABLED: true
 
+    extraVolumes:
+      - name: postgres-creds
+        secret:
+          secretName: gitea-postgres-app
+
+    extraContainerVolumeMounts:
+      - name: postgres-creds
+        mountPath: /postgres-creds
+        readOnly: true
