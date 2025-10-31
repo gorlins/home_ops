@@ -57,7 +57,8 @@ spec:
               name: gitea-postgres-app
               key: password
         - name: GITEA__DATABASE__SCHEMA
-          valueFrom:
-            secretKeyRef:
-              name: gitea-postgres-app
-              key: dbname
+          value: public
+#          valueFrom:
+#            secretKeyRef:
+#              name: gitea-postgres-app
+#              key: dbname
