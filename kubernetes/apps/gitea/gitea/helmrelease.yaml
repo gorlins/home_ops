@@ -23,13 +23,15 @@ spec:
           PASSWD: file:///postgres-creds/password
           SCHEMA: gitea
           PORT: file:///postgres-creds/port
+      livenessProbe:
+        enabled: true
 
     extraVolumes:
       - name: postgres-creds
         secret:
           secretName: gitea-postgres-app
 
-    extraVolumeMounts:
+    extraContainerVolumeMounts:
       - name: postgres-creds
         mountPath: /postgres-creds
         readOnly: true
@@ -37,5 +39,10 @@ spec:
     postgresql:
       enabled: false
     postgresql-ha:
+      enabled: false
+
+    valkey:
+      enabled: true
+    valkey-cluster:
       enabled: false
 
