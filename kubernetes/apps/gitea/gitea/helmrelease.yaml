@@ -35,6 +35,8 @@ spec:
           scopes: "email profile"
 
       config:
+        server:
+          ROOT_URL: "https://git.${SECRET_DOMAIN}/"
         database:
           DB_TYPE: postgres
 #          HOST: "${host}"
