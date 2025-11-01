@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitea-authentik-secret
+type: Opaque
+stringData:
+  key: ENC[AES256_GCM,data:DkoiY0+oq7+twCwc/h5tM8N3ISE2VRQGxyyXf1Dmsyb/O5TM1xPGRA==,iv:03RB6++mndBhl+kovMo2ZYNeJIrChM+sybLhd429VXo=,tag:EjCCi/9N+wvcBEbQcrPrYA==,type:str]
+  secret: ENC[AES256_GCM,data:X5LQGPtuD5YiaDJh6aWn6s4WMRGX58KTCivDd8GEgLZ5B0fixpyr7KtNrlSdEpHjfLcyo4xcvmFijT0fER+VoKvd/D1WEvpf0oPh6jmmgz/2s6tcNzA12MQpfP/Qt3TTXu1F8DOzyGMyc87PbarJdStYno15U0CZXX3C1ZlMAyw=,iv:MvuKS1PhvwEoFXZENHGx9f0N0d1PdwpzTLqmam8jKck=,tag:aimkn5DwPDbvWX42luZRKg==,type:str]
+sops:
+  age:
+    - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIWU5vak1oYzNZVUxUTDMy
+        OURsQTNGcFRVaU1oZ2RFcGRWMEgwaWtIVlJnCm9ZVkIxbWl0TlcvWm8vUlViaFha
+        TkNCclJzSFRWY09ibXpkemt5NWlSaEUKLS0tIGJORWJkTkhJOTBQTXloNnVVbW45
+        ZVRWaWQwek5NWDhkakx4eERNUldvTkkKpD4hp22Xze4VI4yJ9oTmL57VzBdWSL1t
+        JcVph0tI3YMzQgoCk7CSTCh4lBmnvZUqvAR0qybdm1fcWYMijbPJFA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-11-01T03:00:05Z"
+  mac: ENC[AES256_GCM,data:6Bn1NcRI9KEYQ12WgNIYzlN2cuqasH8oCHL5Ut2ne6W+FcSIf4Sfd6/V4gnuz0Enw9dQ2287KDPm5IW4vtgq7Q2q7LD+xVn51+YnHAwIzeBSEI/lFkn33j3V4nmUWLFCRG6mtdgGT/aaSL0VkhILd3jQECaZb8qT/iVNHRXrVjk=,iv:cc14RkBLkLXqyslonOScIV6xMeya61SJP7uJn822ZTg=,tag:ggfSE+ZHEYcDLsrbGG3VAg==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.10.2
