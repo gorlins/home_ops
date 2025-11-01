@@ -7,7 +7,7 @@ spec:
 
   bootstrap:
     initdb:
-      database: giteadb
+      database: gitea
       owner: gitea
       localeCollate: 'en_US.UTF-8'
       localeCType: 'en_US.UTF-8'
