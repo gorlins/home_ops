@@ -6,3 +6,4 @@ namespace: gitea
 resources:
   - ./helmrelease.yaml
   - ./repository.yaml
+  - ./sa.yaml
