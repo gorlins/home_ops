@@ -37,6 +37,7 @@ spec:
       config:
         server:
           ROOT_URL: "https://git.${SECRET_DOMAIN}/"
+          SSH_DOMAIN: "git.${SECRET_DOMAIN}"
         database:
           DB_TYPE: postgres
 #          HOST: "${host}"
