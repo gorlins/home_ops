@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: gitea
   values:
+    strategy:
+      type: Recreate # RollingUpdate causes locks on pods using RWO volumes
+      clusterDomain: "${SECRET_DOMAIN}"
     valkey-cluster:
       enabled: false
     valkey:
@@ -33,9 +36,13 @@ spec:
           autoDiscoverUrl: "https://authentik.${SECRET_DOMAIN}/application/o/gitea/.well-known/openid-configuration"
           iconUrl: "https://authentik.${SECRET_DOMAIN}/static/dist/assets/icons/icon.png"
           scopes: "email profile"
-
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       config:
         server:
+          DOMAIN: "git.${SECRET_DOMAIN}"
           ROOT_URL: "https://git.${SECRET_DOMAIN}/"
           SSH_DOMAIN: "git.${SECRET_DOMAIN}"
         database:
