@@ -183,11 +183,8 @@ spec:
               mountPropagation: HostToContainer
             - name: host-run-k8s-cni-cncf-io
               mountPath: /run/k8s.cni.cncf.io
-#            - name: host-run-netns
-#              mountPath: /run/netns
             - name: host-run-netns
-              hostPath:
-                path: /var/run/netns/
+              mountPath: /run/netns
               mountPropagation: HostToContainer
             - name: multus-daemon-config
               mountPath: /etc/cni/net.d/multus.d
@@ -253,7 +250,8 @@ spec:
             path: /run/k8s.cni.cncf.io
         - name: host-run-netns
           hostPath:
-            path: /run/netns/
+#            path: /run/netns/
+            path: /var/run/netns/  # Per Talos config
         - name: multus-conf-dir
           hostPath:
             path: /etc/cni/multus/net.d
