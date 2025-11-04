@@ -11,9 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   decryption:
     provider: sops
-  dependsOn:
-    - name: multus
-      namespace: kube-system
+#  dependsOn:
+#    - name: multus
+#      namespace: kube-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
