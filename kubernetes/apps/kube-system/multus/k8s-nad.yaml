@@ -9,7 +9,6 @@ spec:
       "master": "ens18",
       "mode": "bridge",
       "ipam": {
-        "type": "whereabouts",
-        "range": "10.8.8.192/26"
+        "type": "dhcp"
       }
     }'
