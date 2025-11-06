@@ -10,3 +10,17 @@ spec:
         - name: host-run-netns
           hostPath:
             path: /var/run/netns/  # Per Talos documentation
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-dhcp-ds-amd64
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      volumes:
+        - name: netnspath
+          hostPath:
+            path: /var/run/netns/  # Per Talos documentation
