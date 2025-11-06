@@ -10,3 +10,4 @@ resources:
 patches:
   - path: ./patches/volume-mount.yaml
   - path: ./patches/oom.yaml
+  - path: ./patches/missing-binaries.yaml
