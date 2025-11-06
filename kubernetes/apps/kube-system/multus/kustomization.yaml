@@ -6,6 +6,7 @@ resources:
   - ./multus-daemonset-thick.yml
   - ./storage-nad.yaml
   - ./k8s-nad.yaml
+  - ./whereabouts.yaml # helm template whereabouts oci://ghcr.io/k8snetworkplumbingwg/whereabouts-chart > whereabouts.yaml
 
 patches:
   - path: ./patches/volume-mount.yaml
