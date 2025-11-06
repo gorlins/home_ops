@@ -27,36 +27,10 @@ nodes:
     talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "dc:a6:32:92:37:3e"
-        dhcp: false
-        addresses:
-          - "10.8.8.18/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.8.8.1"
-        mtu: 1500
+      - interface: end0
+        dhcp: true
         vip:
           ip: "10.8.8.8"
-#  - hostname: "talos-1"
-#    ipAddress: "10.8.8.128"
-#    installDisk: "/dev/sda"
-#    machineSpec:
-#      secureboot: false
-#    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
-#    controlPlane: true
-#    networkInterfaces:
-#      - deviceSelector:
-#          hardwareAddr: "bc:24:11:3e:ed:82"
-#        dhcp: false
-#        addresses:
-#          - "10.8.8.128/24"
-#        routes:
-#          - network: "0.0.0.0/0"
-#            gateway: "10.8.8.1"
-#        mtu: 1500
-#        vip:
-#          ip: "10.8.8.8"
   - hostname: "talos-2"
     ipAddress: "10.8.8.127"
     installDisk: "/dev/sda"
@@ -65,15 +39,8 @@ nodes:
     talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:c3:de:37"
-        dhcp: false
-        addresses:
-          - "10.8.8.127/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.8.8.1"
-        mtu: 1500
+      - interface: ens18
+        dhcp: true
         vip:
           ip: "10.8.8.8"
   - hostname: "talos-3"
@@ -84,15 +51,8 @@ nodes:
     talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:56:dc:99"
-        dhcp: false
-        addresses:
-          - "10.8.8.123/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.8.8.1"
-        mtu: 1500
+      - interface: ens18
+        dhcp: true
         vip:
           ip: "10.8.8.8"
   - hostname: "talos-w1"
@@ -105,19 +65,11 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:cc:3f:12"
+        dhcp: true
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:6a:00:a5"
         dhcp: false
-        addresses:
-          - "10.8.8.118/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.8.8.1"
-        mtu: 1500
-#      - deviceSelector:
-#          hardwareAddr: "bc:24:11:6a:00:a5"
-#        dhcp: false
-#        addresses:
-#          - "10.10.11.118/24"
-#        mtu: 9000
+        mtu: 9000
   - hostname: "talos-w2"
     ipAddress: "10.8.8.119"
     installDisk: "/dev/sda"
@@ -128,19 +80,11 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:3a:43:88"
+        dhcp: true
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:c3:46:2a"
         dhcp: false
-        addresses:
-          - "10.8.8.119/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.8.8.1"
-        mtu: 1500
-#      - deviceSelector:
-#          hardwareAddr: "bc:24:11:c3:46:2a"
-#        dhcp: false
-#        addresses:
-#          - "10.10.11.119/24"
-#        mtu: 9000
+        mtu: 9000
   - hostname: "talos-w3"
     ipAddress: "10.8.8.112"
     installDisk: "/dev/sda"
@@ -151,19 +95,11 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:aa:d4:ce"
+        dhcp: true
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:bd:11:9a"
         dhcp: false
-        addresses:
-          - "10.8.8.112/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "10.8.8.1"
-        mtu: 1500
-#      - deviceSelector:
-#          hardwareAddr: "bc:24:11:bd:11:9a"
-#        dhcp: false
-#        addresses:
-#          - "10.10.11.112/24"
-#        mtu: 9000
+        mtu: 9000
 
 # Global patches
 patches:
