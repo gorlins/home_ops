@@ -250,8 +250,7 @@ spec:
             path: /run/k8s.cni.cncf.io
         - name: host-run-netns
           hostPath:
-#            path: /run/netns/
-            path: /var/run/netns/  # Per Talos config
+            path: /run/netns/
         - name: multus-conf-dir
           hostPath:
             path: /etc/cni/multus/net.d

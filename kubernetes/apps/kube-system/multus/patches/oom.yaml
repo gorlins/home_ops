@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      volumes:
+        - name: host-run-netns
+          hostPath:
+            path: /var/run/netns/
+      containers:
+        - name: kube-multus
+          resources:
+            limits:
+              memory: "200Mi"  # Prevent OOM on node restarts

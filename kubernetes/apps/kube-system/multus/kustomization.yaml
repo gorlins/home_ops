@@ -6,3 +6,7 @@ resources:
   - ./multus-daemonset-thick.yml
   - ./storage-nad.yaml
   - ./k8s-nad.yaml
+
+patches:
+  - path: ./patches/volume-mount.yaml
+  - path: ./patches/oom.yaml
