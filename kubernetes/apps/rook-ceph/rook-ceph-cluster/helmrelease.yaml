@@ -81,7 +81,7 @@ spec:
         useAllNodes: true
         useAllDevices: true
         # Only create OSDs on devices that match the regular expression filter, "sdb" in this example
-        deviceFilter: nvme
+#        deviceFilter: nvme
 
         config:
           osdsPerDevice: "1"
