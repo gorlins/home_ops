@@ -12,3 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook-release
+  values:
+    csi:
+      cephcsi:
+        tag: v3.5.1-amd64
