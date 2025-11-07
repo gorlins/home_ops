@@ -12,7 +12,3 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook-release
-  csi:
-    topology:
-      enabled: false
-      domainLabels: []

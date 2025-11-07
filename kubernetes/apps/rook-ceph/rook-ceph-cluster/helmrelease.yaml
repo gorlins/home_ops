@@ -47,6 +47,10 @@ spec:
       csi:
         readAffinity:
           enabled: true
+        topology:
+          enabled: false
+          domainLabels: [ ]
+
       dashboard:
         enabled: true
         urlPrefix: /
