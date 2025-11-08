@@ -23,8 +23,8 @@ spec:
       # Ref: https://github.com/siderolabs/talos/issues/10002
       hostLegacyRouting: true
     cni:
-      # Required for pairing with Multus CNI
-      exclusive: false
+      # Required set to false for pairing with Multus CNI
+      exclusive: true
     cgroup:
       automount:
         enabled: false

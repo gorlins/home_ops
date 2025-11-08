@@ -12,4 +12,4 @@ resources:
   - ./snapshot-controller/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
-  - ./multus/ks.yaml
+#  - ./multus/ks.yaml
