@@ -7,4 +7,4 @@ components:
   - ../../components/common
 resources:
   - ./rook-ceph/ks.yaml
-  - ./rook-ceph-cluster/ks.yaml
+#  - ./rook-ceph-cluster/ks.yaml
