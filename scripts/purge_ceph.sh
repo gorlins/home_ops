@@ -28,8 +28,6 @@ kubectl delete crds cephblockpools.ceph.rook.io cephbucketnotifications.ceph.roo
                       cephrbdmirrors.ceph.rook.io objectbucketclaims.objectbucket.io objectbuckets.objectbucket.io \
                       cephblockpoolradosnamespaces.ceph.rook.io cephcosidrivers.ceph.rook.io clientprofiles.csi.ceph.io
 
-kubectl delete namespace rook-ceph
-
 for node in "${NODES[@]}"; do
     cat <<EOF | kubectl apply -f -
 apiVersion: v1
@@ -59,3 +57,5 @@ for node in "${NODES[@]}"; do
     kubectl wait --timeout=900s --for=jsonpath='{.status.phase}=Succeeded' pod disk-clean-$node
     kubectl delete pod disk-clean-$node
 done
+
+kubectl delete namespace rook-ceph
