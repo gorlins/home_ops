@@ -103,16 +103,13 @@ nodes:
 
 # Global patches
 patches:
-  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/cluster.yaml"
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-network.yaml"
-  - "@./patches/global/machine-sysctls.yaml"
-  - "@./patches/global/machine-time.yaml"
 
 # Controller patches
 controlPlane:
   patches:
-    - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
 
 # Worker patches

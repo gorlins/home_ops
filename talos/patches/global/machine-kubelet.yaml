@@ -1,7 +1,5 @@
 machine:
   kubelet:
-    extraConfig:
-      serializeImagePulls: false
     nodeIP:
       validSubnets:
         - 10.8.8.0/24
