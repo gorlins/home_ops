@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app rook-ceph-external
+spec:
+  interval: 1h
+  timeout: 15m
+  chart:
+    spec:
+      chart: rook-ceph-cluster
+      sourceRef:
+        kind: HelmRepository
+        name: rook-release
+  values:
+    cephClusterSpec:
+      external:
+        enable: true
+      crashCollector:
+        disable: true
+      healthCheck:
+        daemonHealth:
+          mon:
+            disabled: false
+            interval: 45s
+      # optionally, the ceph-mgr IP address can be passed to gather metric from the prometheus exporter
+      # monitoring:
+      #   enabled: true
+      #   externalMgrEndpoints:
+      #   - ip: ip
+      #     externalMgrPrometheusPort: 9283
