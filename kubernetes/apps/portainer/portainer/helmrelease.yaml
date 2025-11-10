@@ -14,15 +14,15 @@ spec:
         kind: HelmRepository
         name: portainer
   dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
+    - name: rook-ceph-external
+      namespace: rook-ceph
   values:
     service:
       type: ClusterIP
     ingress:
       enabled: false
     persistence:
-      storageClass: longhorn
+      storageClass: ceph-rbd
     image:
       tag: lts
     tls:
