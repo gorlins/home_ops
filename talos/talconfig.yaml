@@ -118,11 +118,11 @@ controlPlane:
 # Worker patches
 worker:
   userVolumes:
-    - name: longhorn
-      provisioning:
-        diskSelector:
-          match: "!system_disk"
-        minSize: 100GB
+#    - name: longhorn
+#      provisioning:
+#        diskSelector:
+#          match: "!system_disk"
+#        minSize: 100GB
     - name: local-path-storage
       provisioning:
         diskSelector:
