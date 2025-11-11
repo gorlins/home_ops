@@ -32,3 +32,20 @@ spec:
       #   externalMgrEndpoints:
       #   - ip: ip
       #     externalMgrPrometheusPort: 9283
+
+      # Match the storage class names to the import template
+      cephBlockPools:
+        - name: ceph-blockpool
+          storageClass:
+            enabled: true
+            isDefault: true
+            name: ceph-rbd
+      cephFileSystems:
+        - name: ceph-filesystem
+          storageClass:
+            enabled: true
+            name: cephfs
+      cephObjectStores:
+        - name: ceph-objectstore
+          storageClass:
+            enabled: false
