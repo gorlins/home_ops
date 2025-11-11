@@ -35,17 +35,17 @@ spec:
 
       # Match the storage class names to the import template
       cephBlockPools:
-        - name: ceph-blockpool
+        - name: rook
           storageClass:
             enabled: true
             isDefault: true
             name: ceph-rbd
       cephFileSystems:
-        - name: ceph-filesystem
+        - name: soybagel
           storageClass:
             enabled: true
             name: cephfs
       cephObjectStores:
-        - name: ceph-objectstore
+        - name: default
           storageClass:
             enabled: false
