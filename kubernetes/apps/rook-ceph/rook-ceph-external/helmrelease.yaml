@@ -18,7 +18,7 @@ spec:
       external:
         enable: true
       cephVersion:
-        image: v19.2.3 # Should match external cluster version
+        image: quay.io/ceph/ceph:v19.2 # Should match external cluster version
       crashCollector:
         disable: true
       healthCheck:
