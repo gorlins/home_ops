@@ -1,9 +1,16 @@
 machine:
   kubelet:
     extraMounts:
-      - destination: /var/mnt/data/longhorn
+      - destination: /var/lib/longhorn/
         type: bind
-        source: /var/mnt/data/longhorn
+        source: /var/lib/longhorn/
+        options:
+          - bind
+          - rshared
+          - rw
+      - destination: task
+        type: bind
+        source: /var/mnt/data/
         options:
           - bind
           - rshared
