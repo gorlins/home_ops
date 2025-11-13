@@ -14,8 +14,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: *app
-  values:
-    defaultSettings:
+#  values:
+#    defaultSettings:
       # Set this so that we can use the Talos UserVolume
 #      defaultDataPath: /var/mnt/longhorn
 #      storageNetwork: "kube-system/storage-net"
