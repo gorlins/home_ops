@@ -33,19 +33,7 @@ spec:
       #   - ip: ip
       #     externalMgrPrometheusPort: 9283
 
-      # Match the storage class names to the import template
-      cephBlockPools:
-        - name: rook
-          storageClass:
-            enabled: true
-            isDefault: true
-            name: ceph-rbd
-      cephFileSystems:
-        - name: soybagel
-          storageClass:
-            enabled: true
-            name: cephfs
-      cephObjectStores:
-        - name: default
-          storageClass:
-            enabled: false
+      # These are set by the import script
+      cephBlockPools: {}
+      cephFileSystems: {}
+      cephObjectStores: {}
