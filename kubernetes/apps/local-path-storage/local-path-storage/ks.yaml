@@ -15,7 +15,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/local-path-storage/local-path-storage/app
+  path: ./kubernetes/apps/local-path-storage/local-path-storage
   prune: true
   retryInterval: 2m
   postBuild:

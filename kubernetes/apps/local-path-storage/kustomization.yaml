@@ -7,3 +7,4 @@ components:
   - ../../components/common
 resources:
   - ./local-path-storage/ks.yaml
+  - ./namespace.yaml
