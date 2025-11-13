@@ -121,5 +121,6 @@ worker:
         diskSelector:
           match: "!system_disk"
         minSize: 50GB
+        grow: true
   patches:
     - "@./patches/worker/machine-kubelet.yaml"
