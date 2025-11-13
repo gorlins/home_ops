@@ -9,12 +9,11 @@ spec:
   chart:
     spec:
       chart: gitea
+      version: 12.3.0
       sourceRef:
         kind: HelmRepository
         name: gitea
   values:
-    image:
-      tag: latest
     strategy:
       type: Recreate # RollingUpdate causes locks on pods using RWO volumes
       clusterDomain: "${SECRET_DOMAIN}"
