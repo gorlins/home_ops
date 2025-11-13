@@ -20,7 +20,7 @@ spec:
     valkey-cluster:
       enabled: false
     valkey:
-      enabled: true
+      enabled: false
     postgresql:
       enabled: false
     postgresql-ha:
