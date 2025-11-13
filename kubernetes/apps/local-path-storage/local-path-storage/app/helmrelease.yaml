@@ -19,11 +19,11 @@ spec:
         paths: []
       - node: talos-w1
         paths:
-          - /var/mnt/local-path-storage
+          - /var/mnt/data/local-path-storage
       - node: talos-w2
         paths:
-          - /var/mnt/local-path-storage
+          - /var/mnt/data/local-path-storage
       - node: talos-w3
         paths:
-          - /var/mnt/local-path-storage
+          - /var/mnt/data/local-path-storage
 
