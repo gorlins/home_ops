@@ -34,6 +34,6 @@ spec:
       #     externalMgrPrometheusPort: 9283
 
       # These are set by the import script
-      cephBlockPools: {}
-      cephFileSystems: {}
-      cephObjectStores: {}
+      cephBlockPools: []
+      cephFileSystems: []
+      cephObjectStores: []
