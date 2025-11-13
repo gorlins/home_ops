@@ -125,6 +125,6 @@ worker:
       provisioning:
         diskSelector:
           match: "!system_disk"
-        maxSize: 100GB
+        minSize: 50GB
   patches:
     - "@./patches/worker/machine-kubelet.yaml"
