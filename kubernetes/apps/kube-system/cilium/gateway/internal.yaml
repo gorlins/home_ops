@@ -22,6 +22,21 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
+    - name: ldap
+      port: 389
+      hostname: "ldap.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: ldaps
+      port: 636
+      hostname: "ldap.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: ${SECRET_DOMAIN/./-}-production-tls
     - name: https
       protocol: HTTPS
       port: 443

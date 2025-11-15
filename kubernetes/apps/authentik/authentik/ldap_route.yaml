@@ -8,7 +8,7 @@ spec:
       kind: Gateway
       name: internal
       namespace: kube-system
-      port: 389
+      sectionName: ldap
   hostnames:
     - "ldap.${SECRET_DOMAIN}"
   rules:
@@ -30,7 +30,7 @@ spec:
       kind: Gateway
       name: internal
       namespace: kube-system
-      port: 636
+      sectionName: ldaps
   hostnames:
     - "ldap.${SECRET_DOMAIN}"
   rules:
