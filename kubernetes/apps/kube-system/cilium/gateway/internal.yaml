@@ -32,7 +32,8 @@ spec:
       port: 636
       hostname: "ldap.${SECRET_DOMAIN}"
       allowedRoutes:
-        namespaces: All
+        namespaces:
+          from: All
       tls:
         certificateRefs:
           - kind: Secret
