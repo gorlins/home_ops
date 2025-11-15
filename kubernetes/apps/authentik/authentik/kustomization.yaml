@@ -7,3 +7,4 @@ resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
   - ./repository.yaml
+  - ./ldap_route.yaml
