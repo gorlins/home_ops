@@ -25,14 +25,12 @@ spec:
     - name: ldap
       protocol: TCP
       port: 389
-      hostname: "ldap.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
     - name: ldaps
       protocol: TLS
       port: 636
-      hostname: "ldap.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
