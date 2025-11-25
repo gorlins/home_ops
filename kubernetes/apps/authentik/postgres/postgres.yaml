@@ -9,6 +9,7 @@ spec:
     initdb:
       database: authentik
       owner: authentik
+      dataChecksums: true
 
   storage:
     size: 1Gi

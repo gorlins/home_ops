@@ -11,6 +11,7 @@ spec:
       owner: gitea
       localeCollate: 'en_US.UTF-8'
       localeCType: 'en_US.UTF-8'
+      dataChecksums: true
 
   storage:
     size: 1Gi
