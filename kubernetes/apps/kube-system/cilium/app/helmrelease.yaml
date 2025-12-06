@@ -17,18 +17,47 @@ spec:
     remediation:
       retries: 3
   values:
-    autoDirectNodeRoutes: true
-    bpf:
-      masquerade: true
-      # Ref: https://github.com/siderolabs/talos/issues/10002
-      hostLegacyRouting: true
-    cni:
-      # Required set to false for pairing with Multus CNI
-      exclusive: true
+    # kube-proxy replacement on Talos per https://docs.cilium.io/en/stable/installation/k8s-install-helm/#install-cilium
+    ipam:
+      mode: kubernetes
+    kubeProxyReplacement: true
+    securityContext:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+          - PERFMON # Not in cilium docs
+          - BPF # not in cilium docs
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+    k8sServiceHost: localhost
+    k8sServicePort: 7445
+
+    # Other values
+    autoDirectNodeRoutes: true
+    bpf: # Per cilium docs, required for eBPF host routing on Talos
+      masquerade: true
+      # Ref: https://github.com/siderolabs/talos/issues/10002
+      hostLegacyRouting: true  # DNS won't work otherwise
+    cni:
+      # Required set to false for pairing with Multus CNI
+      exclusive: true
+
     # NOTE: devices might need to be set if you have more than one active NIC on your hosts
     # devices: eno+ eth+
     dashboards:
@@ -52,12 +81,8 @@ spec:
       enabled: false
       default: true
       loadbalancerMode: dedicated
-    ipam:
-      mode: kubernetes
+
     ipv4NativeRoutingCIDR: "10.42.0.0/16"
-    k8sServiceHost: 127.0.0.1
-    k8sServicePort: 7445
-    kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
@@ -81,25 +106,5 @@ spec:
         trustCRDsExist: true
     rollOutCiliumPods: true
     routingMode: native
-    securityContext:
-      capabilities:
-        ciliumAgent:
-          - CHOWN
-          - KILL
-          - NET_ADMIN
-          - NET_RAW
-          - IPC_LOCK
-          - SYS_ADMIN
-          - SYS_RESOURCE
-          - PERFMON
-          - BPF
-          - DAC_OVERRIDE
-          - FOWNER
-          - SETGID
-          - SETUID
-        cleanCiliumState:
-          - NET_ADMIN
-          - SYS_ADMIN
-          - SYS_RESOURCE
     socketLB:
       hostNamespaceOnly: true

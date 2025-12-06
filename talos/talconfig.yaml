@@ -14,10 +14,6 @@ additionalMachineCertSans: *sans
 clusterPodNets: ["10.42.0.0/16"]
 clusterSvcNets: ["10.43.0.0/16"]
 
-# Disable built-in CNI to use Cilium
-cniConfig:
-  name: none
-
 nodes:
   - hostname: "talos-pi"
     ipAddress: "10.8.8.18"
@@ -103,6 +99,7 @@ nodes:
 
 # Global patches
 patches:
+  - "@./patches/global/cilium.yaml"
   - "@./patches/global/cluster.yaml"
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-network.yaml"
