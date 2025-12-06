@@ -16,7 +16,7 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
-        matchRule: Host(`dashboard.${SECRET_DOMAIN}`)
+        matchRule: Host(`traefik.${SECRET_DOMAIN}`)
         entryPoints:
           - web
     providers:
