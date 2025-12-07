@@ -5,3 +5,8 @@ metadata:
 spec:
   storageClassName: cephfs # Empty string must be explicitly set otherwise default StorageClass will be set
   volumeName: immich-library
+  accessModes:
+    - ReadWriteOnce # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
+  resources:
+    requests:
+      storage: 100Gi # Amount of storage requested (e.g., 500Mi, 10Gi)
