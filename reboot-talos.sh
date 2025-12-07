@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-CONTROLPLANE=("18" "123" "127")
-WORKERS=("112" "118" "119")
+source ./talos_ips.sh
 
 read -p "Launch rolling reboot of nodes? <y/N/cp=include control plane> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]

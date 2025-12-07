@@ -15,15 +15,27 @@ clusterPodNets: ["10.42.0.0/16"]
 clusterSvcNets: ["10.43.0.0/16"]
 
 nodes:
-  - hostname: "talos-pi"
-    ipAddress: "10.8.8.18"
-    installDisk: "/dev/mmcblk0"
+#  - hostname: "talos-pi"
+#    ipAddress: "10.8.8.18"
+#    installDisk: "/dev/mmcblk0"
+#    machineSpec:
+#      secureboot: false
+#    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
+#    controlPlane: true
+#    networkInterfaces:
+#      - interface: end0
+#        dhcp: true
+#        vip:
+#          ip: "10.8.8.8"
+  - hostname: "talos-1"
+    ipAddress: "10.8.8.120"
+    installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
+    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
     controlPlane: true
     networkInterfaces:
-      - interface: end0
+      - interface: ens18
         dhcp: true
         vip:
           ip: "10.8.8.8"

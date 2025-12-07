@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-CONTROLPLANE=("18" "123" "127")
-WORKERS=("112" "118" "119")
-NODES=("${CONTROLPLANE[@]}" "${WORKERS[@]}")
+source ./talos_ips.sh
 
 task talos:generate-config
 
