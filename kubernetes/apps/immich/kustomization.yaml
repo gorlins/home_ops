@@ -6,5 +6,6 @@ namespace: immich
 components:
   - ../../components/common
 resources:
+  - ./namespace.yaml # Needs creation before the DB/PVC which aren't helm releases
   - ./immich/ks.yaml
   - ./postgres/ks.yaml
