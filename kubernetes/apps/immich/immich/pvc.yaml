@@ -10,3 +10,17 @@ spec:
   resources:
     requests:
       storage: 100Gi # Amount of storage requested (e.g., 500Mi, 10Gi)
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-library-test
+spec:
+  storageClassName: ceph-rbd # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: immich-library-test
+  accessModes:
+    - ReadWriteOnce # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
+  resources:
+    requests:
+      storage: 1Gi # Amount of storage requested (e.g., 500Mi, 10Gi)
