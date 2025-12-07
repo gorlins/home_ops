@@ -4,7 +4,6 @@ metadata:
   name: immich-library
 spec:
   storageClassName: cephfs # Empty string must be explicitly set otherwise default StorageClass will be set
-  volumeName: immich-library
   accessModes:
     - ReadWriteMany # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
   resources:
@@ -18,7 +17,6 @@ metadata:
   name: immich-library-test
 spec:
   storageClassName: ceph-rbd # Empty string must be explicitly set otherwise default StorageClass will be set
-  volumeName: immich-library-test
   accessModes:
     - ReadWriteOnce # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
   resources:
