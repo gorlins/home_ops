@@ -71,6 +71,6 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: immich-http
+        - name: immich-server
           namespace: *namespace
-          port: 3000
+          port: 2283
