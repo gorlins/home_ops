@@ -18,7 +18,7 @@ spec:
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-  name: aws-store
+  name: backblaze
 spec:
   configuration:
     destinationPath: "s3://scottgorlin-k8s-backup/cnpg"
