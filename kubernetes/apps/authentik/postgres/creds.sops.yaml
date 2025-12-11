@@ -4,8 +4,8 @@ metadata:
   name: aws-credentials
 type: Opaque
 stringData:
-  ACCESS_KEY_ID: ENC[AES256_GCM,data:6lZM4m2XSZixGi6gdkj3zp7RJFb6sWhm9w==,iv:DQBQ6Bi65P5msCR5wzgWf9kE4kDp2alzZcqbFz1N3uc=,tag:glio8C0NR8ZCKAEsFxYTzA==,type:str]
-  SECRET_ACCESS_KEY: ENC[AES256_GCM,data:4YmZupsG1bTqk792QulKTdZww2IO0fITj10wT2sCUQ==,iv:ebc0K42dh2IYL1xGQcIOTgisAcak4Inj3e9/7wkaEnE=,tag:jhHV6yTfK6E1fO03MLU6qQ==,type:str]
+  ACCESS_KEY_ID: ENC[AES256_GCM,data:ij4IC/Wwpw1G9FzsBnvFSuxjOeqYfsnAKQ==,iv:UaXGjqhH3ofv8EsgXmVNa7Skp65YDm5a8Y0BytLmw9w=,tag:8/BNHJvksiVVJYWqLtuN6g==,type:str]
+  SECRET_ACCESS_KEY: ENC[AES256_GCM,data:zHvLdpfEvz0D8C+dfjm3y6GP5OaroF13YhNHxLieUQ==,iv:7EaU8uL0AVcMngBmZcqvU39MJ+oyPcJ+H/DfXsHebq8=,tag:5q+XCVWacgLH4KHsug9JRA==,type:str]
 sops:
   age:
     - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
@@ -17,8 +17,8 @@ sops:
         UXJyaGJKK1FCK01zbzhUWVV1cjcvaUkKtQnB5P1rOeaUiAQNdvW9BdBJgY+BKE45
         o4YUR2NvB1uO0yPVwOPbLXBvjHEhosJh0HT7KKbbiT1Zm63akZ/VDQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-12-10T13:47:44Z"
-  mac: ENC[AES256_GCM,data:QDomWl+N2btMkT4VJCweRuZJgeoDIZ2mvNzRbaxQ1Mez4hIZL85ak64rJWwMzDmDhIiOCgYftO9pIafu376pY16wP4GE3nCva5NuSLk46whXGV7jTND8Z7Ho7iKndqAdFw5uvjXzlj6AlswQgQwUBQzQtEg7sHhbTYWTPgn3Nh0=,iv:568m1Vd3i/L5cwdeLM48ZCa2iLzbe6g0cPNbQgx6Fdg=,tag:dUPH3lbx4hjG08+363D6gw==,type:str]
+  lastmodified: "2025-12-11T04:11:11Z"
+  mac: ENC[AES256_GCM,data:lzH3z9nc+QUweFBERvslwQlV1+LjKcrgkbt8v1A064QRSILaSpFlvFTNkCbeocMGFM8CjF1oIEamUfuPJZuCZx5MZATbjw5HGruLwKVzBSEMNyxNDIrwPxACZBO2cqNhqmTQglh9U8TQI7D9q+P00RH/IoFIPkgj59ZV4n2EJyk=,iv:cmyYii4HyRcWIWlpOaqXAg0h/fp9Y2PhOlu6bukTWCU=,tag:LerlXFRK5LrIpzF4cIv7dw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.10.2
