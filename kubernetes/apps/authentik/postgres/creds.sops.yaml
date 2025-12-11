@@ -4,8 +4,8 @@ metadata:
   name: aws-credentials
 type: Opaque
 stringData:
-  AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:6lZM4m2XSZixGi6gdkj3zp7RJFb6sWhm9w==,iv:DQBQ6Bi65P5msCR5wzgWf9kE4kDp2alzZcqbFz1N3uc=,tag:glio8C0NR8ZCKAEsFxYTzA==,type:str]
-  AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:4YmZupsG1bTqk792QulKTdZww2IO0fITj10wT2sCUQ==,iv:ebc0K42dh2IYL1xGQcIOTgisAcak4Inj3e9/7wkaEnE=,tag:jhHV6yTfK6E1fO03MLU6qQ==,type:str]
+  ACCESS_KEY_ID: ENC[AES256_GCM,data:6lZM4m2XSZixGi6gdkj3zp7RJFb6sWhm9w==,iv:DQBQ6Bi65P5msCR5wzgWf9kE4kDp2alzZcqbFz1N3uc=,tag:glio8C0NR8ZCKAEsFxYTzA==,type:str]
+  SECRET_ACCESS_KEY: ENC[AES256_GCM,data:4YmZupsG1bTqk792QulKTdZww2IO0fITj10wT2sCUQ==,iv:ebc0K42dh2IYL1xGQcIOTgisAcak4Inj3e9/7wkaEnE=,tag:jhHV6yTfK6E1fO03MLU6qQ==,type:str]
 sops:
   age:
     - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
