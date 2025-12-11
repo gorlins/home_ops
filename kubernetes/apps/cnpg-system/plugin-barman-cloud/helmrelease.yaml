@@ -13,20 +13,3 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cnpg
-
----
-apiVersion: barmancloud.cnpg.io/v1
-kind: ObjectStore
-metadata:
-  name: backblaze
-spec:
-  configuration:
-    destinationPath: "s3://scottgorlin-k8s-backup/cnpg"
-    endpointURL: "https://s3.us-west-000.backblazeb2.com"
-    s3Credentials:
-      accessKeyId:
-        name: aws-credentials
-        key: ACCESS_KEY_ID
-      secretAccessKey:
-        name: aws-credentials
-        key: ACCESS_SECRET_KEY
