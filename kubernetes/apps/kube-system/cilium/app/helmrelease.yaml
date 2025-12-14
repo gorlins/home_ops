@@ -71,6 +71,8 @@ spec:
           enabled: true
     gatewayAPI:
       enabled: true
+      enableAlpn: true
+      enableAppProtocol: true
     hubble:
       enabled: true
       relay:
