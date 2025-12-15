@@ -32,7 +32,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
+    talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: true
     networkInterfaces:
       - interface: ens18
@@ -44,7 +44,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
+    talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: true
     networkInterfaces:
       - interface: ens18
@@ -56,7 +56,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
+    talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: true
     networkInterfaces:
       - interface: ens18
@@ -68,7 +68,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
+    talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -83,7 +83,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
+    talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -98,7 +98,7 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47
+    talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
