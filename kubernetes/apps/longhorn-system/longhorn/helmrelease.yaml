@@ -18,6 +18,7 @@ spec:
     defaultSettings:
       # Set this so that we can use the Talos UserVolume
       defaultDataPath: /var/mnt/data/longhorn
+      defaultDataLocality: best-effort
 
     persistence:
       defaultDataLocality: best-effort
