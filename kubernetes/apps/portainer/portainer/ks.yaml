@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: rook-ceph-external
-      namespace: rook-ceph
+    - name: longhorn
+      namespace: longhorn-system
   decryption:
     provider: sops
   healthChecks:

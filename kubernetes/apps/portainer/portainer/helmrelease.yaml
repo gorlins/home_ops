@@ -19,7 +19,7 @@ spec:
     ingress:
       enabled: false
     persistence:
-      storageClass: ceph-rbd
+      storageClass: longhorn
     image:
       tag: lts
     tls:
