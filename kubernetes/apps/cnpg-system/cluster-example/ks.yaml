@@ -10,9 +10,9 @@ spec:
       app.kubernetes.io/name: *app
   decryption:
     provider: sops
-  dependsOn:
-    - name: plugin-barman-cloud
-      namespace: cnpg-system
+#  dependsOn:
+#    - name: plugin-barman-cloud
+#      namespace: cnpg-system
   interval: 1h
   path: ./kubernetes/apps/cnpg-system/cluster-example
   postBuild:
