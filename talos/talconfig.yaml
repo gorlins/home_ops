@@ -131,5 +131,10 @@ worker:
           match: "!system_disk"
         minSize: 50GB
         grow: true
+    - name: longhorn
+      provisioning:
+        diskSelector:
+          match: disk.transport == 'nvme'
+        minSize: 100GB
   patches:
     - "@./patches/worker/machine-kubelet.yaml"
