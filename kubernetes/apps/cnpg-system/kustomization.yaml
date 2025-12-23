@@ -8,3 +8,4 @@ components:
 resources:
   - ./cnpg/ks.yaml
   - ./plugin-barman-cloud/ks.yaml
+  - ./cluster-example/ks.yaml

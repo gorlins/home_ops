@@ -1,0 +1,38 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-example
+spec:
+  instances: 3
+
+  bootstrap:
+    initdb:
+      dataChecksums: true
+
+  storage:
+    size: 1Gi
+    storageClass: local-path
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: cluster-example
+
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: backblaze
+spec:
+  configuration:
+    destinationPath: "s3://scottgorlin-k8s-backup/cnpg"
+    endpointURL: "https://s3.us-west-000.backblazeb2.com"
+    s3Credentials:
+      accessKeyId:
+        name: aws-credentials
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: aws-credentials
+        key: ACCESS_SECRET_KEY
+
