@@ -30,9 +30,9 @@ spec:
     endpointURL: "https://s3.us-west-000.backblazeb2.com"
     s3Credentials:
       accessKeyId:
-        name: aws-credentials
+        name: backblaze-credentials
         key: ACCESS_KEY_ID
       secretAccessKey:
-        name: aws-credentials
+        name: backblaze-credentials
         key: ACCESS_SECRET_KEY
 
