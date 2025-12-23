@@ -5,7 +5,7 @@ metadata:
 type: Opaque
 stringData:
   ACCESS_KEY_ID: ENC[AES256_GCM,data:ij4IC/Wwpw1G9FzsBnvFSuxjOeqYfsnAKQ==,iv:UaXGjqhH3ofv8EsgXmVNa7Skp65YDm5a8Y0BytLmw9w=,tag:8/BNHJvksiVVJYWqLtuN6g==,type:str]
-  SECRET_ACCESS_KEY: ENC[AES256_GCM,data:zHvLdpfEvz0D8C+dfjm3y6GP5OaroF13YhNHxLieUQ==,iv:7EaU8uL0AVcMngBmZcqvU39MJ+oyPcJ+H/DfXsHebq8=,tag:5q+XCVWacgLH4KHsug9JRA==,type:str]
+  ACCESS_SECRET_KEY: ENC[AES256_GCM,data:4SICMeW3+dSlRtTZuoMD0jynT3q7olZoy7vJP7GcaA==,iv:cwArlmvXCmRfjavdLZmOOdrZaHXmWRIExNsQDApU5mQ=,tag:GaFqOUUz82LxEbh+4qDN6g==,type:str]
 sops:
   age:
     - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
@@ -17,8 +17,8 @@ sops:
         UXJyaGJKK1FCK01zbzhUWVV1cjcvaUkKtQnB5P1rOeaUiAQNdvW9BdBJgY+BKE45
         o4YUR2NvB1uO0yPVwOPbLXBvjHEhosJh0HT7KKbbiT1Zm63akZ/VDQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-12-11T04:11:11Z"
-  mac: ENC[AES256_GCM,data:lzH3z9nc+QUweFBERvslwQlV1+LjKcrgkbt8v1A064QRSILaSpFlvFTNkCbeocMGFM8CjF1oIEamUfuPJZuCZx5MZATbjw5HGruLwKVzBSEMNyxNDIrwPxACZBO2cqNhqmTQglh9U8TQI7D9q+P00RH/IoFIPkgj59ZV4n2EJyk=,iv:cmyYii4HyRcWIWlpOaqXAg0h/fp9Y2PhOlu6bukTWCU=,tag:LerlXFRK5LrIpzF4cIv7dw==,type:str]
+  lastmodified: "2025-12-23T16:42:10Z"
+  mac: ENC[AES256_GCM,data:fMyqn5cIuefWBVl9fv2eyVuQk/ySi3xqZt0L5hUAgGpJWknnIQrm9lmz9JvaiT8ascVEFTtOf1kHmf13LISTAyoxkDuRnzsuUI5Tu4KM8EZ5zTXV4AAwFY7L8Cc8q/Zgh/nZsnt0WV2D+jvy4InHxXWsXZkLD6uL94qsoA0aJ/w=,iv:4gKaiL1gchKh+hdRD4gmjBIZTUSz522ZFI7Ul7+cPkY=,tag:+X2JG+v1/TgLlgFWQ0wQCQ==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.10.2
