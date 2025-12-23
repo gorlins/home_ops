@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: immich-library
 spec:
-  storageClassName: cephfs # Empty string must be explicitly set otherwise default StorageClass will be set
+  storageClassName: longhorn # Empty string must be explicitly set otherwise default StorageClass will be set
   accessModes:
-    - ReadWriteMany # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
+    - ReadWriteOnce # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
   resources:
     requests:
       storage: 100Gi # Amount of storage requested (e.g., 500Mi, 10Gi)
