@@ -14,7 +14,7 @@ spec:
     - name: plugin-barman-cloud
       namespace: cnpg-system
   interval: 1h
-  path: ./kubernetes/apps/cnpg/cluster-example
+  path: ./kubernetes/apps/cnpg-system/cluster-example
   postBuild:
     substituteFrom:
       - name: cluster-secrets
