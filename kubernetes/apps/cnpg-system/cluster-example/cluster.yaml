@@ -24,6 +24,17 @@ spec:
         secretAccessKey:
           name: backblaze-credentials
           key: ACCESS_SECRET_KEY
+    retentionPolicy: "30d"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: cluster-example-backup
+spec:
+  cluster:
+    name: cluster-example
+  schedule: '0 0 0 * * *'
+  backupOwnerReference: self
 
 # Plugin method is preferred way forward, but not working yet
 #  plugins:

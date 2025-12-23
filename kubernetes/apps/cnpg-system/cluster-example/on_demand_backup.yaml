@@ -1,0 +1,9 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Backup
+metadata:
+  name: backup-example
+  namespace: cnpg-system
+spec:
+  method: barmanObjectStore
+  cluster:
+    name: cluster-example
