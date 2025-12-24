@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: cnpg-system
 components:
   - ../../components/common
+  - ../../components/cnpg-backup
 resources:
   - ./cnpg/ks.yaml
   - ./plugin-barman-cloud/ks.yaml
