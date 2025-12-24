@@ -69,7 +69,3 @@ spec:
 
     postgresql:
       enabled: false
-#      auth:
-#        password: "ThisIsNotASecurePassword"
-    redis:
-      enabled: true
