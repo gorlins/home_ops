@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: immich
 components:
   - ../../components/common
+  - ../../components/cnpg-backup
 resources:
   - ./namespace.yaml # Needs creation before the DB/PVC which aren't helm releases
   - ./immich/ks.yaml

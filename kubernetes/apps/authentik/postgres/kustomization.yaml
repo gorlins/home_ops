@@ -5,4 +5,3 @@ kind: Kustomization
 namespace: authentik
 resources:
   - ./postgres.yaml
-  - ./creds.sops.yaml
