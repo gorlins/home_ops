@@ -246,6 +246,8 @@ spec:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
+            group: gateway.networking.k8s.io
+            kind: Gateway
             namespace: kube-system
             sectionName: https
     persistence:
