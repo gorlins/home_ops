@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: gitea
 components:
   - ../../components/common
+  - ../../components/cnpg-backup
 resources:
   - ./gitea/ks.yaml
   - ./postgres/ks.yaml

@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: authentik
 components:
   - ../../components/common
-  - ../../components/backblaze-backup
+  - ../../components/cnpg-backup
 resources:
   - ./authentik/ks.yaml
   - ./postgres/ks.yaml
