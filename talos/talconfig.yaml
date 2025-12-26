@@ -116,6 +116,7 @@ patches:
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-kernel.yaml"
+  - "@./patches/global/machine-files.yaml"
 
 # Controller patches
 controlPlane:
