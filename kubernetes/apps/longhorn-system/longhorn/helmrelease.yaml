@@ -17,6 +17,8 @@ spec:
   values:
     defaultSettings:
       defaultDataLocality: best-effort
+      snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: true
+      snapshotDataIntegrity: enabled
 
     persistence:
       defaultDataLocality: best-effort
