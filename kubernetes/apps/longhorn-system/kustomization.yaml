@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: longhorn-system
 components:
   - ../../components/common
+  - ../../components/cnpg-backup
 resources:
   - ./longhorn/ks.yaml
   - ./namespace.yaml
