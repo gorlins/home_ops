@@ -5,6 +5,7 @@ kind: OCIRepository
 metadata:
   name: immich
 spec:
-  type: "oci"
-  url: oci://ghcr.io/immich-app/immich-charts
+  url: oci://ghcr.io/immich-app/immich-charts/immich
   interval: 60m
+  ref:
+    tag: 0.10.3
