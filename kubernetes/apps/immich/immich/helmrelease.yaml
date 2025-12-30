@@ -6,10 +6,9 @@ metadata:
   name: immich
 spec:
   interval: 1h
-  chart:
-    spec:
-      kind: OCIRepository
-      name: immich
+  chartRef:
+    kind: OCIRepository
+    name: immich
   values:
     immich:
       persistence:
