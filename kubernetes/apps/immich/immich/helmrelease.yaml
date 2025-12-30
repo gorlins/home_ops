@@ -8,11 +8,8 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: immich
-      version: 0.10.3
-      sourceRef:
-        kind: OCIRepository
-        name: immich
+      kind: OCIRepository
+      name: immich
   values:
     immich:
       persistence:
