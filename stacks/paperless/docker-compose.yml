@@ -51,15 +51,31 @@ services:
     volumes:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media
-      - ./export:/usr/src/paperless/export
-      - ./consume:/usr/src/paperless/consume
+#      - ./export:/usr/src/paperless/export
+      - omv_export:/usr/src/paperless/export
+#      - ./consume:/usr/src/paperless/consume
+      - omv_consume:/usr/src/paperless/consume
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
       PAPERLESS_SECRET_KEY:
       PAPERLESS_TIME_ZONE: America/New_York
+      NAS_USER:
+      NAS_PASSWORD:
 volumes:
   data:
   media:
   pgdata:
   redisdata:
+  omv_export:
+    driver: local
+    driver_opts:
+      type: "cifs"
+      device: "//omv.soybagel.com/paperless_export"
+      o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
+  omv_consume:
+    driver: local
+    driver_opts:
+      type: "cifs"
+      device: "//omv.soybagel.com/paperless_consume"
+      o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
