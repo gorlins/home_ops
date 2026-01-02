@@ -49,13 +49,12 @@ services:
 #    ports:
 #      - "8010:8000"
     labels:
-      # Frontend
       - "traefik.enable=true"
-      - "traefik.http.routers.pngx.rule=Host(`paperless.soybagel.com`)"
-      - "traefik.http.routers.pngx.entrypoints=web,websecure"
-      - "traefik.http.services.pngx.loadbalancer.server.port=8000"
-      - "traefik.http.routers.pngx.service=pngx"
-      - "traefik.http.routers.pngx.tls.certresolver=leresolver"
+      - "traefik.http.routers.paperless.rule=Host(`paperless.soybagel.com`)"
+      - "traefik.http.routers.paperless.entrypoints=websecure"
+      - "traefik.http.services.paperless.loadbalancer.server.port=8000"
+      - "traefik.http.routers.paperless.service=paperless"
+      - "traefik.http.routers.paperless.tls.certresolver=leresolver"
     volumes:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media
