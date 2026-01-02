@@ -27,7 +27,7 @@ ui:
       link: https://github.com/gorlins
 
     - name: Homelab
-      link: https://github.com/gorlins/home-ops
+      link: https://github.com/gorlins/home_ops
 
 web:
   port: ${GATUS_WEB_PORT}
