@@ -19,14 +19,15 @@ metrics: true
 ui:
   title: Status | Gatus
   header: Status
-  logo: https://avatars.githubusercontent.com/u/213795
-  link: https://github.com/onedr0p
+  # https://docs.gravatar.com/sdk/images/
+  logo: https://gravatar.com/avatar/ddd4bcc0c18b8b2ee60a05022383f235b78ac3fb886db13430f3830233ad91d9
+  link: https://github.com/gorlins
   buttons:
     - name: Github
-      link: https://github.com/onedr0p
+      link: https://github.com/gorlins
 
     - name: Homelab
-      link: https://github.com/onedr0p/home-ops
+      link: https://github.com/gorlins/home-ops
 
 web:
   port: ${GATUS_WEB_PORT}
