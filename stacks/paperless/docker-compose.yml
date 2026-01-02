@@ -31,6 +31,8 @@ services:
     restart: unless-stopped
     volumes:
       - redisdata:/data
+    networks:
+      - backend
   db:
     image: docker.io/library/postgres:18
     restart: unless-stopped
@@ -40,6 +42,8 @@ services:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
+    networks:
+      - backend
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
     restart: unless-stopped
@@ -55,6 +59,9 @@ services:
       - "traefik.http.services.paperless.loadbalancer.server.port=8000"
       - "traefik.http.routers.paperless.service=paperless"
       - "traefik.http.routers.paperless.tls.certresolver=leresolver"
+    networks:
+      - backend
+      - public
     volumes:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media
@@ -86,3 +93,8 @@ volumes:
       type: "cifs"
       device: "//omv.soybagel.com/paperless_consume"
       o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
+
+networks:
+  public:
+    external: true
+  backend:
