@@ -137,6 +137,11 @@
       matchDatasources: ["github-releases"],
       addLabels: ["renovate/github-release"],
     },
+    {
+      "description": "Ignore .0 releases to avoid initial release issues",
+      "matchPackageNames": ["*"],
+      "allowedVersions": "!/\\.0($|\\.)/"
+    },
   ],
   customManagers: [
     {
