@@ -12,7 +12,7 @@
   dependencyDashboard: true,
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   schedule: ["every weekend"],
-  ignorePaths: ["**/*.sops.*"],
+  ignorePaths: ["**/*.sops.*", ",.mise.toml'", "archived/*"],
   flux: {
     managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
   },
