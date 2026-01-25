@@ -21,7 +21,7 @@ spec:
       enabled: true
       persistence:
         enabled: true
-        storageClass: local-storage
+        storageClass: local-path
     valkey:
       enabled: false
     postgresql:
