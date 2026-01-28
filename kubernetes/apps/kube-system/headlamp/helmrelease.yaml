@@ -13,7 +13,7 @@ spec:
       version: "*"
   interval: 1m0s
   values:
-    route:
+    httpRoute:
       enabled: true
       parentRefs:
         - group: gateway.networking.k8s.io
