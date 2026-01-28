@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: headlamp-authentik
+type: Opaque
+stringData:
+  clientID: ENC[AES256_GCM,data:cSR0Ho5PMDBJkRIqz5dBkUswecwvPDGhc1sKtXhsVbX6qXPpKMOrUw==,iv:DeZSNPMxjPZwmShttwdMggLu8MSIVKmOL3GcMBGyNUE=,tag:fCvcfIWJdaIAfnFS5KAPxQ==,type:str]
+  clientSecret: ENC[AES256_GCM,data:muhocta3MpkCbZpsGCrJWzLvIeaF0FkarcPGXg5tHOTPqzs6mEFYYw3/FDik+i7m5TP4jWDC0unCYSoDlQDk5tkHhe/3Z/IQkiEMxynSDSDICb83NSVVviZgxeCjTDAzkrlbsRUqNnl7kZshdKRmXkyhc9d+wTz36XRQAW9GfSw=,iv:kTll8+nIIHC9rN82J0ZEcD1eAULZUgqVyeeUhr7FkdA=,tag:4a/guoRYpI+2fg5H3SGTUA==,type:str]
+  issuerURL: ENC[AES256_GCM,data:ryUIDu1dVIVfzh+COa9/pffa7kQKtjKBcHvQ16BD7Xvw5QzQMAi8QUsZjVM7JIEM2i8Vh9Ej,iv:CSmslXCDEKYqUJJtSc2qEUYQSd3b32amiAfjWci1/UI=,tag:1vwuLLg8g7e5Nv/wyEteqQ==,type:str]
+  scopes: ENC[AES256_GCM,data:5bfaalyi5JFWo8shb2R/c596r3g=,iv:DEPz7ANoQNHHEOzZW5AdqVhaWppqUnhVl3A1pZyyTYg=,tag:CjxkknOG+ZyzlGvaewTMtQ==,type:str]
+sops:
+  age:
+    - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZLy9WY3o5QkpzRlRtVjVM
+        MzBuc0N2UjBQQm01SFRRYXl5UHdVQjRKN0IwClkwZkVpT3lDeERNZU11eEJjKzJV
+        V2h2OTJHNDEydkI4eUxTWitwdmpYd1EKLS0tIFVUOTY2VS9lanA4di9LQVRMUVdZ
+        Ny85bUdwYXhuRWZoQTNWZ3FsU2pLQUEKz6vl17RkDree8Ub2xBdw6uB0GH7kXRA+
+        EH0LJ3C1AXqwkUnPEx/X4Z11DNS1XP0+TaPjvpEwN7sqiXYkFOi6oA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-01-28T16:25:39Z"
+  mac: ENC[AES256_GCM,data:CEIcXWa+tW5yY4oJeNemr+IFZdd32wxGW5woyCgIHehb3tJWtOsQKbd+YUzTHpyaGp1Agt/wanhi/C3HvAKvSrlQ7QUfBqQUCOPAwzQw9hvufaOISi02jnAqBaWrfpIwzmk6xaHRkF+nAyt0D9CO77KkQsKfVJfgREv8reelc4A=,iv:IPgaXta9g+TnYHqcRaaxDTGUuTRZW/raPmfkZA7E/HM=,tag:oTATjZda9m0latjsH5I1Ig==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.11.0

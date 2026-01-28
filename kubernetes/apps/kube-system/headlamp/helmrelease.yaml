@@ -15,6 +15,12 @@ spec:
   values:
     config:
       pluginsDir: /build/plugins
+      oidc:
+        secret:
+          create: false
+        externalSecret:
+          enabled: true
+          name: headlamp-authentik
     initContainers:
       - command:
           - /bin/sh
