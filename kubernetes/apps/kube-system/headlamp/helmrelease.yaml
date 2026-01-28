@@ -40,28 +40,6 @@ spec:
         externalSecret:
           enabled: true
           name: headlamp-authentik
-    # Due to [this issue](https://github.com/headlamp-k8s/headlamp/issues/2022), we need to manually add the OIDC env vars for now
-    env:
-      - name: OIDC_CLIENT_ID
-        valueFrom:
-          secretKeyRef:
-            name: headlamp-authentik
-            key: clientID
-      - name: OIDC_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: headlamp-authentik
-            key: clientSecret
-      - name: OIDC_ISSUER_URL
-        valueFrom:
-          secretKeyRef:
-            name: headlamp-authentik
-            key: issuerURL
-#      - name: OIDC_SCOPES
-#        valueFrom:
-#          secretKeyRef:
-#            name: headlamp-authentik
-#            key: scopes
     initContainers:
       - command:
           - /bin/sh
