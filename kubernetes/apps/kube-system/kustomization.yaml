@@ -13,3 +13,4 @@ resources:
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
 #  - ./multus/ks.yaml
+  - ./headlamp.ks.yaml
