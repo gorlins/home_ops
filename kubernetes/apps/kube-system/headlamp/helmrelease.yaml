@@ -43,3 +43,26 @@ spec:
       - name: headlamp-plugins
         persistentVolumeClaim:
           claimName: headlamp # The name of the Helm release
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: headlamp
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - "headlamp.${SECRET_DOMAIN}"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: headlamp
+          namespace: kube-system
+          port: 80
