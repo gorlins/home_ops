@@ -105,4 +105,7 @@ subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: Group
     name: "authentik Admins"
+  - kind: User
+    name: scottgorlin+akadmin@gmail.com
+    apiGroup: rbac.authorization.k8s.io
 
