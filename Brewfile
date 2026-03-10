@@ -1,0 +1,6 @@
+brew "sops"
+brew "kubernetes-cli"
+tap "siderolabs/tap"
+brew "talosctl"
+brew "talhelper"
+brew "cilium-cli"
