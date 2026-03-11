@@ -23,9 +23,16 @@ spec:
     web:
       enabled: true
       ingress:
-        enabled: false
-      httpRoute:
         enabled: true
+        className: traefik
+        hosts:
+          - host: "flux.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+
+      httpRoute:
+        enabled: false
         hostnames: [ "flux.${SECRET_DOMAIN}" ]
         parentRefs:
           - group: gateway.networking.k8s.io
