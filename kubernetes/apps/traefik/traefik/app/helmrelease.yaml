@@ -20,12 +20,51 @@ spec:
         entryPoints:
           - web
     providers:
-      kubernetesGateway:
+      kubernetesIngress:
         enabled: true
+        ingressEndpoint:
+          # -- Hostname used for Kubernetes Ingress endpoints
+          hostname: "traefik.${SECRET_DOMAIN}"
+          # -- IP used for Kubernetes Ingress endpoints
+          ip: "10.8.8.6"
+      kubernetesGateway:
+        enabled: false
         statusAddress:
           ip: 10.8.8.6
-    gateway:
-      listeners:
-        web:
-          namespacePolicy:
-            from: All
+
+    # Configure Network Ports and EntryPoints
+    # EntryPoints are the network listeners for incoming traffic.
+    ports:
+      # Defines the HTTP entry point named 'web'
+      web:
+        port: 80
+        nodePort: 30000
+        # Instructs this entry point to redirect all traffic to the 'websecure' entry point
+        http:
+#          redirections:
+#            entryPoint:
+#              to: websecure
+#              scheme: https
+#              permanent: true
+
+#      # Defines the HTTPS entry point named 'websecure'
+#      websecure:
+#        port: 443
+#        nodePort: 30001
+
+    # Enables the dashboard in Secure Mode
+    api:
+      dashboard: true
+      insecure: true
+
+#    additionalArguments:
+#      - "--certificatesresolvers.le.acme.email=your-email@example.com"
+#      - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+#      # - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+#      - "--certificatesresolvers.le.acme.dnschallenge.provider=your-dns-provider" # Requires provider-specific config, adjust if you control your DNS provider
+
+#    # Enable persistence for ACME data (certificates, account) to ensure it survives pod restarts:
+#    persistence:
+#      enabled: true
+#      name: data
+#      size: 1Gi
