@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: traefik
   values:
+    service:
+      spec:
+        loadBalancerIP: "10.8.8.6"
     ingressRoute:
       dashboard:
         enabled: true
@@ -22,11 +25,11 @@ spec:
     providers:
       kubernetesIngress:
         enabled: true
-        ingressEndpoint:
-          # -- Hostname used for Kubernetes Ingress endpoints
-          hostname: "traefik.${SECRET_DOMAIN}"
-          # -- IP used for Kubernetes Ingress endpoints
-          ip: "10.8.8.6"
+#        ingressEndpoint:
+#          # -- Hostname used for Kubernetes Ingress endpoints
+#          hostname: "traefik.${SECRET_DOMAIN}"
+#          # -- IP used for Kubernetes Ingress endpoints
+#          ip: "10.8.8.6"
       kubernetesGateway:
         enabled: false
         statusAddress:
