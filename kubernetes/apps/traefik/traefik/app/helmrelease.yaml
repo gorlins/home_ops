@@ -25,6 +25,27 @@ spec:
     providers:
       kubernetesIngress:
         enabled: true
+      kubernetesIngressNginx:
+        # -- Enable Kubernetes Ingress NGINX provider
+        enabled: true
+
+        # Namespace discovery
+        # -- Namespace the controller watches for updates to Kubernetes objects
+        # When using rbac.namespaced, it will watch helm release namespace and namespaces listed in this array
+        # namespaces:
+        #   - default
+        # OR use namespace selector (mutually exclusive with namespaces)
+        # namespaceSelector: "environment=production"
+
+        # IngressClass configuration
+        # -- Name of the ingress class this controller satisfies
+        ingressClass: "nginx"
+        # -- Ingress Class Controller value this controller satisfies
+        controllerClass: "k8s.io/ingress-nginx"
+        # -- Define if Ingress Controller should also watch for Ingresses without an IngressClass or the annotation specified
+        watchIngressWithoutClass: false
+        # -- Define if Ingress Controller should watch for Ingress Class by Name together with Controller Class
+        ingressClassByName: false
 #        ingressEndpoint:
 #          # -- Hostname used for Kubernetes Ingress endpoints
 #          hostname: "traefik.${SECRET_DOMAIN}"
