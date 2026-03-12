@@ -33,7 +33,7 @@ spec:
 #              namespace: kube-system
 #              port: 80
     ingress:
-      enable: true
+      enabled: true
       hosts:
         - host: "headlamp.${SECRET_DOMAIN}"
           paths:
