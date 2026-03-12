@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: traefik
   values:
+    envFrom:
+      secretRef:
+        name: cloudflare
     service:
       spec:
         loadBalancerIP: "10.8.8.6"
@@ -65,30 +68,46 @@ spec:
         nodePort: 30000
         # Instructs this entry point to redirect all traffic to the 'websecure' entry point
         http:
-#          redirections:
-#            entryPoint:
-#              to: websecure
-#              scheme: https
-#              permanent: true
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
 
-#      # Defines the HTTPS entry point named 'websecure'
-#      websecure:
-#        port: 443
-#        nodePort: 30001
+      # Defines the HTTPS entry point named 'websecure'
+      websecure:
+        port: 443
+        nodePort: 30001
 
     # Enables the dashboard in Secure Mode
     api:
       dashboard: true
       insecure: true
 
-#    additionalArguments:
-#      - "--certificatesresolvers.le.acme.email=your-email@example.com"
-#      - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-#      # - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
-#      - "--certificatesresolvers.le.acme.dnschallenge.provider=your-dns-provider" # Requires provider-specific config, adjust if you control your DNS provider
+    # Enable persistence for ACME data (certificates, account) to ensure it survives pod restarts:
+    persistence:
+      enabled: true
+      name: data
+      size: 1Gi
 
-#    # Enable persistence for ACME data (certificates, account) to ensure it survives pod restarts:
-#    persistence:
-#      enabled: true
-#      name: data
-#      size: 1Gi
+    certificatesResolvers:
+      le:
+        # Enable ACME (Let's Encrypt): automatic SSL.
+        acme:
+
+          # Email address used for registration.
+          #
+          # Required
+          #
+          email: "scottgorlin@gmail.com"
+
+          # File or key used for certificates storage.
+          #
+          # Required
+          #
+          storage: "/data/acme.json"
+
+          # Use a DNS-01 ACME challenge rather than HTTP-01 challenge.
+          # Note: mandatory for wildcard certificate generation.
+          dnsChallenge:
+            provider: cloudflare
