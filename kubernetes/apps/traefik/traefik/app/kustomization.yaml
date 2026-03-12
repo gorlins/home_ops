@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./repository.yaml
   - ./cloudflare.sops.yaml
+  - ./authentik.yaml
