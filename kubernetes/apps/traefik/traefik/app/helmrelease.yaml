@@ -88,7 +88,6 @@ spec:
     persistence:
       enabled: true
       name: data
-      size: 1Gi
 
     certificatesResolvers:
       le:
