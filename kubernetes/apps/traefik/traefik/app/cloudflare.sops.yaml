@@ -4,7 +4,7 @@ metadata:
   name: cloudflare
 stringData:
   CF_API_EMAIL: ENC[AES256_GCM,data:jLdCc0LoU/gtrPtyzc+30NDKBDZ+,iv:ZnxZMbykkL8NCXJPf2lPTTda/bw0IBIASvV4jJOEl2o=,tag:1mil+NNq0/Kw6nodKNggmA==,type:str]
-  CF_DNS_API_TOKEN: ENC[AES256_GCM,data:iVQzzw==,iv:G8yUP3iQ9XT95mOi5UrfS3PPnkSNg09xfEM7grEKxo8=,tag:X9M0Vs5MouLv1laiolWUKQ==,type:str]
+  CF_DNS_API_TOKEN: ENC[AES256_GCM,data:QtCWy7szLSH5jGBH4xR6PfwNDiqE1xRTMBBLIOqOrlnWnblT4mtZ8w==,iv:cYxZ2V+lId7CaUa+r/8BCcbncpB0pnXpAnkQ3JnYnEY=,tag:lPEmdmtr2WZ05yMxkXsAWA==,type:str]
 sops:
   age:
     - recipient: age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr
@@ -16,8 +16,8 @@ sops:
         VXFKZXVDRTAzWWlGTEhlS2oxWm03SVEKdVCGdGu/la4FtNdOm3yvE03Lq4vJJ93i
         Zw/R8yboNGTj/k7TsgY9aI2x4JdCZq2FQ/euXGWj63j/1+AtXR0izg==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T00:14:07Z"
-  mac: ENC[AES256_GCM,data:eAsdhPKO5MfvGOhmlZ8FliiUHPqW7t33waLESJCklHuQpRI6a6kRN/puj/clXesgH9/DHiqwTWk03b+mob6weqvmvtSWOgXFwTLWJNBWNvtcK7XJf1V6MSNBs28oljRLGMWxRUuwEK+ozbVQNwkkXtpNbo1J8BPC8GyseRHGbf4=,iv:8NjCXBfXPHeFnX2UwWZRXKbi4dPbaO56DvEKUvpf8W0=,tag:iYa+JJ/T3BjPt3Elw1dmZw==,type:str]
+  lastmodified: "2026-03-12T00:17:05Z"
+  mac: ENC[AES256_GCM,data:8RvBZN8Ba+/iTclIjCIO3PadB4byQ8HH2BtCkDAVDM+kBXKVBuxh7zL7NpCofPnMK3FoxfmkjiBPOuYRoioErqxYnV6/U9TDEAoSG69MTZrsGPKbhJY8rMu405JNIrsjeJ85qUmjzLcWgJAYmUIGRPo8dPMsqfcpBg/ZocPaG9E=,iv:g3Tud4rkD+Hep4ZuZg8nnK1Jy5ReEyGiyb+hEvrFm5k=,tag:uGM5mhigDbkxb04vWLaSHw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
