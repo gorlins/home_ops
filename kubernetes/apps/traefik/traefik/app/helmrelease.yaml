@@ -110,3 +110,11 @@ spec:
           # Note: mandatory for wildcard certificate generation.
           dnsChallenge:
             provider: cloudflare
+    deployment:
+      initContainers:
+        - name: volume-permissions  # https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md
+          image: busybox:latest
+          command: [ "sh", "-c", "touch /data/acme.json; chmod -v 600 /data/acme.json" ]
+          volumeMounts:
+            - mountPath: /data
+              name: data
