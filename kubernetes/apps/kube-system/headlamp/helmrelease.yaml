@@ -34,7 +34,11 @@ spec:
 #              port: 80
     ingress:
       enable: true
-      hosts: ["headlamp.${SECRET_DOMAIN}"]
+      hosts:
+        - host: "headlamp.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              type: Prefix
       ingressClassName: traefik
       annotations:
         traefik.ingress.kubernetes.io/router.tls.certresolver: le
