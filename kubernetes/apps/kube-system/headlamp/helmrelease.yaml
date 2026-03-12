@@ -12,8 +12,6 @@ spec:
         name: headlamp
   interval: 1m0s
   values:
-    image:
-      tag: "v0.40.1"
 #    httpRoute:
 #      enabled: true
 #      parentRefs:
