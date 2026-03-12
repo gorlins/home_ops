@@ -28,13 +28,13 @@ spec:
         tls:
           certResolver: le
     providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
       kubernetesIngress:
         enabled: true
-        allowCrossNamespace: true
       kubernetesIngressNginx:
         # -- Enable Kubernetes Ingress NGINX provider
         enabled: true
-        allowCrossNamespace: true
 
         # Namespace discovery
         # -- Namespace the controller watches for updates to Kubernetes objects
