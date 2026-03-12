@@ -7,6 +7,7 @@ spec:
         # This address should point to the cluster endpoint provided by the kubernetes service, not the Ingress.
         address: http://authentik.${SECRET_DOMAIN}:9000/outpost.goauthentik.io/auth/traefik
         trustForwardHeader: true
+        maxResponseBodySize: 1048576
         authResponseHeaders:
             - X-authentik-username
             - X-authentik-groups
