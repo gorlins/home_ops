@@ -14,8 +14,8 @@ spec:
         name: traefik
   values:
     envFrom:
-      secretRef:
-        name: cloudflare
+      - secretRef:
+          name: cloudflare
     service:
       spec:
         loadBalancerIP: "10.8.8.6"
