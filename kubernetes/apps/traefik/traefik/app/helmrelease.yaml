@@ -24,7 +24,7 @@ spec:
         enabled: true
         matchRule: Host(`traefik.${SECRET_DOMAIN}`)
         entryPoints:
-          - web
+          - websecure
     providers:
       kubernetesIngress:
         enabled: true
