@@ -27,6 +27,7 @@ spec:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.tls.certresolver: le
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-authentik@kubernetescrd
         hosts:
           - host: "flux.${SECRET_DOMAIN}"
             paths:
