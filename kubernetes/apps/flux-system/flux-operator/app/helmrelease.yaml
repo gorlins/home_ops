@@ -25,13 +25,13 @@ spec:
       ingress:
         enabled: true
         className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.tls.certresolver: le
         hosts:
           - host: "flux.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
-        tls:
-          certResolver: le
 
       httpRoute:
         enabled: false
