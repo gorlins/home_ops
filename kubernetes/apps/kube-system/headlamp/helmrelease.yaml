@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: headlamp
-      version: "v0.40.1"
+      version: "0.40.1"
   interval: 1m0s
   values:
 #    httpRoute:
