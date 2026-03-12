@@ -121,5 +121,6 @@ spec:
     podSecurityContext:
       fsGroup: 65532
       fsGroupChangePolicy: "OnRootMismatch"
-    log:
-      level: DEBUG
+    logs:
+      general:
+        level: DEBUG
