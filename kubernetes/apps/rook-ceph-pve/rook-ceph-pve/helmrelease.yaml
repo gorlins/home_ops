@@ -9,7 +9,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: rook-ceph
+      chart: rook-ceph-cluster
       sourceRef:
         kind: HelmRepository
         name: rook-release
