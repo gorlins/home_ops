@@ -24,7 +24,7 @@ spec:
     instance:
       distribution:
         # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-        version: v2.8.1
+        version: v2.8.2
       cluster:
         networkPolicy: false
       components:
