@@ -29,7 +29,7 @@ spec:
       failed: status.ceph.health == 'HEALTH_ERR'
       current: status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']
   interval: 1h
-  path: ./kubernetes/apps/rook-ceph/rook-ceph-external
+  path: ./kubernetes/apps/*namespace/*app
   postBuild:
     substitute:
       APP: *app
