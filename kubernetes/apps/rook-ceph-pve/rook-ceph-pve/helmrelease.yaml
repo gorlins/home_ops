@@ -22,7 +22,7 @@ spec:
     cephClusterSpec:
       external:
         enable: true
-      dataDirHostPath: /var/lib/rook-pve
+      dataDirHostPath: /var/lib/rook/pve
       crashCollector:
         disable: true
       healthCheck:
