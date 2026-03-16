@@ -30,13 +30,13 @@ spec:
           mon:
             disabled: false
             interval: 45s
-    route:
-      dashboard:
-        host:
-          name: "rook.${SECRET_DOMAIN}"
-          path: /
-          pathType: PathPrefix
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
+#    route:
+#      dashboard:
+#        host:
+#          name: "rook.${SECRET_DOMAIN}"
+#          path: /
+#          pathType: PathPrefix
+#        parentRefs:
+#          - name: internal
+#            namespace: kube-system
+#            sectionName: https
