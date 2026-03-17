@@ -108,6 +108,21 @@ nodes:
           hardwareAddr: "bc:24:11:bd:11:9a"
         dhcp: false
         mtu: 9000
+  - hostname: "talos-opti"
+    ipAddress: "10.8.8.70"
+    installDisk: /dev/sda
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/3f8871ec4153ff61d39a4f87eb1a8bf271057a70c1d1a51afa9bedbb3db547b5
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "98:b7:85:20:1e:fc"
+        dhcp: true
+      - deviceSelector:
+          hardwareAddr: "98:b7:85:20:1e:fd"
+        dhcp: false
+        mtu: 9000
 
 # Global patches
 patches:
@@ -131,6 +146,7 @@ worker:
         diskSelector:
           match: "!system_disk"
         minSize: 50GB
+        maxSize: 400GB
         grow: true
     - name: longhorn
       provisioning:

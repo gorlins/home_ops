@@ -1,0 +1,11 @@
+customization:
+  systemExtensions: # optional
+    officialExtensions: # optional
+      - siderolabs/util-linux-tools
+      - siderolabs/iscsi-tools
+      - siderolabs/nvme-cli
+      - siderolabs/bnx2-bnx2x
+      - siderolabs/intel-ucode
+      - siderolabs/i915
+      - siderolabs/xe
+      - siderolabs/intel-ice # unclear if used?
