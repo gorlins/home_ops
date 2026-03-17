@@ -8,4 +8,4 @@ customization:
       - siderolabs/intel-ucode
       - siderolabs/i915
       - siderolabs/xe
-      - siderolabs/intel-ice # unclear if used?
+      - siderolabs/intel-ice-firmware # unclear if used?
