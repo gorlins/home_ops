@@ -35,12 +35,12 @@ spec:
 
     config:
       pluginsDir: /build/plugins
-      oidc:
-        secret:
-          create: false
-        externalSecret:
-          enabled: true
-          name: headlamp-authentik
+#      oidc:
+#        secret:
+#          create: false
+#        externalSecret:
+#          enabled: true
+#          name: headlamp-authentik
     initContainers:
       - command:
           - /bin/sh
@@ -70,20 +70,20 @@ spec:
         persistentVolumeClaim:
           claimName: headlamp # The name of the Helm release
 
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: headlamp-admin
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - apiGroup: rbac.authorization.k8s.io
-    kind: Group
-    name: "authentik Admins"
-  - kind: User
-    name: scottgorlin+akadmin@gmail.com
-    apiGroup: rbac.authorization.k8s.io
+#---
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: ClusterRoleBinding
+#metadata:
+#  name: headlamp-admin
+#roleRef:
+#  apiGroup: rbac.authorization.k8s.io
+#  kind: ClusterRole
+#  name: cluster-admin
+#subjects:
+#  - apiGroup: rbac.authorization.k8s.io
+#    kind: Group
+#    name: "authentik Admins"
+#  - kind: User
+#    name: scottgorlin+akadmin@gmail.com
+#    apiGroup: rbac.authorization.k8s.io
 
