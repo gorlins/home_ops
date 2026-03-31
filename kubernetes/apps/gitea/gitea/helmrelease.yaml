@@ -95,7 +95,7 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: envoy-internal
-      namespace: kube-system
+      namespace: network
       sectionName: https
   hostnames:
     - "git.${SECRET_DOMAIN}"
