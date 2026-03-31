@@ -245,10 +245,10 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             group: gateway.networking.k8s.io
             kind: Gateway
-            namespace: kube-system
+            namespace: network
             sectionName: https
     persistence:
       enabled: false

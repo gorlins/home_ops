@@ -7,8 +7,8 @@
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
-          name: internal
-          namespace: kube-system
+          name: envoy-internal
+          namespace: network
           sectionName: https
       hostnames:
         - "portainer.${SECRET_DOMAIN}"

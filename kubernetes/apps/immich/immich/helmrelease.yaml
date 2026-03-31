@@ -58,8 +58,8 @@ spec:
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: external
-      namespace: kube-system
+      name: envoy-external
+      namespace: network
       sectionName: https
   hostnames:
     - "immich.${SECRET_DOMAIN}"

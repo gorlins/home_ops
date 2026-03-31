@@ -64,26 +64,12 @@ spec:
       enabled: true
     endpointRoutes:
       enabled: true
-    envoy:
-      rollOutPods: true
-      prometheus:
-        serviceMonitor:
-          enabled: true
-    gatewayAPI:
-      enabled: true
-      enableAlpn: true
-      enableAppProtocol: true
     hubble:
       enabled: true
       relay:
         enabled: true
       ui:
         enabled: true
-    ingressController:
-      enabled: false
-      default: true
-      loadbalancerMode: dedicated
-
     ipv4NativeRoutingCIDR: "10.42.0.0/16"
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
