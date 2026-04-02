@@ -33,7 +33,7 @@ spec:
 
 
 
-# not available yet in 1.10.1
+# Gateway routes available in 1.11.x chart, but unclear how to tie in with authentik forward auth
 #    httproute:
 #      enabled: true
 #      parentRefs:
