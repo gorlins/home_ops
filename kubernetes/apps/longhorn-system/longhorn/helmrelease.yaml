@@ -24,14 +24,12 @@ spec:
       defaultDataLocality: best-effort
 
     ingress:
-      enabled: true
-      ingressClassName: traefik
-      host: "longhorn.${SECRET_DOMAIN}"
-      annotations:
-        traefik.ingress.kubernetes.io/router.tls.certresolver: le
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-authentik@kubernetescrd
-
-
+      enabled: false
+#      ingressClassName: traefik
+#      host: "longhorn.${SECRET_DOMAIN}"
+#      annotations:
+#        traefik.ingress.kubernetes.io/router.tls.certresolver: le
+#        traefik.ingress.kubernetes.io/router.middlewares: traefik-authentik@kubernetescrd
 
 # Gateway routes available in 1.11.x chart, but unclear how to tie in with authentik forward auth
 #    httproute:
@@ -48,3 +46,24 @@ spec:
     metrics:
       serviceMonitor:
         enabled: true
+
+---
+# Route ALL longhorn traffic through the authentik proxy outpost
+# The outpost itself handles checking auth and proxying forward
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: longhorn-httproute
+  namespace: authentik  # note: in authentik namespace since that's where outpost lives
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      name: envoy-internal
+      namespace: network
+      sectionName: https
+  hostnames:
+    - "longhorn.${SECRET_DOMAIN}"
+  rules:
+    - backendRefs:
+        - name: ak-outpost-authentik-embedded-outpost
+          port: 9000
