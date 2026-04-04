@@ -8,4 +8,4 @@ spec:
   url: oci://ghcr.io/immich-app/immich-charts/immich
   interval: 60m
   ref:
-    tag: 0.10.3
+    tag: 0.11.1
