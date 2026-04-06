@@ -1,0 +1,52 @@
+# kubectl apply -f scripts/benchmark_storage.yaml
+# kubectl delete -f scripts/benchmark_storage.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: benchmark-pvc
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: local-path
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: storage-benchmark
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: benchmark
+        image: ljishen/fio:latest
+        command:
+        - sh
+        - -c
+        - |
+          echo "=== Random Read IOPS ===" > /results/benchmark.txt
+          fio --name=rand-read --rw=randread --bs=4k --size=1G --numjobs=4 --runtime=60 --group_reporting --filename=/data/test | grep "IOPS=" >> /results/benchmark.txt
+
+          echo "\n=== Random Write IOPS ===" >> /results/benchmark.txt
+          fio --name=rand-write --rw=randwrite --bs=4k --size=1G --numjobs=4 --runtime=60 --group_reporting --filename=/data/test | grep "IOPS=" >> /results/benchmark.txt
+
+          echo "\n=== Sequential Read Throughput ===" >> /results/benchmark.txt
+          fio --name=seq-read --rw=read --bs=1M --size=2G --runtime=60 --group_reporting --filename=/data/test | grep "BW=" >> /results/benchmark.txt
+
+          cat /results/benchmark.txt
+        volumeMounts:
+        - name: test-data
+          mountPath: /data
+        - name: results
+          mountPath: /results
+      restartPolicy: Never
+      volumes:
+      - name: test-data
+        persistentVolumeClaim:
+          claimName: benchmark-pvc
+      - name: results
+        emptyDir: {}
