@@ -78,6 +78,8 @@ nodes:
           hardwareAddr: "bc:24:11:6a:00:a5"
         dhcp: false
         mtu: 9000
+        addresses:
+          - "10.10.11.118/24"
   - hostname: "talos-w2"
     ipAddress: "10.8.8.119"
     installDisk: "/dev/sda"
@@ -93,6 +95,8 @@ nodes:
           hardwareAddr: "bc:24:11:c3:46:2a"
         dhcp: false
         mtu: 9000
+        addresses:
+          - "10.10.11.119/24"
   - hostname: "talos-w3"
     ipAddress: "10.8.8.112"
     installDisk: "/dev/sda"
@@ -108,6 +112,8 @@ nodes:
           hardwareAddr: "bc:24:11:bd:11:9a"
         dhcp: false
         mtu: 9000
+        addresses:
+          - "10.10.11.112/24"
   - hostname: "talos-opti"
     ipAddress: "10.8.8.70"
     installDisk: /dev/sda
@@ -123,6 +129,8 @@ nodes:
           hardwareAddr: "98:b7:85:20:1e:fd"
         dhcp: false
         mtu: 9000
+        addresses:
+          - "10.10.11.70/24"
 
 # Global patches
 patches:
