@@ -53,6 +53,12 @@ spec:
             access: proxy
             url: http://prometheus-operated.observability.svc.cluster.local:9090
             isDefault: false
+          - name: Dashboard1
+            type: prometheus
+            uid: Dashboard1
+            access: proxy
+            url: http://prometheus-operated.observability.svc.cluster.local:9090
+            isDefault: false
           - name: Loki
             type: loki
             uid: loki
@@ -93,6 +99,11 @@ spec:
           gnetId: 2842
           revision: 18
           datasource: Prometheus
+        rook-cluster:
+          # renovate: depName="Ceph Cluster"
+          gnetId: 2842
+          revision: 18
+          datasource: Dashboard1
         ceph-osd:
           # renovate: depName="Ceph - OSD (Single)"
           gnetId: 5336
