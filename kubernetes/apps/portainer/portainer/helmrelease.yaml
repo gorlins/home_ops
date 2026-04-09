@@ -18,6 +18,8 @@ spec:
       type: ClusterIP
     ingress:
       enabled: false
+    persistence:
+      storageClass: ceph-block
     image:
       tag: lts
     tls:
