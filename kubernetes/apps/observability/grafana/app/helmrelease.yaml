@@ -47,13 +47,12 @@ spec:
           - {name: Loki, orgId: 1}
           - {name: Prometheus, orgId: 1}
         datasources:
-#          This gets auto added now?
-#          - name: Prometheus
-#            type: prometheus
-#            uid: prometheus
-#            access: proxy
-#            url: http://prometheus-operated.observability.svc.cluster.local:9090
-#            isDefault: false
+          - name: Prometheus
+            type: prometheus
+            uid: prometheus
+            access: proxy
+            url: http://prometheus-operated.observability.svc.cluster.local:9090
+            isDefault: false
           - name: Loki
             type: loki
             uid: loki
