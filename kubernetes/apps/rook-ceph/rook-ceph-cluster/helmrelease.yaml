@@ -55,10 +55,10 @@ spec:
         urlPrefix: /
         port: 7000
         ssl: false
-        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
-        settings:
-          grafana-api-url: http://grafana.observability.svc.cluster.local:80
-          grafana-api-ssl-verify: false
+#        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+#        settings:
+#          grafana-api-url: http://grafana.observability.svc.cluster.local:80
+#          grafana-api-ssl-verify: false
 
       mgr:
         modules:
