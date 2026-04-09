@@ -10,7 +10,8 @@ brew install korb
 Pause kustomization and scale deployment to 0 first, then proceed
 
 ```bash
-korb --source-namespace portainer --new-pvc-namespace portainer --new-pvc-storage-class longhorn --strategy copy-twice-name portainer
+export NS=portainer
+korb --source-namespace $NS --new-pvc-namespace $NS --new-pvc-storage-class longhorn --strategy copy-twice-name portainer
 ```
 
 Push changes to git, resume kustomization
