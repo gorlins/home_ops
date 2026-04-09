@@ -32,6 +32,8 @@ spec:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
+      security:
+        allow_embedding: true
       auth.anonymous:
         enabled: true
         org_id: 1
