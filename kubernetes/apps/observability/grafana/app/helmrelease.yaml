@@ -60,6 +60,7 @@ spec:
             url: http://loki-headless.observability.svc.cluster.local:3100
             jsonData:
               maxLines: 250
+            isDefault: false
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -67,6 +68,7 @@ spec:
             url: http://alertmanager-operated.observability.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
+            isDefault: false
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
