@@ -233,11 +233,11 @@ spec:
         searchNamespace: ALL
         labelValue: ""
     plugins:
-      - grafana-clock-panel
-      - grafana-piechart-panel
-      - grafana-worldmap-panel
+#      - grafana-clock-panel
+#      - grafana-piechart-panel
+#      - grafana-worldmap-panel
 #      - natel-discrete-panel # Doesn't work because it's old angular?
-      - pr0ps-trackmap-panel
+#      - pr0ps-trackmap-panel
       - vonage-status-panel
     serviceMonitor:
       enabled: true
