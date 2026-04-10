@@ -223,11 +223,26 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        rook-application-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
+          datasource: Dashboard1
         rook-cluster:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
           datasource: Dashboard1
-        rook-osd:
+        rook-hosts:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-hosts-overview.json
+          datasource: Dashboard1
+        rook-osds:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
+          datasource: Dashboard1
+        rook-pool:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-overview.json
+          datasource: Dashboard1
+        rook-radosgw:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
+          datasource: Dashboard1
+        rook-rbd:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
           datasource: Dashboard1
     sidecar:
       image:
