@@ -21,3 +21,6 @@ spec:
       serviceMonitor:
         enabled: true
       enableLiveness: true
+    rbacEnable: true
+    rbacAggregate:
+      enableOBCs: true
