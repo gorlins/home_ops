@@ -224,9 +224,11 @@ spec:
           revision: 4
           datasource: Prometheus
         rook-cluster:
-          url: https://github.com/ceph/ceph/raw/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
+          datasource: Dashboard1
         rook-osd:
-          url: https://github.com/ceph/ceph/raw/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
+          datasource: Dashboard1
     sidecar:
       image:
         registry: ghcr.io
