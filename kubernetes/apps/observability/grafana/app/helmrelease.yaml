@@ -230,19 +230,34 @@ spec:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
           datasource: Dashboard1
         rook-hosts:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-hosts-overview.json
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/hosts-overview.json
+          datasource: Dashboard1
+        rook-hosts-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/hosts-details.json
           datasource: Dashboard1
         rook-osds:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
           datasource: Dashboard1
+        rook-osds-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-device-details.json
+          datasource: Dashboard1
         rook-pool:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-overview.json
+          datasource: Dashboard1
+        rook-pool-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-detail.json
           datasource: Dashboard1
         rook-radosgw:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
           datasource: Dashboard1
+        rook-radosgw-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-detail.json
+          datasource: Dashboard1
         rook-rbd:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
+          datasource: Dashboard1
+        rook-rbd-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-details.json
           datasource: Dashboard1
     sidecar:
       image:
