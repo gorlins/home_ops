@@ -101,11 +101,6 @@ spec:
           gnetId: 2842
           revision: 18
           datasource: Prometheus
-        rook-cluster:
-          # renovate: depName="Ceph Cluster"
-          gnetId: 2842
-          revision: 18
-          datasource: Dashboard1
         ceph-osd:
           # renovate: depName="Ceph - OSD (Single)"
           gnetId: 5336
@@ -228,6 +223,10 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        rook-cluster:
+          url: https://github.com/ceph/ceph/raw/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
+        rook-osd:
+          url: https://github.com/ceph/ceph/raw/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
     sidecar:
       image:
         registry: ghcr.io
