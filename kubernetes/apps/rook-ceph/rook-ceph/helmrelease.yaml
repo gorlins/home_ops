@@ -21,6 +21,13 @@ spec:
       serviceMonitor:
         enabled: true
       enableLiveness: true
+
+      # Metrics port for the RBD plugin
+      rbdLivenessMetricsPort: 9080
+
+      # Metrics port for the CephFS plugin
+      cephfsLivenessMetricsPort: 9081
+
     rbacEnable: true
     rbacAggregate:
       enableOBCs: true
