@@ -43,6 +43,10 @@ spec:
             sectionName: https
 
     cephClusterSpec:
+      resources:
+        mgr:
+          cpu: 2.0 # dashboard can be resource intensive, struggles with <1
+
       network:
         provider: host
         addressRanges:
