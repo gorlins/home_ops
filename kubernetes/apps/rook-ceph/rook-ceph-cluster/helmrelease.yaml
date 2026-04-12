@@ -45,7 +45,11 @@ spec:
     cephClusterSpec:
       resources:
         mgr:
-          cpu: 2.0 # dashboard can be resource intensive, struggles with <1
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: 2.0 # dashboard can be resource intensive, struggles with <1
+            memory: "1Gi"
 
       network:
         provider: host
