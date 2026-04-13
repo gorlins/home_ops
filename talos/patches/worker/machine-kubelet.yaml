@@ -8,6 +8,13 @@ machine:
           - bind
           - rshared
           - rw
+      # Rook data directory
+      - destination: /var/lib/rook
+        type: bind
+        source: /var/lib/rook
+        options:
+          - bind
+          - rshared
 #      - destination: /var/mnt/longhorn
 #        type: bind
 #        source: /var/mnt/longhorn
