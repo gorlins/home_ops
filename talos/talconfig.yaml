@@ -9,6 +9,7 @@ endpoint: https://10.8.8.8:6443
 additionalApiServerCertSans: &sans
   - "127.0.0.1"
   - "10.8.8.8"
+  - "10.10.10.8"
 additionalMachineCertSans: *sans
 
 clusterPodNets: ["10.42.0.0/16"]
@@ -63,6 +64,18 @@ nodes:
         dhcp: true
         vip:
           ip: "10.8.8.8"
+  - hostname: "talos-c3"
+    ipAddress: "10.10.10.101"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
+    controlPlane: true
+    networkInterfaces:
+      - interface: ens18
+        dhcp: true
+        vip:
+          ip: "10.10.10.8"
   - hostname: "talos-w1"
     ipAddress: "10.8.8.118"
     installDisk: "/dev/sda"
