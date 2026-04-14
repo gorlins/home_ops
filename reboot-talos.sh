@@ -20,7 +20,7 @@ echo ""
 
 for ip in "${NODES[@]}"; do
   # Commands to be executed for each item
-  echo "Rebooting 10.8.8.$ip"
-  sleep 5
-  talosctl reboot -n 10.8.8.$ip --wait
+  echo "Rebooting $ip"
+  sleep 30
+  talosctl reboot -n $ip --wait
 done
