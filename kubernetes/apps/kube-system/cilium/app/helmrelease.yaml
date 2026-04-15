@@ -50,7 +50,6 @@ spec:
 
     # Other values
     autoDirectNodeRoutes: true
-    directRoutingSkipUnreachable: true  # Needed when there are multiple subnets - remove when not
     bpf: # Per cilium docs, required for eBPF host routing on Talos
       masquerade: true
       # Ref: https://github.com/siderolabs/talos/issues/10002
