@@ -93,6 +93,11 @@ nodes:
         mtu: 9000
         addresses:
           - "10.10.11.118/24"
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:2a:38:98"
+        dhcp: false
+        addresses:
+          - "10.10.10.118/24"
   - hostname: "talos-w2"
     ipAddress: "10.8.8.119"
     installDisk: "/dev/sda"
@@ -110,6 +115,11 @@ nodes:
         mtu: 9000
         addresses:
           - "10.10.11.119/24"
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:f6:d0:d5"
+        dhcp: false
+        addresses:
+          - "10.10.10.119/24"
   - hostname: "talos-w3"
     ipAddress: "10.8.8.112"
     installDisk: "/dev/sda"
@@ -127,6 +137,11 @@ nodes:
         mtu: 9000
         addresses:
           - "10.10.11.112/24"
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:88:e4:96"
+        dhcp: false
+        addresses:
+          - "10.10.10.112/24"
   - hostname: "talos-opti"
     ipAddress: "10.8.8.70"
     installDisk: /dev/sda
