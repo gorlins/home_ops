@@ -2,17 +2,20 @@
 
 source ./talos_ips.sh
 
-# talosctl health --nodes $node --wait-timeout 5m for CP nodes
-
 read -p "Launch rolling reboot of nodes? <y/N/cp=include control plane> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
   echo "Here we gooooo!"
-  NODES=("${WORKERS[@]}")
 elif [[ $prompt == "cp" || $prompt == "CP" ]]
 then
     echo "Including control plane nodes"
-    NODES=("${CONTROLPLANE[@]}" "${WORKERS[@]}")
+    for ip in "${CONTROLPLANE[@]}"; do
+      echo "Rebooting control plane $ip"
+      talosctl reboot -n $ip --wait
+      talosctl health -n $ip --wait-timeout 5m  # Ensure control plane is fully healthy
+    done
+done
+
 else
   echo "Exiting"
   exit 0
@@ -20,9 +23,7 @@ fi
 
 echo ""
 
-for ip in "${NODES[@]}"; do
-  # Commands to be executed for each item
-  echo "Rebooting $ip"
-  sleep 30
+for ip in "${WORKERS[@]}"; do
+  echo "Rebooting worker $ip"
   talosctl reboot -n $ip --wait
 done
