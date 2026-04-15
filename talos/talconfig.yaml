@@ -60,11 +60,6 @@ nodes:
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:cc:3f:12"
-        dhcp: false
-        addresses:
-          - "10.8.8.118/16"
-      - deviceSelector:
           hardwareAddr: "bc:24:11:6a:00:a5"
         dhcp: false
         mtu: 9000
@@ -82,11 +77,6 @@ nodes:
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:3a:43:88"
-        dhcp: false
-        addresses:
-          - "10.8.8.119/16"
-      - deviceSelector:
           hardwareAddr: "bc:24:11:c3:46:2a"
         dhcp: false
         mtu: 9000
@@ -103,11 +93,6 @@ nodes:
     talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: false
     networkInterfaces:
-#      - deviceSelector:
-#          hardwareAddr: "bc:24:11:aa:d4:ce"
-#        dhcp: false
-#        addresses:
-#          - "10.8.8.112/16"
       - deviceSelector:
           hardwareAddr: "bc:24:11:bd:11:9a"
         dhcp: false
