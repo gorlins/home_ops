@@ -1,11 +1,26 @@
+#---
+#apiVersion: source.toolkit.fluxcd.io/v1
+#kind: GitRepository
+#metadata:
+#  name: local-path-storage
+#  namespace: local-path-storage
+#spec:
+#  interval: 60m
+#  url: https://github.com/rancher/local-path-provisioner.git
+#  ref:
+#    tag: v0.0.35
+
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
+kind: OCIRepository
 metadata:
   name: local-path-storage
-  namespace: local-path-storage
 spec:
-  interval: 60m
-  url: https://github.com/rancher/local-path-provisioner.git
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
   ref:
-    tag: v0.0.35
+    tag: 0.0.35
+  url: oci://ghcr.io/rancher/local-path-provisioner/charts/local-path-provisioner

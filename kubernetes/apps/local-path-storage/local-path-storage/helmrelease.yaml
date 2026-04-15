@@ -7,12 +7,12 @@ metadata:
   namespace: local-path-storage
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: ./deploy/chart/local-path-provisioner
-      sourceRef:
-        kind: GitRepository
-        name: local-path-storage
+#  chart:
+#    spec:
+#      chart: ./deploy/chart/local-path-provisioner
+  chartRef:
+    kind: OCIRepository
+    name: local-path-storage
   values:
     nodePathMap:
       - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
