@@ -18,7 +18,7 @@ spec:
           name: cloudflare
     service:
       spec:
-        loadBalancerIP: "10.8.8.6"
+        loadBalancerIP: "10.10.10.6"
     ingressRoute:
       dashboard:
         enabled: true
@@ -57,11 +57,11 @@ spec:
 #          # -- Hostname used for Kubernetes Ingress endpoints
 #          hostname: "traefik.${SECRET_DOMAIN}"
 #          # -- IP used for Kubernetes Ingress endpoints
-#          ip: "10.8.8.6"
+#          ip: "10.10.10.6"
       kubernetesGateway:
         enabled: false
         statusAddress:
-          ip: 10.8.8.6
+          ip: 10.10.10.6
 
     # Configure Network Ports and EntryPoints
     # EntryPoints are the network listeners for incoming traffic.
