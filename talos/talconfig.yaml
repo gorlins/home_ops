@@ -118,7 +118,7 @@ nodes:
           hardwareAddr: "bc:24:11:88:e4:96"
         dhcp: true
   - hostname: "talos-opti"
-    ipAddress: "10.8.8.70"
+    ipAddress: "10.10.10.70"
     installDisk: /dev/sda
     machineSpec:
       secureboot: false

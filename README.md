@@ -276,8 +276,8 @@ task talos:apply-node IP=? MODE=?
 
 ```sh
 cd talos
-talhelper gencommand apply -n 10.8.8.112
-talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=10.8.8.112 --file=./clusterconfig/kubernetes-talos-w3.yaml;
+talhelper gencommand apply -n 10.10.10.112
+talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=10.10.10.112 --file=./clusterconfig/kubernetes-talos-w3.yaml;
 ```
 
 ### ⬆️ Updating Talos and Kubernetes versions
