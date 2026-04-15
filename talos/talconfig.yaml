@@ -8,7 +8,6 @@ kubernetesVersion: "${kubernetesVersion}"
 endpoint: https://10.10.10.8:6443
 additionalApiServerCertSans: &sans
   - "127.0.0.1"
-  - "10.8.8.8"
   - "10.10.10.8"
 additionalMachineCertSans: *sans
 
@@ -16,18 +15,6 @@ clusterPodNets: ["10.42.0.0/16"]
 clusterSvcNets: ["10.43.0.0/16"]
 
 nodes:
-  - hostname: "talos-1"
-    ipAddress: "10.8.8.120"
-    installDisk: "/dev/sda"
-    machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/${pveSchematic}
-    controlPlane: true
-    networkInterfaces:
-      - interface: ens18
-        dhcp: true
-        vip:
-          ip: "10.8.8.8"
   - hostname: "talos-c1"
     ipAddress: "10.10.10.106"
     installDisk: "/dev/sda"
@@ -40,18 +27,6 @@ nodes:
         dhcp: true
         vip:
           ip: "10.10.10.8"
-  - hostname: "talos-2"
-    ipAddress: "10.8.8.127"
-    installDisk: "/dev/sda"
-    machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/${pveSchematic}
-    controlPlane: true
-    networkInterfaces:
-      - interface: ens18
-        dhcp: true
-        vip:
-          ip: "10.8.8.8"
   - hostname: "talos-c2"
     ipAddress: "10.10.10.109"
     installDisk: "/dev/sda"
@@ -64,18 +39,6 @@ nodes:
         dhcp: true
         vip:
           ip: "10.10.10.8"
-  - hostname: "talos-3"
-    ipAddress: "10.8.8.123"
-    installDisk: "/dev/sda"
-    machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/${pveSchematic}
-    controlPlane: true
-    networkInterfaces:
-      - interface: ens18
-        dhcp: true
-        vip:
-          ip: "10.8.8.8"
   - hostname: "talos-c3"
     ipAddress: "10.10.10.101"
     installDisk: "/dev/sda"

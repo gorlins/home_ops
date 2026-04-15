@@ -2,7 +2,6 @@ machine:
   kubelet:
     nodeIP:
       validSubnets:
-        - 10.8.8.0/24
         - 10.10.10.0/24
 #    extraMounts:
 #      - destination: /var/lib/longhorn
