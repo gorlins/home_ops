@@ -14,8 +14,6 @@ then
       talosctl reboot -n $ip --wait
       talosctl health -n $ip --wait-timeout 5m  # Ensure control plane is fully healthy
     done
-done
-
 else
   echo "Exiting"
   exit 0
