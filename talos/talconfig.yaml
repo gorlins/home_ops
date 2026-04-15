@@ -5,7 +5,7 @@ clusterName: kubernetes
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
 
-endpoint: https://10.8.8.8:6443
+endpoint: https://10.10.10.8:6443
 additionalApiServerCertSans: &sans
   - "127.0.0.1"
   - "10.8.8.8"
@@ -89,7 +89,7 @@ nodes:
         vip:
           ip: "10.10.10.8"
   - hostname: "talos-w1"
-    ipAddress: "10.8.8.118"
+    ipAddress: "10.10.10.118"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -98,7 +98,9 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:cc:3f:12"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.8.8.118/16"
       - deviceSelector:
           hardwareAddr: "bc:24:11:6a:00:a5"
         dhcp: false
@@ -107,11 +109,9 @@ nodes:
           - "10.10.11.118/24"
       - deviceSelector:
           hardwareAddr: "bc:24:11:2a:38:98"
-        dhcp: false
-        addresses:
-          - "10.10.10.118/24"
+        dhcp: true
   - hostname: "talos-w2"
-    ipAddress: "10.8.8.119"
+    ipAddress: "10.10.10.119"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -120,7 +120,9 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:3a:43:88"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.8.8.119/16"
       - deviceSelector:
           hardwareAddr: "bc:24:11:c3:46:2a"
         dhcp: false
@@ -129,11 +131,9 @@ nodes:
           - "10.10.11.119/24"
       - deviceSelector:
           hardwareAddr: "bc:24:11:f6:d0:d5"
-        dhcp: false
-        addresses:
-          - "10.10.10.119/24"
+        dhcp: true
   - hostname: "talos-w3"
-    ipAddress: "10.8.8.112"
+    ipAddress: "10.10.10.112"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -142,7 +142,9 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:aa:d4:ce"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.8.8.112/16"
       - deviceSelector:
           hardwareAddr: "bc:24:11:bd:11:9a"
         dhcp: false
@@ -151,9 +153,7 @@ nodes:
           - "10.10.11.112/24"
       - deviceSelector:
           hardwareAddr: "bc:24:11:88:e4:96"
-        dhcp: false
-        addresses:
-          - "10.10.10.112/24"
+        dhcp: true
   - hostname: "talos-opti"
     ipAddress: "10.8.8.70"
     installDisk: /dev/sda
