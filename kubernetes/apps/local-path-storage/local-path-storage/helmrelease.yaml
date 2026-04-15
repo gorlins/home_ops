@@ -16,14 +16,5 @@ spec:
   values:
     nodePathMap:
       - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
-        paths: []
-      - node: talos-w1
         paths:
           - /var/mnt/data/local-path-storage
-      - node: talos-w2
-        paths:
-          - /var/mnt/data/local-path-storage
-      - node: talos-w3
-        paths:
-          - /var/mnt/data/local-path-storage
-
