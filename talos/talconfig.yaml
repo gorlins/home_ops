@@ -103,11 +103,11 @@ nodes:
     talosImageURL: factory.talos.dev/installer/${pveSchematic}
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:aa:d4:ce"
-        dhcp: false
-        addresses:
-          - "10.8.8.112/16"
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:aa:d4:ce"
+#        dhcp: false
+#        addresses:
+#          - "10.8.8.112/16"
       - deviceSelector:
           hardwareAddr: "bc:24:11:bd:11:9a"
         dhcp: false

@@ -55,7 +55,7 @@ spec:
         provider: host
         addressRanges:
           public:
-            - "10.8.8.0/24"
+            - "10.8.8.0/16"
             - "10.10.10.0/24"
           cluster:
             - "10.10.11.0/24"
