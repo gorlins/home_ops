@@ -10,6 +10,7 @@ spec:
   chart:
     spec:
       chart: *app
+      version: v1.19.4
       sourceRef:
         kind: HelmRepository
         name: rook-release
@@ -22,37 +23,41 @@ spec:
       retries: 3
   values:
     clusterName: rook-ceph
+
     monitoring:
       enabled: true
       createPrometheusRules: true
+
     toolbox:
       enabled: true
+
     route:
       dashboard:
         host:
-          name: rook.soybagel.com
+          name: "rook.${SECRET_DOMAIN}"
           path: /
           pathType: PathPrefix
         parentRefs:
           - name: envoy-internal
             namespace: network
             sectionName: https
+
     cephClusterSpec:
-      cephConfig:
-        global:
-          device_failure_prediction_mode: local # requires mgr module
-          public_network: "10.8.8.0/24"
-          cluster_network: "10.10.11.0/24"
-      cleanupPolicy:
-        wipeDevicesFromOtherClusters: true
-      crashCollector:
-        disable: false
-      csi:
-        readAffinity:
-          enabled: true
-        topology:
-          enabled: false
-          domainLabels: [ ]
+      resources:
+        mgr:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: 2.0 # dashboard can be resource intensive, struggles with <1
+            memory: "1Gi"
+
+      network:
+        provider: host
+        addressRanges:
+          public:
+            - "10.8.8.0/24"
+          cluster:
+            - "10.10.11.0/24"
 
       dashboard:
         enabled: true
@@ -60,11 +65,12 @@ spec:
         port: 7000
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
-        settings:
-          grafana-api-url: http://grafana.observability.svc.cluster.local:80
-          grafana-api-ssl-verify: false
+        prometheusEndpointSSLVerify: false
+#        settings:
+#          grafana-api-url: http://grafana.observability.svc.cluster.local:80
+#          grafana-api-ssl-verify: false
+
       mgr:
-        allowMultiplePerNode: false
         modules:
           - name: diskprediction_local
             enabled: true
@@ -76,19 +82,9 @@ spec:
             enabled: true
           - name: rook
             enabled: true
-      mon:
-        count: 3
-        allowMultiplePerNode: false
-      network:
-        provider: multus
-        selectors:
-          public: kube-system/k8s-net
-          cluster: kube-system/storage-net
+
       storage:
         useAllNodes: true
-        useAllDevices: true
+        useAllDevices: false
         # Only create OSDs on devices that match the regular expression filter, "sdb" in this example
-#        deviceFilter: nvme
-
-        config:
-          osdsPerDevice: "1"
+        deviceFilter: nvme

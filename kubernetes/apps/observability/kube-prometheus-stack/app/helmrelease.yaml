@@ -37,14 +37,25 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: longhorn
               resources:
                 requests:
                   storage: 1Gi
     kubeEtcd:
+      # https://github.com/siderolabs/talos/discussions/7214
       service:
         selector:
-          component: kube-apiserver # etcd runs on control plane nodes
+          component: kube-controller-manager # Fix selector for kube-etcd for Talos (set intentionally to kube-controller-manager because all master nodes has the same roles)
+      serviceMonitor:
+        relabelings: # Add nodename label
+          - sourceLabels: [ __meta_kubernetes_pod_node_name ]
+            separator: ;
+            regex: ^(.*)$
+            targetLabel: nodename
+            replacement: $1
+            action: replace
+        metricRelabelings: # Remove pod label
+          - action: labeldrop
+            regex: pod
     kubeProxy:
       enabled: false
     prometheus:
@@ -59,10 +70,10 @@ spec:
               sectionName: https
       prometheusSpec:
         externalUrl: "https://prometheus.${SECRET_DOMAIN}"
-        image:
-          registry: docker.io
-          repository: prompp/prompp
-          tag: 2.53.2-0.4.0
+#        image:
+#          registry: docker.io
+#          repository: prompp/prompp
+#          tag: 2.53.2-0.4.0
         securityContext:
           runAsNonRoot: true
           runAsUser: 64535
@@ -83,7 +94,6 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: longhorn
               resources:
                 requests:
                   storage: 50Gi
@@ -137,15 +147,5 @@ spec:
                 annotations:
                   summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
                 expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
-                labels:
-                  severity: critical
-      zfs-rules:
-        groups:
-          - name: zfs
-            rules:
-              - alert: ZfsUnexpectedPoolState
-                annotations:
-                  summary: ZFS pool {{$labels.zpool}} on {{$labels.instance}} is in a unexpected state {{$labels.state}}
-                expr: node_zfs_zpool_state{state!="online"} > 0
                 labels:
                   severity: critical

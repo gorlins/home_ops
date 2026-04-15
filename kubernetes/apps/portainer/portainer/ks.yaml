@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
   decryption:
     provider: sops
   healthChecks:

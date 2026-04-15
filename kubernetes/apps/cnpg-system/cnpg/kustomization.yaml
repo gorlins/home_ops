@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./helmrepository.yaml
-  - ./cnpg-longhorn.yaml
+#  - ./cnpg-longhorn.yaml

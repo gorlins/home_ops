@@ -2,6 +2,8 @@
 
 source ./talos_ips.sh
 
+# talosctl health --nodes $node --wait-timeout 5m for CP nodes
+
 read -p "Launch rolling reboot of nodes? <y/N/cp=include control plane> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
@@ -20,7 +22,7 @@ echo ""
 
 for ip in "${NODES[@]}"; do
   # Commands to be executed for each item
-  echo "Rebooting 10.8.8.$ip"
-  sleep 5
-  talosctl reboot -n 10.8.8.$ip --wait
+  echo "Rebooting $ip"
+  sleep 30
+  talosctl reboot -n $ip --wait
 done

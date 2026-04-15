@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
-CONTROLPLANE=("120" "123" "127")
-WORKERS=("70" "112" "118" "119")
+CONFIG=talos/talconfig.yaml
+
+mapfile -t CONTROLPLANE <<< `yq '(.nodes[] | select(.controlPlane)).ipAddress' $CONFIG`
+mapfile -t WORKERS <<< `yq '(.nodes[] | select(.controlPlane|not)).ipAddress' $CONFIG`
 NODES=("${CONTROLPLANE[@]}" "${WORKERS[@]}")
+

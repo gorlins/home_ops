@@ -2,3 +2,12 @@ cluster:
   etcd:
     advertisedSubnets:
       - 10.8.8.0/24
+      - 10.10.10.0/24
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+  controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
+  scheduler:
+    extraArgs:
+      bind-address: 0.0.0.0

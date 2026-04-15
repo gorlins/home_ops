@@ -23,15 +23,18 @@ spec:
       existingSecret: grafana-admin-secret
     env:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-      GF_EXPLORE_ENABLED: true
-      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
-      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+#      GF_EXPLORE_ENABLED: true
+#      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+#      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
       GF_SERVER_ROOT_URL: "https://grafana.${SECRET_DOMAIN}"
+      GF_USERS_DEFAULT_THEME: "light"  # makes embedding in ceph better
     grafana.ini:
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
+      security:
+        allow_embedding: true
       auth.anonymous:
         enabled: true
         org_id: 1
@@ -52,7 +55,13 @@ spec:
             uid: prometheus
             access: proxy
             url: http://prometheus-operated.observability.svc.cluster.local:9090
-            isDefault: true
+            isDefault: false
+          - name: Dashboard1
+            type: prometheus
+            uid: Dashboard1
+            access: proxy
+            url: http://prometheus-operated.observability.svc.cluster.local:9090
+            isDefault: false
           - name: Loki
             type: loki
             uid: loki
@@ -60,6 +69,7 @@ spec:
             url: http://loki-headless.observability.svc.cluster.local:3100
             jsonData:
               maxLines: 250
+            isDefault: false
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -67,6 +77,7 @@ spec:
             url: http://alertmanager-operated.observability.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
+            isDefault: false
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -86,21 +97,21 @@ spec:
           gnetId: 12340
           revision: 1
           datasource: Prometheus
-        ceph-cluster:
-          # renovate: depName="Ceph Cluster"
-          gnetId: 2842
-          revision: 18
-          datasource: Prometheus
-        ceph-osd:
-          # renovate: depName="Ceph - OSD (Single)"
-          gnetId: 5336
-          revision: 9
-          datasource: Prometheus
-        ceph-pools:
-          # renovate: depName="Ceph - Pools"
-          gnetId: 5342
-          revision: 9
-          datasource: Prometheus
+#        ceph-cluster:
+#          # renovate: depName="Ceph Cluster"
+#          gnetId: 2842
+#          revision: 18
+#          datasource: Prometheus
+#        ceph-osd:
+#          # renovate: depName="Ceph - OSD (Single)"
+#          gnetId: 5336
+#          revision: 9
+#          datasource: Prometheus
+#        ceph-pools:
+#          # renovate: depName="Ceph - Pools"
+#          gnetId: 5342
+#          revision: 9
+#          datasource: Prometheus
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
@@ -213,11 +224,47 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        rook-application-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
+          datasource: Dashboard1
+        rook-cluster:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
+          datasource: Dashboard1
+        rook-hosts:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/hosts-overview.json
+          datasource: Dashboard1
+        rook-hosts-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/host-details.json
+          datasource: Dashboard1
+        rook-osds:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
+          datasource: Dashboard1
+        rook-osds-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osd-device-details.json
+          datasource: Dashboard1
+        rook-pool:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-overview.json
+          datasource: Dashboard1
+        rook-pool-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-detail.json
+          datasource: Dashboard1
+        rook-radosgw:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
+          datasource: Dashboard1
+        rook-radosgw-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-detail.json
+          datasource: Dashboard1
+        rook-rbd:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
+          datasource: Dashboard1
+        rook-rbd-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-details.json
+          datasource: Dashboard1
     sidecar:
       image:
         registry: ghcr.io
         repository: home-operations/k8s-sidecar
-        tag: 2.2.3@sha256:eb5ec4e942f47505a1cf996e6cbd375574f974832189bddbd8e43f00a642bb9f
+        tag: 2.5.5@sha256:d3029d5bca619df620961b94e5fd9f6a4c9f12292cc19c9149c0fbea06da54b4
       dashboards:
         enabled: true
         searchNamespace: ALL
@@ -231,11 +278,11 @@ spec:
         searchNamespace: ALL
         labelValue: ""
     plugins:
-      - grafana-clock-panel
+#      - grafana-clock-panel
       - grafana-piechart-panel
-      - grafana-worldmap-panel
-      - natel-discrete-panel
-      - pr0ps-trackmap-panel
+#      - grafana-worldmap-panel
+#      - natel-discrete-panel # Doesn't work because it's old angular?
+#      - pr0ps-trackmap-panel
       - vonage-status-panel
     serviceMonitor:
       enabled: true
