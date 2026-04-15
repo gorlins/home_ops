@@ -2,6 +2,8 @@
 
 source ./talos_ips.sh
 
+# talosctl health --nodes $node --wait-timeout 5m for CP nodes
+
 read -p "Launch rolling reboot of nodes? <y/N/cp=include control plane> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then

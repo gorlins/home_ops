@@ -1,3 +1,16 @@
+# Admin notes
+
+Misc admin notes
+
+## Debugging nodes
+
+To launch a shell on a node
+```bash
+kubectl debug node/talos-w3 -n kube-system -it --image=alpine --profile=sysadmin
+```
+
+## Storage class migrations
+
 Migrating PVC's from one storage class to another
 
 https://github.com/BeryJu/korb
