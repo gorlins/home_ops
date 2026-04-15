@@ -9,6 +9,19 @@ To launch a shell on a node
 kubectl debug node/talos-w3 -n kube-system -it --image=alpine --profile=sysadmin
 ```
 
+## Add a talos node
+
+Provision and boot new node.  If using DHCP make sure node is reflecting desired IP address before continuing.
+
+
+Edit talconfig file, then:
+
+```bash
+task talos:generate-config
+task talos:add-node IP=10.10.10.XYZ
+```
+
+
 ## Storage class migrations
 
 Migrating PVC's from one storage class to another

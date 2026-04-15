@@ -159,6 +159,16 @@ nodes:
         mtu: 9000
         addresses:
           - "10.10.11.70/24"
+  - hostname: "talos-spare"
+    ipAddress: "10.10.10.104"
+    installDisk: /dev/sda
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
+    controlPlane: false
+    networkInterfaces:
+      - interface: ens18
+        dhcp: true
 
 # Global patches
 patches:
