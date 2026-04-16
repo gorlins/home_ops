@@ -46,10 +46,10 @@ spec:
       resources:
         mgr:
           limits:
-            memory: "2Gi"
+            memory: "4Gi"
           requests:
-            cpu: 2.0 # dashboard can be resource intensive, struggles with <1
-            memory: "1Gi"
+            cpu: 4.0 # dashboard can be resource intensive, struggles with <1
+            memory: "2Gi"
 
       network:
         provider: host
