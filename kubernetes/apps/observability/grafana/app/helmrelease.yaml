@@ -224,41 +224,69 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
-        rook-application-overview:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
+      ceph:
+        cluster-advanced:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-cluster-advanced.json
           datasource: Dashboard1
-        rook-cluster:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
+        cluster:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
           datasource: Dashboard1
-        rook-hosts:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/hosts-overview.json
+        host-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/host-details.json
           datasource: Dashboard1
-        rook-hosts-details:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/host-details.json
+        hosts-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/hosts-overview.json
           datasource: Dashboard1
-        rook-osds:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osds-overview.json
+        osd-device-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/osd-device-details.json
           datasource: Dashboard1
-        rook-osds-details:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/osd-device-details.json
+        osds-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/osds-overview.json
           datasource: Dashboard1
-        rook-pool:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-overview.json
+        pool-detail:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/pool-detail.json
           datasource: Dashboard1
-        rook-pool-details:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/pool-detail.json
+        pool-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/pool-overview.json
           datasource: Dashboard1
-        rook-radosgw:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
+        radosgw-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/radosgw-detail.json
           datasource: Dashboard1
-        rook-radosgw-details:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/radosgw-detail.json
+        radosgw-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
           datasource: Dashboard1
-        rook-rbd:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
+        radosgw-sync-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/radosgw-sync-overview.json
           datasource: Dashboard1
-        rook-rbd-details:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/monitoring/ceph-mixin/dashboards_out/rbd-details.json
+        rbd-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rbd-details.json
+          datasource: Dashboard1
+        rbd-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
+          datasource: Dashboard1
+        rgw-s3-analytics:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rgw-s3-analytics.json
+          datasource: Dashboard1
+
+#        ceph-application-overview:
+#          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
+#          datasource: Dashboard1
+
+
+
+
+
+
+
+        ceph-radosgw:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
+          datasource: Dashboard1
+
+        ceph-rbd:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
+          datasource: Dashboard1
+        ceph-rbd-details:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rbd-details.json
           datasource: Dashboard1
     sidecar:
       image:

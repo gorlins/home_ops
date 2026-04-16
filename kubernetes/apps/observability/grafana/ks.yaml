@@ -20,6 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      CEPH_TAG: v19.2.3
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
