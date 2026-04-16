@@ -90,6 +90,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
+          - name: ceph
+            orgId: 1
+            folder: "ceph"
+            type: file
+            disableDeletion: true
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/ceph
     dashboards:
       default:
         apc-ups:
@@ -272,22 +280,6 @@ spec:
 #          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
 #          datasource: Dashboard1
 
-
-
-
-
-
-
-        ceph-radosgw:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/radosgw-overview.json
-          datasource: Dashboard1
-
-        ceph-rbd:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
-          datasource: Dashboard1
-        ceph-rbd-details:
-          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rbd-details.json
-          datasource: Dashboard1
     sidecar:
       image:
         registry: ghcr.io
