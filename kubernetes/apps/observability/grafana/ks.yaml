@@ -21,7 +21,7 @@ spec:
     substitute:
       APP: *app
       # renovate: datasource=github-tags depName=ceph/ceph
-      CEPH_TAG: v19.2.3
+      CEPH_TAG: v20.2.1
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
