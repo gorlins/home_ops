@@ -23,6 +23,8 @@ spec:
       retries: 3
   values:
     clusterName: rook-ceph
+    cephImage:
+      tag: ${CEPH_TAG}
 
     monitoring:
       enabled: true

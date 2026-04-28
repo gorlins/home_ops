@@ -39,6 +39,8 @@ spec:
     substitute:
       APP: *app
       GATUS_SUBDOMAIN: rook
+      # renovate: datasource=github-tags packageName=ceph/ceph depName=ceph
+      CEPH_TAG: v19.2.3
   prune: true
   retryInterval: 2m
   sourceRef:

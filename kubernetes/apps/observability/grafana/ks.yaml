@@ -20,7 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      # renovate: depName="ceph"
+      # renovate: datasource=github-tags packageName=ceph/ceph depName=ceph
       CEPH_TAG: v19.2.3
     substituteFrom:
       - name: cluster-secrets
