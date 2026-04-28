@@ -233,17 +233,35 @@ spec:
           revision: 4
           datasource: Prometheus
       ceph:
+        application-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
+          datasource: Dashboard1
         cluster-advanced:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-cluster-advanced.json
           datasource: Dashboard1
         cluster:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-cluster.json
           datasource: Dashboard1
+        nvmeof-performance:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-nvmeof-performance.json
+          datasource: Dashboard1
+        nvmeof:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-nvmeof.json
+          datasource: Dashboard1
+        cephfs-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/cephfs-overview.json
+          datasource: Dashboard1
+        cephfsdashboard:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/cephfsdashboard.json
+          datasource: Dashboard1
         host-details:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/host-details.json
           datasource: Dashboard1
         hosts-overview:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/hosts-overview.json
+          datasource: Dashboard1
+        multi-cluster-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/multi-cluster-overview.json
           datasource: Dashboard1
         osd-device-details:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/osd-device-details.json
@@ -275,10 +293,9 @@ spec:
         rgw-s3-analytics:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/rgw-s3-analytics.json
           datasource: Dashboard1
-
-#        ceph-application-overview:
-#          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
-#          datasource: Dashboard1
+        smb-overview:
+          url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/smb-overview.json
+          datasource: Dashboard1
 
     sidecar:
       image:
