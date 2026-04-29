@@ -56,3 +56,19 @@ Push changes to git, resume kustomization
 kubectl get cluster -n immich immich-database
 kubectl-cnpg status -n immich immich-database
 ```
+
+
+## Volume commands
+
+```bash
+talosctl get mounts
+NODE           NAMESPACE   TYPE          ID          VERSION   SOURCE      TARGET          FILESYSTEM TYPE
+10.10.10.118   runtime     MountStatus   EPHEMERAL   1         /dev/sda4   /var            xfs
+10.10.10.118   runtime     MountStatus   u-data      1         /dev/sdb1   /var/mnt/data   xfs
+
+talosctl get disks -n 10.10.10.118
+NODE           NAMESPACE   TYPE   ID        VERSION   SIZE     READ ONLY   TRANSPORT   ROTATIONAL   WWID                                   MODEL           SERIAL                                            
+10.10.10.118   runtime     Disk   nvme0n1   2         500 GB   false       nvme                     eui.000000000000000100a0752447507754   CT500P3PSSD8    240547507754
+
+talosctl wipe disk nvme0n1 --drop-partition -n 10.10.10.118 
+```
