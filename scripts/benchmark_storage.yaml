@@ -10,7 +10,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 12Gi
   storageClassName: ceph-rbd
 ---
 apiVersion: batch/v1
