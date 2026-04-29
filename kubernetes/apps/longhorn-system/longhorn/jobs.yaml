@@ -1,7 +1,7 @@
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: daily_snapshots
+  name: daily-snapshots
 spec:
   cron: "40 6 * * *"
   task: "snapshot"
