@@ -22,9 +22,14 @@ spec:
     cephClusterSpec:
       external:
         enable: true
+      cephVersion:
+        image: quay.io/ceph/ceph:v19  # Match with proxmox
       dataDirHostPath: /var/lib/rook/pve
       crashCollector:
         disable: true
+      monitoring:
+        enabled: true
+        externalMgrPrometheusPort: 9283
       healthCheck:
         daemonHealth:
           mon:
