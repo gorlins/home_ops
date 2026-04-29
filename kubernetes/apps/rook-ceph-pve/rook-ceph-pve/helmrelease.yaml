@@ -30,16 +30,18 @@ spec:
           mon:
             disabled: false
             interval: 45s
-      cephBlockPools:
-        - name: rook
-          storageClass:
-            name: ceph-rbd  # Match the import script
-            isDefault: false
+    cephBlockPools:
+      - name: ceph-blockpool
+        storageClass:
+          name: ceph-rbd  # Match the import script
+          isDefault: false
 
-      cephFileSystems:
-        - name: cephfs
-          storageClass:
-            name: cephfs # Match the import script
+    cephFileSystems:
+      - name: ceph-filesystem
+        storageClass:
+          name: cephfs # Match the import script
+
+    cephObjectStores: {}
 
 #    route:
 #      dashboard:
