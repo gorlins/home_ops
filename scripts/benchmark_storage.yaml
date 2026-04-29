@@ -11,7 +11,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ceph-block
+  storageClassName: ceph-rbd
 ---
 apiVersion: batch/v1
 kind: Job
