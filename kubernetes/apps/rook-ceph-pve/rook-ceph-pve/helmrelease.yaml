@@ -30,17 +30,10 @@ spec:
           mon:
             disabled: false
             interval: 45s
-    cephBlockPools:
-      - name: ceph-blockpool
-        storageClass:
-          name: ceph-rbd  # Match the import script
-          isDefault: false
 
-    cephFileSystems:
-      - name: ceph-filesystem
-        storageClass:
-          name: cephfs # Match the import script
-
+    # Created by the import script
+    cephBlockPools: {}
+    cephFileSystems: {}
     cephObjectStores: {}
 
 #    route:
