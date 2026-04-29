@@ -31,14 +31,8 @@ spec:
             disabled: false
             interval: 45s
 
-    # Import script will create the storage classes, but not the block pools, confusingly
-    cephBlockPools:
-      - name: ceph-blockpool
-        storageClass:
-          enabled: false
-        spec:
-          replicated:
-            size: 3
+    # Pools are not needed - they are created and/or referenced by the import script
+    cephBlockPools: {}
     cephFileSystems: {}
     cephObjectStores: {}
 
