@@ -20,6 +20,10 @@ spec:
       snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: true
       snapshotDataIntegrity: enabled
 
+    defaultBackupStore:
+      backupTarget: "s3://scottgorlin-k8s-backup@backblaze/longhorn/"
+      backupTargetCredentialSecret: backblaze-credentials
+
     persistence:
       defaultDataLocality: best-effort
 
