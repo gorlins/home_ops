@@ -36,6 +36,9 @@ spec:
       - name: ceph-blockpool
         storageClass:
           enabled: false
+        spec:
+          replicated:
+            size: 3
     cephFileSystems: {}
     cephObjectStores: {}
 
