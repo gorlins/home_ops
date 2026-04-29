@@ -38,7 +38,7 @@ Pause kustomization and scale deployment to 0 first, then proceed
 ```bash
 export NS=portainer
 
-# Check to ensure no pods are using PVC
+# Check to ensure no pods are using PVC.  May need to evict errored out pods?
 kubectl get pods -n $NS -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.volumes[*].persistentVolumeClaim.claimName}{"\n"}{end}'
 
 # Migrate
