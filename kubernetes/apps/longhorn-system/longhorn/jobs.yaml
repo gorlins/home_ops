@@ -1,7 +1,7 @@
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: Snapshot
+  name: daily_snapshots
 spec:
   cron: "40 6 * * *"
   task: "snapshot"
@@ -13,7 +13,7 @@ spec:
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: System Backup
+  name: weekly-system-backup
 spec:
   task: system-backup
   cron: '45 7 */7 * *'
