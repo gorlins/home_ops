@@ -16,7 +16,7 @@ metadata:
   name: weekly-system-backup
 spec:
   task: system-backup
-  cron: '45 7 */7 * *'
+  cron: '45 7 * * SAT'
   retain: 12
   parameters:
     volume-backup-policy: if-not-present
