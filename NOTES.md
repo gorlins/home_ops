@@ -49,3 +49,10 @@ korb --source-namespace $NS --new-pvc-namespace $NS --new-pvc-storage-class $NEW
 ```
 
 Push changes to git, resume kustomization
+
+## CNPG
+
+```bash
+kubectl get cluster -n immich immich-database
+kubectl-cnpg status -n immich immich-database
+```
