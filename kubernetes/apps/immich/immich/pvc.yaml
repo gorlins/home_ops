@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: immich-library
 spec:
-  storageClassName: ceph-block # Empty string must be explicitly set otherwise default StorageClass will be set
   accessModes:
     - ReadWriteOnce # Access mode requested (e.g., ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
   resources:
