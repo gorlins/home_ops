@@ -39,6 +39,10 @@ spec:
     monitoring:
       enabled: true
       externalMgrPrometheusPort: 9283
+      externalMgrEndpoints:  # Apparently it can't use it's own config to find these
+        - ip: "10.10.10.63"
+        - ip: "10.10.10.64"
+        - ip: "10.10.10.72"
       # Create Prometheus rules for alerting
       createPrometheusRules: true
 
