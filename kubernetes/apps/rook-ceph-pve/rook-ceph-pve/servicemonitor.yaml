@@ -18,3 +18,17 @@ spec:
     matchLabels:
       app: rook-ceph-mgr
       rook_cluster: rook-ceph-pve
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: rook-ceph-mgr-external
+subsets:
+  - addresses:
+      - ip: "10.10.10.63"
+      - ip: "10.10.10.64"
+      - ip: "10.10.10.72"
+    ports:
+      - name: http-metrics
+        port: 9283
+        protocol: TCP
