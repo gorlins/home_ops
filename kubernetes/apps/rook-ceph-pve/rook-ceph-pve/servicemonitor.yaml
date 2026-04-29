@@ -29,6 +29,6 @@ subsets:
       - ip: "10.10.10.64"
       - ip: "10.10.10.72"
     ports:
-      - name: http-metrics
+      - name: http-external-metrics
         port: 9283
         protocol: TCP
