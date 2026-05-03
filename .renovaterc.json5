@@ -69,6 +69,14 @@
       ignoreTests: true,
     },
     {
+      description: "Auto-merge helm patches",
+      matchManagers: ["helm"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["patch"],
+      ignoreTests: false,
+    },
+    {
       matchUpdateTypes: ["major"],
       semanticCommitType: "feat",
       commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
