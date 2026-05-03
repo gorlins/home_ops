@@ -14,7 +14,10 @@
   schedule: ["every weekend"],
   ignorePaths: ["**/*.sops.*", ",.mise.toml'", "archived/*", "templates/*"],
   flux: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/",
+      "/(^|/)clusters/.+\\.ya?ml(?:\\.j2)?$/"
+    ],
   },
   helmfile: {
     managerFilePatterns: [
@@ -23,7 +26,10 @@
     ],
   },
   kubernetes: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/",
+      "/(^|/)clusters/.+\\.ya?ml(?:\\.j2)?$/"
+    ],
   },
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
