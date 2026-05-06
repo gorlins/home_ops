@@ -69,11 +69,11 @@
       ignoreTests: true,
     },
     {
-      description: "Auto-merge helm patches",
-      matchManagers: ["helm", "kubernetes"],
+      description: "Auto-merge patches",
+      matchUpdateTypes: ["patch"],
+      matchCurrentVersion: "!/^0/",
       automerge: true,
       automergeType: "branch",
-      matchUpdateTypes: ["patch"],
       ignoreTests: false,
     },
     {
