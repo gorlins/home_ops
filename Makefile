@@ -1,4 +1,4 @@
-schematics/%.json: schematics/%.yaml
+talos/schematics/%.json: schematics/%.yaml
 	curl -X POST --data-binary @$^ https://factory.talos.dev/schematics > $@
 
 scripts/rook/import-external-cluster.sh:
