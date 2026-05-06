@@ -70,7 +70,7 @@
     },
     {
       description: "Auto-merge helm patches",
-      matchManagers: ["helm"],
+      matchManagers: ["helm", "kubernetes"],
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["patch"],
