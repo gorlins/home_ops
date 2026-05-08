@@ -8,7 +8,7 @@ spec:
   groups:
   - default
   retain: 30
-
+  concurrency: 1
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -18,5 +18,6 @@ spec:
   task: system-backup
   cron: '45 7 * * SAT'
   retain: 12
+  concurrency: 1
   parameters:
     volume-backup-policy: if-not-present
