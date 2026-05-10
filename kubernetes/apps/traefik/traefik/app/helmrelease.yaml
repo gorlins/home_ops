@@ -32,7 +32,7 @@ spec:
         allowCrossNamespace: true
       kubernetesIngress:
         enabled: true
-      kubernetesIngressNginx:
+      kubernetesIngressNGINX:
         # -- Enable Kubernetes Ingress NGINX provider
         enabled: true
 
