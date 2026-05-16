@@ -29,10 +29,6 @@ spec:
               namespace: network
               sectionName: https
       alertmanagerSpec:
-        alertmanagerConfiguration:
-          name: alertmanager
-          global:
-            resolveTimeout: 5m
         externalUrl: "https://alertmanager.${SECRET_DOMAIN}"
         storage:
           volumeClaimTemplate:
