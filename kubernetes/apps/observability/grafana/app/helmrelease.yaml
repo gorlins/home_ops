@@ -98,6 +98,14 @@ spec:
             editable: false
             options:
               path: /var/lib/grafana/dashboards/ceph
+          - name: kubernetes
+            orgId: 1
+            folder: "kubernetes"
+            type: file
+            disableDeletion: true
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/kubernetes
     dashboards:
       default:
         apc-ups:
@@ -105,21 +113,6 @@ spec:
           gnetId: 12340
           revision: 1
           datasource: Prometheus
-#        ceph-cluster:
-#          # renovate: depName="Ceph Cluster"
-#          gnetId: 2842
-#          revision: 18
-#          datasource: Prometheus
-#        ceph-osd:
-#          # renovate: depName="Ceph - OSD (Single)"
-#          gnetId: 5336
-#          revision: 9
-#          datasource: Prometheus
-#        ceph-pools:
-#          # renovate: depName="Ceph - Pools"
-#          gnetId: 5342
-#          revision: 9
-#          datasource: Prometheus
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
@@ -142,47 +135,12 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        kubernetes-api-server:
-          # renovate: depName="Kubernetes / System / API Server"
-          gnetId: 15761
-          revision: 19
-          datasource: Prometheus
-        kubernetes-coredns:
-          # renovate: depName="Kubernetes / System / CoreDNS"
-          gnetId: 15762
-          revision: 21
-          datasource: Prometheus
-        kubernetes-global:
-          # renovate: depName="Kubernetes / Views / Global"
-          gnetId: 15757
-          revision: 43
-          datasource: Prometheus
-        kubernetes-namespaces:
-          # renovate: depName="Kubernetes / Views / Namespaces"
-          gnetId: 15758
-          revision: 42
-          datasource: Prometheus
-        kubernetes-nodes:
-          # renovate: depName="Kubernetes / Views / Nodes"
-          gnetId: 15759
-          revision: 37
-          datasource: Prometheus
-        kubernetes-pods:
-          # renovate: depName="Kubernetes / Views / Pods"
-          gnetId: 15760
-          revision: 36
-          datasource: Prometheus
-        kubernetes-volumes:
-          # renovate: depName="K8s / Storage / Volumes / Cluster"
-          gnetId: 11454
-          revision: 14
-          datasource: Prometheus
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 41
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - { name: DS_PROMETHEUS, value: Prometheus }
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
@@ -193,45 +151,83 @@ spec:
           gnetId: 22604
           revision: 2
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
-        unifi-pdu:
-          # renovate: depName="UniFi-Poller: PDU Insights - Prometheus"
-          gnetId: 23027
-          revision: 1
-          datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
-        unifi-insights:
-          # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
-          gnetId: 11315
-          revision: 9
+            - { name: DS_PROMETHEUS, value: Prometheus }
+      kubernetes:
+        api-server:
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 19
           datasource: Prometheus
-        unifi-network-sites:
-          # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
-          gnetId: 11311
-          revision: 5
+        coredns:
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
+          revision: 21
           datasource: Prometheus
-        unifi-uap:
-          # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
-          gnetId: 11314
-          revision: 10
+        global:
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 43
           datasource: Prometheus
-        unifi-usw:
-          # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
-          gnetId: 11312
-          revision: 9
+        namespaces:
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 42
           datasource: Prometheus
-        volsync:
-          # renovate: depName="VolSync Dashboard"
-          gnetId: 21356
-          revision: 3
-          datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
-            - {name: VAR_REPLICATIONDESTNAME, value: .*-dst}
-        zfs:
-          # renovate: depName="ZFS"
-          gnetId: 7845
-          revision: 4
+        nodes:
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 37
           datasource: Prometheus
+        pods:
+          # renovate: depName="Kubernetes / Views / Pods"
+          gnetId: 15760
+          revision: 36
+          datasource: Prometheus
+        volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
+          datasource: Prometheus
+#      unifi:
+#        unifi-pdu:
+#          # renovate: depName="UniFi-Poller: PDU Insights - Prometheus"
+#          gnetId: 23027
+#          revision: 1
+#          datasource:
+#            - {name: DS_PROMETHEUS, value: Prometheus}
+#        unifi-insights:
+#          # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
+#          gnetId: 11315
+#          revision: 9
+#          datasource: Prometheus
+#        unifi-network-sites:
+#          # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
+#          gnetId: 11311
+#          revision: 5
+#          datasource: Prometheus
+#        unifi-uap:
+#          # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
+#          gnetId: 11314
+#          revision: 10
+#          datasource: Prometheus
+#        unifi-usw:
+#          # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
+#          gnetId: 11312
+#          revision: 9
+#          datasource: Prometheus
+#      other:
+#        volsync:
+#          # renovate: depName="VolSync Dashboard"
+#          gnetId: 21356
+#          revision: 3
+#          datasource:
+#            - {name: DS_PROMETHEUS, value: Prometheus}
+#            - {name: VAR_REPLICATIONDESTNAME, value: .*-dst}
+#        zfs:
+#          # renovate: depName="ZFS"
+#          gnetId: 7845
+#          revision: 4
+#          datasource: Prometheus
       ceph:
         application-overview:
           url: https://raw.githubusercontent.com/ceph/ceph/refs/tags/${CEPH_TAG}/monitoring/ceph-mixin/dashboards_out/ceph-application-overview.json
