@@ -98,13 +98,47 @@ spec:
             editable: false
             options:
               path: /var/lib/grafana/dashboards/ceph
+          - name: network
+            orgId: 1
+            folder: "network"
+            type: file
+            disableDeletion: true
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/network
+          - name: other
+            orgId: 1
+            folder: "other"
+            type: file
+            disableDeletion: true
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/other
     dashboards:
-      default:
+      other:
         apc-ups:
           # renovate: depName="APC UPS (SNMP)"
           gnetId: 12340
           revision: 1
           datasource: Prometheus
+        node-exporter-full:
+          # renovate: depName="Node Exporter Full"
+          gnetId: 1860
+          revision: 41
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        prometheus:
+          # renovate: depName="Prometheus"
+          gnetId: 19105
+          revision: 7
+          datasource: Prometheus
+        smartctl-exporter:
+          # renovate: depName="SMARTctl Exporter Dashboard"
+          gnetId: 22604
+          revision: 2
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+      network:
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
@@ -127,23 +161,6 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        node-exporter-full:
-          # renovate: depName="Node Exporter Full"
-          gnetId: 1860
-          revision: 41
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
-        prometheus:
-          # renovate: depName="Prometheus"
-          gnetId: 19105
-          revision: 7
-          datasource: Prometheus
-        smartctl-exporter:
-          # renovate: depName="SMARTctl Exporter Dashboard"
-          gnetId: 22604
-          revision: 2
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
 #      unifi:
 #        unifi-pdu:
 #          # renovate: depName="UniFi-Poller: PDU Insights - Prometheus"
