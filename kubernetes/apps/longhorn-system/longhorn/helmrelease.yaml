@@ -19,6 +19,7 @@ spec:
       defaultDataLocality: best-effort
       snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: true
       snapshotDataIntegrity: enabled
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
 
     defaultBackupStore:
       backupTarget: "s3://scottgorlin-k8s-backup@backblaze/longhorn/"
