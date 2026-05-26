@@ -90,9 +90,25 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
+    - name: ldap
+      protocol: TCP
+      port: 389
+      allowedRoutes:
+        namespaces:
+          from: All
     - name: https
       protocol: HTTPS
       port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: ${SECRET_DOMAIN/./-}-production-tls
+    - name: ldaps
+      protocol: TLS
+      port: 636
       allowedRoutes:
         namespaces:
           from: All
