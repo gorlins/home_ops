@@ -22,7 +22,15 @@ spec:
               name: authentik
               namespace: authentik
               key: secret_key
-
+      volumes:
+        - name: tls-cert
+          secret:
+            secretName: ${SECRET_DOMAIN/./-}-production-tls # The secret created by cert-manager
+      volumeMounts:
+        - name: tls-cert
+          mountPath: /certs/certmanager
+          readOnly: true
+          
       # This sends anonymous usage-data, stack traces on errors and
       # performance data to sentry.io, and is fully opt-in
       error_reporting:
