@@ -83,6 +83,16 @@ spec:
         port: 443
         nodePort: 30001
 
+      ldap:
+        port: 389
+        nodePort: 3890
+        protocol: TCP
+
+      ldaps:
+        port: 636
+        nodePort: 6360
+        protocol: TCP
+
     # Enables the dashboard in Secure Mode
     api:
       dashboard: true
