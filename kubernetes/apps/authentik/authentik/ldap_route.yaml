@@ -7,7 +7,6 @@ spec:
     - ldap
   routes:
   - match: Host(`ldap.{$SECRET_DOMAIN}`)
-    kind: Rule
     services:
     - name: ak-outpost-ldap
       port: 389
@@ -22,7 +21,6 @@ spec:
     - ldaps
   routes:
   - match: Host(`ldap.{$SECRET_DOMAIN}`)
-    kind: Rule
     services:
     - name: ak-outpost-ldap  # Handle termination here instead of backend
       port: 389
