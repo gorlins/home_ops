@@ -94,6 +94,10 @@ spec:
         exposedPort: 636
         targetPort: 636
         protocol: TCP
+        transport:
+          forceInsecureTransport:
+            # Allow authentik self signed cert
+            insecureSkipVerify: true
         expose:
           default: true
 
