@@ -86,14 +86,16 @@ spec:
         exposedPort: 389
         targetPort: 389
         protocol: TCP
-        expose: true
+        expose:
+          default: true
 
       ldaps:
         port: 636
         exposedPort: 636
         targetPort: 636
         protocol: TCP
-        expose: true
+        expose:
+          default: true
 
     # Enables the dashboard in Secure Mode
     api:
