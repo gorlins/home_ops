@@ -69,7 +69,6 @@ spec:
       # Defines the HTTP entry point named 'web'
       web:
         port: 80
-        nodePort: 30000
         # Instructs this entry point to redirect all traffic to the 'websecure' entry point
         http:
           redirections:
@@ -81,16 +80,15 @@ spec:
       # Defines the HTTPS entry point named 'websecure'
       websecure:
         port: 443
-        nodePort: 30001
 
       ldap:
         port: 389
-        nodePort: 3890
+        targetPort: 389
         protocol: TCP
 
       ldaps:
         port: 636
-        nodePort: 6360
+        targetPort: 636
         protocol: TCP
 
     # Enables the dashboard in Secure Mode
