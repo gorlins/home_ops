@@ -10,6 +10,8 @@ spec:
     services:
     - name: ak-outpost-ldap
       port: 389
+      # Here, nativeLB instructs to build the servers load balancer with the Kubernetes Service clusterIP only.
+      nativeLB: true
 
 ---
 apiVersion: traefik.io/v1alpha1
@@ -22,8 +24,9 @@ spec:
   routes:
   - match: HostSNI(`ldap.${SECRET_DOMAIN}`)
     services:
-    - name: ak-outpost-ldap  # Handle termination here instead of backend
-      port: 389
+    - name: ak-outpost-ldap
+      port: 389 # Handle termination here instead of backend, bypass Authentik cert
+      nativeLB: true
   tls:
     certResolver: le
     domains:
