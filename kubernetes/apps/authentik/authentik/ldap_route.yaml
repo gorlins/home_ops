@@ -25,7 +25,7 @@ spec:
   - match: HostSNI(`ldap.${SECRET_DOMAIN}`)
     services:
     - name: ak-outpost-ldap
-      port: 389 # Handle termination here instead of backend, bypass Authentik cert
+      port: 636
       nativeLB: true
   tls:
     certResolver: le
