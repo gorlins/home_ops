@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - ldap
   routes:
-  - match: Host(`ldap.{$SECRET_DOMAIN}`)
+  - match: Host(`ldap.${SECRET_DOMAIN}`)
     services:
     - name: ak-outpost-ldap
       port: 389
@@ -20,11 +20,11 @@ spec:
   entryPoints:
     - ldaps
   routes:
-  - match: Host(`ldap.{$SECRET_DOMAIN}`)
+  - match: Host(`ldap.${SECRET_DOMAIN}`)
     services:
     - name: ak-outpost-ldap  # Handle termination here instead of backend
       port: 389
   tls:
     certResolver: le
     domains:
-    - main: ldap.{$SECRET_DOMAIN}
+    - main: ldap.${SECRET_DOMAIN}
