@@ -7,7 +7,19 @@ spec:
   task: "snapshot"
   groups:
   - default
-  retain: 30
+  retain: 7
+  concurrency: 1
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: monthly-snapshots
+spec:
+  cron: "34 7 1 * *"
+  task: "snapshot"
+  groups:
+  - default
+  retain: 6
   concurrency: 1
 ---
 apiVersion: longhorn.io/v1beta2
@@ -21,3 +33,27 @@ spec:
   concurrency: 1
   parameters:
     volume-backup-policy: if-not-present
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: filesystem-trim
+spec:
+  task: filesystem-trim
+  cron: '0 0 * * *'
+  retain: 12
+  concurrency: 1
+  parameters:
+    volume-backup-policy: if-not-present
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: cleanup
+spec:
+  cron: "50 23 * * *"
+  task: "snapshot-cleanup"
+  groups:
+  - default
+  retain: 0
+  concurrency: 1
