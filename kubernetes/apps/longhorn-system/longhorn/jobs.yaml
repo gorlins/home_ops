@@ -25,11 +25,11 @@ spec:
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: weekly-system-backup
+  name: monthly-system-backup
 spec:
   task: system-backup
-  cron: '45 7 * * SAT'
-  retain: 12
+  cron: '45 7 1 * *'
+  retain: 2  # These are full backups, so don't store many
   concurrency: 1
   parameters:
     volume-backup-policy: if-not-present
