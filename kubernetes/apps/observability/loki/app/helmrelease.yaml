@@ -44,6 +44,9 @@ spec:
         log_level: info
       storage:
         type: filesystem
+        bucketNames: # not needed w/ filesystem, but schema checks require?
+          chunks: FIXME
+          ruler: FIXME
       schemaConfig:
         configs:
           - from: "2024-04-01" # quote
