@@ -95,3 +95,14 @@ spec:
       rules:
         searchNamespace: ALL
         folder: /rules/fake
+    route:
+      main:
+        enabled: true
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            group: gateway.networking.k8s.io
+            kind: Gateway
+            namespace: network
+            sectionName: https
