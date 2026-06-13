@@ -55,8 +55,8 @@ nodes:
     ipAddress: "10.10.10.118"
     installDisk: "/dev/sda"
     machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/${pveSchematic}
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -89,8 +89,8 @@ nodes:
     ipAddress: "10.10.10.112"
     installDisk: "/dev/sda"
     machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/${pveSchematic}
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
     controlPlane: false
     networkInterfaces:
       - deviceSelector:

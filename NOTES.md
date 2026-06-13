@@ -21,6 +21,18 @@ task talos:generate-config
 task talos:add-node IP=10.10.10.XYZ
 ```
 
+## Convert talos node to secureboot
+
+Make sure node has:
+* TPM state drive (no pre-enrolled keys)
+* EFI disk and bios UEFI
+* Update url in talconfig.yaml to factory.talos.dev/installer-secureboot/HASH and `secureboot: true`
+* install `task talos:upgrade-node IP=10.10.10.IP`
+* Boot will likely fail
+* Mount the secureboot ISO on node
+* Reboot to ISO (will enroll keys)
+* Reboot to firmware and enable secure boot
+* Reboot into talos.  SECUREBOOT should show True
 
 ## Storage class migrations
 
@@ -71,4 +83,10 @@ NODE           NAMESPACE   TYPE   ID        VERSION   SIZE     READ ONLY   TRANS
 10.10.10.118   runtime     Disk   nvme0n1   2         500 GB   false       nvme                     eui.000000000000000100a0752447507754   CT500P3PSSD8    240547507754
 
 talosctl wipe disk nvme0n1 --drop-partition -n 10.10.10.118 
+```
+
+## Check a ceph cluster
+
+```bash
+kubectl get cephcluster -n rook-ceph-pve
 ```
