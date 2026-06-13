@@ -19,13 +19,15 @@ spec:
     remediation:
       retries: 3
   values:
-    deploymentMode: SingleBinary
+    deploymentMode: Monolithic
     loki:
       auth_enabled: false
       analytics:
         reporting_enabled: false
       commonConfig:
         replication_factor: 1
+        storage:
+          type: filesystem
       compactor:
         working_directory: /var/loki/compactor/retention
         delete_request_store: filesystem
@@ -42,6 +44,9 @@ spec:
         log_level: info
       storage:
         type: filesystem
+        bucketNames: # not needed w/ filesystem, but schema checks require?
+          chunks: FIXME
+          ruler: FIXME
       schemaConfig:
         configs:
           - from: "2024-04-01" # quote
@@ -90,3 +95,14 @@ spec:
       rules:
         searchNamespace: ALL
         folder: /rules/fake
+    route:
+      main:
+        enabled: true
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            group: gateway.networking.k8s.io
+            kind: Gateway
+            namespace: network
+            sectionName: https
