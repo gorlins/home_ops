@@ -9,10 +9,9 @@ spec:
   - match: HostSNI(`*`)  # Apparently can't detect hosts on TCP w/o TLS
     services:
     - name: ak-outpost-ldap
-      port: 389
+      port: ldap
       # Here, nativeLB instructs to build the servers load balancer with the Kubernetes Service clusterIP only.
       nativeLB: true
-
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -25,7 +24,7 @@ spec:
   - match: HostSNI(`ldap.${SECRET_DOMAIN}`)
     services:
     - name: ak-outpost-ldap
-      port: 389 # Handle tls decryption here, point to ldap port
+      port: ldaps
       nativeLB: true
   tls:
     certResolver: le
