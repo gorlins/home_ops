@@ -88,10 +88,6 @@ spec:
         protocol: TCP
         expose:
           default: true
-        transport:
-          forceInsecureTransport:
-            # Allow authentik self signed cert
-            insecureSkipVerify: true
 
       ldaps:
         port: 636

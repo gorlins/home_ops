@@ -24,7 +24,7 @@ spec:
   - match: HostSNI(`ldap.${SECRET_DOMAIN}`)
     services:
     - name: ak-outpost-ldap
-      port: ldaps
+      port: ldap # TLS handled by ingress, point to insecure in the back
       nativeLB: true
   tls:
     certResolver: le
