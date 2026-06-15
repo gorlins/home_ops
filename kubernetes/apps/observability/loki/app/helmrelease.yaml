@@ -20,6 +20,14 @@ spec:
       retries: 3
   values:
     deploymentMode: Monolithic
+    # Zero out replica counts of other deployment modes
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+      
     loki:
       auth_enabled: false
       analytics:
