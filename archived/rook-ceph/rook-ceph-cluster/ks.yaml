@@ -40,7 +40,7 @@ spec:
       APP: *app
       GATUS_SUBDOMAIN: rook
       # renovate: datasource=github-tags depName=ceph/ceph
-      CEPH_TAG: v20.2.1
+      CEPH_TAG: v20.2.2
   prune: true
   retryInterval: 2m
   sourceRef:
