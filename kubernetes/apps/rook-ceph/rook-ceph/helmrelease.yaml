@@ -14,19 +14,20 @@ spec:
         kind: HelmRepository
         name: rook-release
   values:
-    enableDiscoveryDaemon: true
-    monitoring:
-      enabled: true
-    csi:
-      serviceMonitor:
-        enabled: true
-      enableLiveness: true
-
-      # Metrics port for the RBD plugin
-      rbdLivenessMetricsPort: 9080
-
-      # Metrics port for the CephFS plugin
-      cephfsLivenessMetricsPort: 9081
+    # Disable the below if only using external clusters
+#    enableDiscoveryDaemon: true
+#    monitoring:
+#      enabled: true
+#    csi:
+#      serviceMonitor:
+#        enabled: true
+#      enableLiveness: true
+#
+#      # Metrics port for the RBD plugin
+#      rbdLivenessMetricsPort: 9080
+#
+#      # Metrics port for the CephFS plugin
+#      cephfsLivenessMetricsPort: 9081
 
     rbacEnable: true
     rbacAggregate:
