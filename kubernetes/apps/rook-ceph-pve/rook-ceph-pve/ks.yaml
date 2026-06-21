@@ -12,7 +12,7 @@ spec:
 #  components:
 #    - ../../../../components/gatus/guarded
   dependsOn:
-    - name: rook-ceph
+    - name: ceph-csi-drivers
       namespace: rook-ceph
   decryption:
     provider: sops
