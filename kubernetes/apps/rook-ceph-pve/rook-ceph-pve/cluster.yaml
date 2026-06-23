@@ -16,7 +16,7 @@ spec:
   external:
     enable: true
   cephVersion:
-    image: quay.io/ceph/ceph:v20.2.1 # <--- MUST match the external Ceph major/minor version
+    image: quay.io/ceph/ceph:v20.2.2 # <--- MUST match the external Ceph major/minor version
   crashCollector:
     disable: true
   healthCheck:
