@@ -65,7 +65,6 @@ spec:
             value: /
       backendRefs:
         - name: superset
-          port: http
           namespace: *namespace
 
 ---
