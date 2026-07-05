@@ -16,6 +16,11 @@ spec:
     postgresql:
       enabled: false
     extraEnvRaw:
+      - name: SQLALCHEMY_DATABASE_URI
+        valueFrom:
+          secretKeyRef:
+            name: superset-database-app
+            key: uri
       - name: DB_HOST
         valueFrom:
           secretKeyRef:
@@ -43,6 +48,9 @@ spec:
           secretKeyRef:
             name: superset
             key: secret_key
+    configOverrides:
+      database: |
+        SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
