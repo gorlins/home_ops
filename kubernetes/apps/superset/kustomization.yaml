@@ -7,5 +7,6 @@ components:
   - ../../components/common
   - ../../components/cnpg-backup
 resources:
+  - ./namespace.yaml
   - ./superset/ks.yaml
   - ./postgres/ks.yaml
