@@ -41,8 +41,8 @@ spec:
       - name: SUPERSET_SECRET_KEY
         valueFrom:
           secretKeyRef:
-          name: superset
-          key: secret_key
+            name: superset
+            key: secret_key
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
