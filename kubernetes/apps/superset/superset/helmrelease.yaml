@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: superset
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: superset
+      sourceRef:
+        kind: HelmRepository
+        name: superset
+  values:
+    postgresql:
+      enabled: false
+    extraEnvRaw:
+      - name: DB_HOST
+        valueFrom:
+          secretKeyRef:
+            name: superset-postgres-app
+            key: host
+      - name: DB_NAME
+        valueFrom:
+          secretKeyRef:
+            name: superset-postgres-app
+            key: dbname
+      - name: DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: superset-postgres-app
+            key: user
+      - name: DB_PASS
+        valueFrom:
+          secretKeyRef:
+            name: superset-postgres-app
+            key: password
+      - name: DB_SCHEMA
+        value: public
+      - name: SUPERSET_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+          name: superset
+          key: secret_key
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: superset
+  namespace: &namespace superset
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
+      namespace: network
+      sectionName: https
+  hostnames:
+    - "superset.${SECRET_DOMAIN}"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: superset
+          targetPort: http
+          namespace: *namespace
+
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: superset
+spec:
+  url: https://apache.github.io/superset
+  interval: 60m
