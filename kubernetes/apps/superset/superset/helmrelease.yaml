@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: superset
   values:
+    image:
+      repository: apachesuperset.docker.scarf.sh/apache/superset
+      tag: latest-dev
     postgresql:
       enabled: false
     supersetNode:
