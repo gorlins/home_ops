@@ -17,7 +17,7 @@ spec:
       enabled: false
     secretEnv:
       create: True
-    envFromSecrets:
+    extraEnvRaw:
       - name: SQLALCHEMY_DATABASE_URI
         valueFrom:
           secretKeyRef:
