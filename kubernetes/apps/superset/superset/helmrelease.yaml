@@ -15,6 +15,13 @@ spec:
   values:
     postgresql:
       enabled: false
+    supersetNode:
+      initContainers: [] # Disable waiting for postgres
+    supersetWorker:
+      initContainers: []
+    init:
+      initContainers: []
+
     secretEnv:
       create: false
     extraEnvRaw:
