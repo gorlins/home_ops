@@ -18,11 +18,28 @@ spec:
     secretEnv:
       create: True
     extraEnvRaw:
-      - name: SQLALCHEMY_DATABASE_URI
+#      - name: SQLALCHEMY_DATABASE_URI
+#        valueFrom:
+#          secretKeyRef:
+#            name: superset-database-app
+#            key: uri
+      - name: DB_NAME
         valueFrom:
           secretKeyRef:
             name: superset-database-app
-            key: uri
+            key: dbname
+      - name: DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: superset-database-app
+            key: user
+      - name: DB_PASS
+        valueFrom:
+          secretKeyRef:
+            name: superset-database-app
+            key: password
+      - name: DB_SCHEMA
+        value: public
 
 ---
 apiVersion: gateway.networking.k8s.io/v1
