@@ -16,13 +16,18 @@ spec:
     postgresql:
       enabled: false
     secretEnv:
-      create: True
+      create: false
     extraEnvRaw:
-#      - name: SQLALCHEMY_DATABASE_URI
-#        valueFrom:
-#          secretKeyRef:
-#            name: superset-database-app
-#            key: uri
+      - name: DB_HOST
+        valueFrom:
+          secretKeyRef:
+            name: superset-database-app
+            key: host
+      - name: DB_PORT
+        valueFrom:
+          secretKeyRef:
+            name: superset-database-app
+            key: port
       - name: DB_NAME
         valueFrom:
           secretKeyRef:
