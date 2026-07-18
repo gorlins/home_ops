@@ -8,3 +8,5 @@ brew "mise"
 brew "go-task"
 brew "helm"
 brew "helmfile"
+# Terraform
+brew "terraform"
