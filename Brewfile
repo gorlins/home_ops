@@ -9,4 +9,6 @@ brew "go-task"
 brew "helm"
 brew "helmfile"
 # Terraform
-brew "terraform"
+brew "hashicorp/tap/terraform"
+# Flux CLI
+brew "fluxcd/tap/flux"
