@@ -7,8 +7,8 @@ components:
   - ../../components/common
 resources:
   - ./cilium/ks.yaml
-  - ./coredns/ks.yaml
-  - ./headlamp/ks.yaml
+#  - ./coredns/ks.yaml  # Why is this installed over built in talos coredns?
+#  - ./headlamp/ks.yaml
   - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml

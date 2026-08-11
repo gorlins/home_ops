@@ -13,12 +13,12 @@ releases:
     version: 1.19.6
     values: ['./templates/values.yaml.gotmpl']
 
-  - name: coredns
-    namespace: kube-system
-    chart: oci://ghcr.io/coredns/charts/coredns
-    version: 1.46.2
-    values: ['./templates/values.yaml.gotmpl']
-    needs: ['kube-system/cilium']
+#  - name: coredns
+#    namespace: kube-system
+#    chart: oci://ghcr.io/coredns/charts/coredns
+#    version: 1.46.2
+#    values: ['./templates/values.yaml.gotmpl']
+#    needs: ['kube-system/cilium']
 
   - name: spegel
     namespace: kube-system
