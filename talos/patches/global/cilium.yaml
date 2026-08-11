@@ -4,3 +4,11 @@ cluster:
       name: none
   proxy:
     disabled: true
+machine:
+  features:
+    hostDNS:
+      enabled: true
+      # Incompatible with bpf masquerade
+      # https://docs.siderolabs.com/kubernetes-guides/cni/deploying-cilium  
+      # https://github.com/siderolabs/talos/pull/9200
+      forwardKubeDNSToHost: false
