@@ -12,3 +12,7 @@ brew "helmfile"
 brew "hashicorp/tap/terraform"
 # Flux CLI
 brew "fluxcd/tap/flux"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
+# Bourne-Again SHell, a UNIX command interpreter, needed for mapfile
+brew "bash"
