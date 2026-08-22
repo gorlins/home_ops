@@ -1,5 +1,11 @@
 terraform {
-  backend "local" {
-    path = "~/Dropbox/tf/terraform.tfstate"
+  required_version = "1.15.8"
+  cloud {
+
+    organization = "soybagel"
+
+    workspaces {
+      name = "local"
+    }
   }
 }
