@@ -108,7 +108,7 @@ spec:
 
     # Enable persistence for ACME data (certificates, account) to ensure it survives pod restarts:
     persistence:
-      enabled: true
+      enabled: false # Lots of unexplained issues mounting pods
       name: data
 
     certificatesResolvers:
