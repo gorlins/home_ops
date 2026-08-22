@@ -14,18 +14,11 @@ spec:
       dataChecksums: true
       # TODO: Use managed extensions (pg 18)
 
-  backup:
-    barmanObjectStore:
-      destinationPath: "s3://scottgorlin-k8s-backup/cnpg"
-      endpointURL: "https://s3.us-west-000.backblazeb2.com"
-      s3Credentials:
-        accessKeyId:
-          name: backblaze-credentials
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: backblaze-credentials
-          key: ACCESS_SECRET_KEY
-    retentionPolicy: "30d"
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: backblaze-store
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
@@ -33,6 +26,9 @@ metadata:
   name: superset-database-backup
 spec:
   cluster:
-    name: immich-database
+    name: superset-database
   schedule: '0 0 0 * * *'
   backupOwnerReference: self
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
