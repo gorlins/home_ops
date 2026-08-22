@@ -8,23 +8,14 @@ spec:
   bootstrap:
     initdb:
       dataChecksums: true
-
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: backblaze-store
   storage:
     size: 1Gi
     storageClass: local-path
-
-  backup:
-    barmanObjectStore:
-      destinationPath: "s3://scottgorlin-k8s-backup/cnpg"
-      endpointURL: "https://s3.us-west-000.backblazeb2.com"
-      s3Credentials:
-        accessKeyId:
-          name: backblaze-credentials
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: backblaze-credentials
-          key: ACCESS_SECRET_KEY
-    retentionPolicy: "30d"
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup

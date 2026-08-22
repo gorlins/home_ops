@@ -16,3 +16,5 @@ brew "fluxcd/tap/flux"
 brew "yq"
 # Bourne-Again SHell, a UNIX command interpreter, needed for mapfile
 brew "bash"
+# Package manager for kubectl plugins
+brew "krew"
