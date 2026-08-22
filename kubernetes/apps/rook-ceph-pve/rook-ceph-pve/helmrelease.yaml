@@ -22,6 +22,7 @@ spec:
     cephClusterSpec:
       external:
         enable: true
+      security: {}  # issue with defaults in upgrade between 1.20.4-> above - might not be specified in CRD correctly?
       dataDirHostPath: /var/lib/rook/pve
       crashCollector:
         disable: true
