@@ -22,7 +22,7 @@ spec:
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
 
     defaultBackupStore:
-      backupTarget: "s3://scottgorlin-k8s-backup@backblaze/longhorn/"
+      backupTarget: "s3://scottgorlin-longhorn@backblaze/"
       backupTargetCredentialSecret: backblaze-credentials
 
     persistence:
