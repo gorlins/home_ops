@@ -15,4 +15,4 @@ spec:
         key: ACCESS_SECRET_KEY
     wal:
       compression: gzip
-    retentionPolicy: "90d"
+  retentionPolicy: "90d"
