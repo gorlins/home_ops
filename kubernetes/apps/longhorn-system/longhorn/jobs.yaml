@@ -57,3 +57,16 @@ spec:
   - default
   retain: 0
   concurrency: 1
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: backup
+spec:
+  cron: "0 9 * * *"
+  task: "backup"
+  groups:
+  - backup
+  retain: 45
+  concurrency: 1
+  full-backup-interval: 30
