@@ -70,4 +70,4 @@ spec:
   retain: 45
   concurrency: 1
   parameters:
-    full-backup-interval: 30
+    full-backup-interval: "30"
