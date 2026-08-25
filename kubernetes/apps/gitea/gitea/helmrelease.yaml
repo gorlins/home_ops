@@ -19,6 +19,8 @@ spec:
       clusterDomain: "${SECRET_DOMAIN}"
     valkey-cluster:
       enabled: true
+      persistence:
+        enabled: false
     valkey:
       enabled: false
     postgresql:
