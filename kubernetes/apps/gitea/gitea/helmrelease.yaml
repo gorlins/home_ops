@@ -18,11 +18,11 @@ spec:
       type: Recreate # RollingUpdate causes locks on pods using RWO volumes
       clusterDomain: "${SECRET_DOMAIN}"
     valkey-cluster:
-      enabled: true
+      enabled: false
       persistence:
         enabled: false
     valkey:
-      enabled: false
+      enabled: true
     postgresql:
       enabled: false
     postgresql-ha:
