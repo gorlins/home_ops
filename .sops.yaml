@@ -4,6 +4,8 @@ creation_rules:
     mac_only_encrypted: true
     age: "age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr"
     encrypted_regex: "^(data|stringData)$"
+  - path_regex: .*\.enc.ya?ml
+    age: "age17my7ump8yjkqhdw7qcj8c54hn3xxxhlne2ssvk8arj3ladyqjyjq33uzzr"
 stores:
   yaml:
     indent: 2
