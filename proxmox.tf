@@ -9,23 +9,48 @@ provider "proxmox" {
   }
 }
 
+# Create a custom cloud-init config using BPG provider
+resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
+  node_name    = "pve-3"
+  datastore_id = "cephfs"
+  content_type = "snippets"
+
+  source_raw {
+    file_name = "vendor-data.yaml"
+    data      = <<-EOF
+      #cloud-config
+      packages:
+        - qemu-guest-agent
+      package_update: true
+      runcmd:
+        - systemctl enable --now qemu-guest-agent
+      EOF
+  }
+}
+
 module "ubuntu26" {
   source = "./modules/proxmox/vm-template"
 
   # Image Variables
-  image_url                = "https://cloud-images.ubuntu.com/releases/26.04/release-20260823/ubuntu-26.04-server-cloudimg-amd64.img" # Required
-  image_checksum           = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"                                       # Required
-  image_checksum_algorithm = "sha256"                                                                                                 # Optional
-  image_overwrite          = false                                                                                                    # Optional
+  image_url                = "https://cloud-images.ubuntu.com/releases/26.04/release-20260823/ubuntu-26.04-server-cloudimg-amd64.img"
+  image_checksum           = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
+  image_checksum_algorithm = "sha256"
+  image_overwrite          = false
 
   # VM Template Variables
-  vm_id          = 2604                                             # Required
-  vm_name        = "ubuntu-26-resolute-cloudinit"                      # Optional
-  description    = "Terraform generated template on ${timestamp()}" # Optional
-  tags           = ["ubuntu"]                                        # Optional
+  vm_id          = 2604
+  vm_name        = "ubuntu-26-LTS-resolute"
+  description    = "Terraform generated template"
+  tags           = ["ubuntu"]
   disk_size = 32
-  # ci_vendor_data = "local:snippets/vendor-data.yaml"                # Optional
+  qemu_guest_agent = true
+  ci_vendor_data = "cephfs:snippets/vendor-data.yaml"
+
+  vcpu = 4
+  memory = 4096
+  memory_floating = 2048
 }
+
 # resource "proxmox_virtual_environment_vm" "my_vm" {
 #   name      = "my-vm"
 #   node_name = "pve-3"

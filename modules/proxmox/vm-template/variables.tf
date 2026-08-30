@@ -82,7 +82,7 @@ variable "tags" {
 variable "bios" {
   description = "VM bios, setting to `ovmf` will automatically create a EFI disk."
   type        = string
-  default     = "seabios"
+  default     = "ovmf"
   validation {
     condition     = contains(["seabios", "ovmf"], var.bios)
     error_message = "Invalid bios setting: ${var.bios}. Valid options: 'seabios' or 'ovmf'."
@@ -114,7 +114,8 @@ variable "vcpu" {
 variable "vcpu_type" {
   description = "CPU type."
   type        = string
-  default     = "host"
+  # default     = "host"
+  default     = "x86-64-v2-AES"
 }
 
 variable "memory" {
@@ -126,7 +127,7 @@ variable "memory" {
 variable "memory_floating" {
   description = "Minimum memory size in `MiB`, setting this value enables memory ballooning."
   type        = number
-  default     = 1024
+  default     = null
 }
 
 ## Disk Variables
@@ -239,5 +240,25 @@ variable "ci_user_data" {
 variable "ci_vendor_data" {
   description = "Add a custom cloud-init `vendor` configuration file, e.g `local:snippets/vendor-data.yaml`."
   type        = string
+  default     = null
+}
+
+
+### Network Variables
+variable "vnic_model" {
+  description = "Networking adapter model, e.g. `virtio`."
+  type        = string
+  default     = "virtio"
+}
+
+variable "vnic_bridge" {
+  description = "Networking adapter bridge, e.g. `vmbr0`."
+  type        = string
+  default     = "vmbr0"
+}
+
+variable "vlan_tag" {
+  description = "Networking adapter VLAN tag."
+  type        = number
   default     = null
 }

@@ -59,7 +59,11 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     dedicated = var.memory
     floating  = var.memory_floating
   }
-
+  network_device {
+    model   = var.vnic_model
+    bridge  = var.vnic_bridge
+    vlan_id = var.vlan_tag
+  }
   dynamic "efi_disk" {
     for_each = (var.bios == "ovmf" ? [1] : [])
     content {
