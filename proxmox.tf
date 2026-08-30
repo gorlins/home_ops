@@ -20,9 +20,10 @@ module "ubuntu26" {
 
   # VM Template Variables
   vm_id          = 2604                                             # Required
-  vm_name        = "ubuntu-resolute-cloudinit"                      # Optional
+  vm_name        = "ubuntu-26-resolute-cloudinit"                      # Optional
   description    = "Terraform generated template on ${timestamp()}" # Optional
   tags           = ["ubuntu"]                                        # Optional
+  disk_size = 32
   # ci_vendor_data = "local:snippets/vendor-data.yaml"                # Optional
 }
 # resource "proxmox_virtual_environment_vm" "my_vm" {
