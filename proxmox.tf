@@ -32,6 +32,11 @@ module "ubuntu_templates" {
   source = "./modules/proxmox/vm-template"
 
   for_each = {
+    focal = {
+      year = 20
+      release_date = "20250624"
+      image_checksum = "18f2977d77dfea1b74aee14533bd21c34f789139e949c57023b7364894b7e5e9"
+    }
     resolute = {
       year = 26
       release_date = "20260823"
@@ -48,7 +53,7 @@ module "ubuntu_templates" {
   # VM Template Variables
   vm_id          = tonumber("${each.value.year}04")
   vm_name        = "ubuntu-${each.value.year}-LTS-${each.key}"
-  description    = "Terraform generated template"
+  description    = "Ubuntu LTS ${each.value.year}.04 ${each.key} (release date ${each.value.release_date})"
   tags           = ["ubuntu"]
   disk_size = 32
   qemu_guest_agent = true
