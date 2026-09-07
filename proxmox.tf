@@ -49,18 +49,18 @@ module "ubuntu26" {
   vcpu = 4
   memory = 4096
   memory_floating = 2048
+
+  ci_username = "ansible"
+  ci_password = "ansible"
+  ci_keys = []
 }
 
 # resource "proxmox_virtual_environment_vm" "my_vm" {
 #   name      = "my-vm"
 #   node_name = "pve-3"
 #
+#   vm_id = 200
 #   clone {
-#     vm_id = 2404 # replace with the numeric ID of your template VM in Proxmox
-#   }
-#   agent {
-#     # enabled = true
-#     enabled = false
-#     # timeout = "20s" # <-- Cuts off the indefinite polling hang on initial provision
+#     vm_id = 2604
 #   }
 # }

@@ -34,11 +34,16 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
   machine     = var.machine_type
   started     = false
   template    = true
+  on_boot     = false
 
   agent {
     enabled = var.qemu_guest_agent
+    trim = true
   }
 
+  operating_system {
+    type = var.os_type
+  }
   # cloud-init config
   initialization {
     datastore_id         = var.ci_datastore_id
@@ -46,8 +51,20 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     type                 = var.ci_datasource_type
     meta_data_file_id    = var.ci_meta_data
     network_data_file_id = var.ci_network_data
-    user_data_file_id    = var.ci_user_data
+    # user_data_file_id    = var.ci_user_data
     vendor_data_file_id  = var.ci_vendor_data
+
+    user_account {
+      username = var.ci_username
+      password = var.ci_password
+      keys = var.ci_keys
+    }
+
+    ip_config {
+      ipv4 {
+        address = "dhcp"
+      }
+    }
   }
 
   cpu {
@@ -63,11 +80,13 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     model   = var.vnic_model
     bridge  = var.vnic_bridge
     vlan_id = var.vlan_tag
+    mtu     = var.vnic_mtu
+    firewall = false
   }
   dynamic "efi_disk" {
     for_each = (var.bios == "ovmf" ? [1] : [])
     content {
-      datastore_id      = var.efi_disk_storage
+      datastore_id      = var.disk_storage
       file_format       = var.efi_disk_format
       type              = var.efi_disk_type
       pre_enrolled_keys = var.efi_disk_pre_enrolled_keys
@@ -85,4 +104,17 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     ssd          = var.disk_ssd
     discard      = var.disk_discard
   }
+
+  scsi_hardware = var.scsi_hardware
+
+  tpm_state {
+    datastore_id = var.disk_storage
+    version = "v2.0"
+  }
+
+  rng {
+    source = var.rng_source
+  }
+
+  boot_order = ["scsi0"]
 }

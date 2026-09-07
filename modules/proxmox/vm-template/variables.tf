@@ -131,12 +131,6 @@ variable "memory_floating" {
 }
 
 ## Disk Variables
-variable "efi_disk_storage" {
-  description = "EFI disk storage location."
-  type        = string
-  default     = "cephy"
-}
-
 variable "efi_disk_format" {
   description = "EFI disk storage format."
   type        = string
@@ -179,13 +173,13 @@ variable "disk_format" {
 
 variable "disk_cache" {
   type    = string
-  default = "writeback"
+  default = "none"
 }
 
 variable "disk_iothread" {
   description = "Enable IO threading."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "disk_ssd" {
@@ -210,7 +204,7 @@ variable "ci_datastore_id" {
 variable "ci_interface" {
   description = "Hardware interface for cloud-init configuration data."
   type        = string
-  default     = "ide2"
+  default     = "scsi30"
 }
 
 variable "ci_datasource_type" {
@@ -230,12 +224,12 @@ variable "ci_network_data" {
   type        = string
   default     = null
 }
-
-variable "ci_user_data" {
-  description = "Add a custom cloud-init `user` configuration file, e.g `local:snippets/user-data.yaml`."
-  type        = string
-  default     = null
-}
+#
+# variable "ci_user_data" {
+#   description = "Add a custom cloud-init `user` configuration file, e.g `local:snippets/user-data.yaml`."
+#   type        = string
+#   default     = null
+# }
 
 variable "ci_vendor_data" {
   description = "Add a custom cloud-init `vendor` configuration file, e.g `local:snippets/vendor-data.yaml`."
@@ -243,6 +237,23 @@ variable "ci_vendor_data" {
   default     = null
 }
 
+variable "ci_username" {
+  description = "The SSH username"
+  type        = string
+  default     = null
+}
+
+variable "ci_password" {
+  description = "The SSH password"
+  type        = string
+  default     = null
+}
+
+variable "ci_keys" {
+  description = "The SSH keys"
+  type        = list(string)
+  default     = null
+}
 
 ### Network Variables
 variable "vnic_model" {
@@ -257,8 +268,32 @@ variable "vnic_bridge" {
   default     = "vmbr0"
 }
 
+variable "vnic_mtu" {
+  description = "Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU."
+  type        = number
+  default     = 1
+}
+
 variable "vlan_tag" {
   description = "Networking adapter VLAN tag."
   type        = number
   default     = null
+}
+
+variable "scsi_hardware" {
+  description = "The SCSI hardware type (proxmox defaults to virtio-scsi-pci)"
+  type        = string
+  default     = "virtio-scsi-single"
+}
+
+variable "rng_source" {
+  description = "The file on the host to gather entropy from"
+  type        = string
+  default     = "/dev/urandom"
+}
+
+variable "os_type" {
+  description = "The Operating System configuration. type"
+  type        = string
+  default     = "l26"
 }
