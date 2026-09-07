@@ -28,18 +28,27 @@ resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
   }
 }
 
-module "ubuntu26" {
+module "ubuntu_templates" {
   source = "./modules/proxmox/vm-template"
 
+  for_each = {
+    resolute = {
+      year = 26
+      vim_id = 2604
+      image_url = "https://cloud-images.ubuntu.com/releases/26.04/release-20260823/ubuntu-26.04-server-cloudimg-amd64.img"
+      image_checksum = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
+    }
+  }
+
   # Image Variables
-  image_url                = "https://cloud-images.ubuntu.com/releases/26.04/release-20260823/ubuntu-26.04-server-cloudimg-amd64.img"
-  image_checksum           = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
+  image_url                = each.value.image_url
+  image_checksum           = each.value.image_checksum
   image_checksum_algorithm = "sha256"
   image_overwrite          = false
 
   # VM Template Variables
-  vm_id          = 2604
-  vm_name        = "ubuntu-26-LTS-resolute"
+  vm_id          = each.value.vim_id
+  vm_name        = "ubuntu-${each.value.year}-LTS-${each.key}"
   description    = "Terraform generated template"
   tags           = ["ubuntu"]
   disk_size = 32
