@@ -68,6 +68,42 @@ module "ubuntu_templates" {
   ci_keys = []
 }
 
+
+module "sle_leap_templates" {
+  source = "./modules/proxmox/vm-template"
+
+  for_each = {
+    16 = {
+      point = 1
+      image_checksum = "79deb563e392fb7ba86ca9e844b90a1a73846ce468d2c44b81d2f583b2ebb76b"
+    }
+  }
+
+  # Image Variables
+  image_url                = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
+  image_checksum           = each.value.image_checksum
+  image_checksum_algorithm = "sha256"
+  image_overwrite          = false
+  image_content_type = "import"
+
+  # VM Template Variables
+  vm_id          = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
+  vm_name        = "opensuse-leap-${each.key}"
+  description    = "OpenSUSE LEAP ${each.key}.${each.value.point}"
+  tags           = ["sle", "leap"]
+  disk_size = 32
+  qemu_guest_agent = true
+  ci_vendor_data = "cephfs:snippets/vendor-data.yaml"
+
+  vcpu = 4
+  memory = 4096
+  memory_floating = 2048
+
+  ci_username = "ansible"
+  ci_password = "ansible"
+  ci_keys = []
+}
+
 # resource "proxmox_virtual_environment_vm" "my_vm" {
 #   name      = "my-vm"
 #   node_name = "pve-3"
