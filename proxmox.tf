@@ -64,11 +64,11 @@ module "ubuntu_templates" {
       release_date   = "20260826"
       image_checksum = "c0a5af17e6c0f76351fe07e2fffef3011dab1facb8a8ed5701dcf648dabd4f0a"
     }
-    # noble = {
-    #   year           = 24
-    #   release_date   = "20260826"
-    #   image_checksum = "d0fe84bb5f80853425fa6be28e2c106f30104c3cfe8611933f2e65c9b63f0e30"
-    # }
+    noble = {
+      year           = 24
+      release_date   = "20260826"
+      image_checksum = "d0fe84bb5f80853425fa6be28e2c106f30104c3cfe8611933f2e65c9b63f0e30"
+    }
     resolute = {
       year           = 26
       release_date   = "20260823"
