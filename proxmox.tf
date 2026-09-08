@@ -28,10 +28,11 @@ locals {
 
   ci_vendor_data = "${proxmox_virtual_environment_file.cloud_vendor_config.datastore_id}:${proxmox_virtual_environment_file.cloud_vendor_config.content_type}/${proxmox_virtual_environment_file.cloud_vendor_config.file_name}"
 
-  ci_username = data.sops_file.secrets.data["ci.username"]
-  ci_password = data.sops_file.secrets.data["ci.password"]
-  # sops provider can't read arrays for some reason - parse it manually
-  ci_keys = yamldecode(data.sops_file.secrets.raw)["ci"]["keys"]
+  user_account = {
+    username = data.sops_file.secrets.data["ci.username"]
+    password = data.sops_file.secrets.data["ci.password"]
+    keys     = yamldecode(data.sops_file.secrets.raw)["ci"]["keys"] # sops provider can't read arrays for some reason - parse it manually
+  }
 }
 
 # Create a custom cloud-init config using BPG provider
@@ -101,9 +102,7 @@ module "ubuntu_templates" {
   memory          = 4096
   memory_floating = 2048
 
-  ci_username = local.ci_username
-  ci_password = local.ci_password
-  ci_keys     = local.ci_keys
+  user_account = local.user_account
 }
 
 module "sle_leap_templates" {
@@ -137,9 +136,7 @@ module "sle_leap_templates" {
   memory          = 4096
   memory_floating = 2048
 
-  ci_username = local.ci_username
-  ci_password = local.ci_password
-  ci_keys     = local.ci_keys
+  user_account = local.user_account
 }
 
 resource "proxmox_virtual_environment_vm" "dc1" {

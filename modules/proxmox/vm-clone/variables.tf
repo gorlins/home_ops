@@ -230,16 +230,14 @@ variable "ci_datastore_id" {
   default     = "local-lvm"
 }
 
-variable "ci_user" {
-  description = "Cloud-init 'default' user."
-  type        = string
-  default     = null
-}
-
-variable "ci_ssh_key" {
-  description = "File path to SSH key for 'default' user, e.g. `~/.ssh/id_ed25519.pub`."
-  type        = string
-  default     = null
+variable "user_account" {
+  description = "Credentials for cloud init user"
+  type = object({
+    username = optional(string)
+    password = optional(string)
+    keys     = optional(list(string))
+  })
+  sensitive = true
 }
 
 variable "ci_dns_domain" {

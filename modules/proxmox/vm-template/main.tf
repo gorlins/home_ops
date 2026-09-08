@@ -56,9 +56,9 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     upgrade             = false
 
     user_account {
-      username = var.ci_username
-      password = var.ci_password
-      keys     = var.ci_keys
+      username = var.user_account.username
+      password = var.user_account.password
+      keys     = var.user_account.keys
     }
 
     ip_config {

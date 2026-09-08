@@ -104,8 +104,9 @@ resource "proxmox_virtual_environment_vm" "vm" {
     vendor_data_file_id  = var.ci_vendor_data
 
     user_account {
-      username = var.ci_user
-      keys     = (var.ci_ssh_key != null ? [file("${var.ci_ssh_key}")] : null)
+      username = var.user_account.username
+      password = var.user_account.password
+      keys     = var.user_account.keys
     }
 
     dns {

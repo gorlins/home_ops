@@ -230,23 +230,14 @@ variable "ci_vendor_data" {
   default     = null
 }
 
-variable "ci_username" {
-  description = "The SSH username"
-  type        = string
-  default     = null
-}
-
-variable "ci_password" {
-  description = "The SSH password"
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
-variable "ci_keys" {
-  description = "The SSH keys"
-  type        = list(string)
-  default     = null
+variable "user_account" {
+  description = "Credentials for cloud init user"
+  type = object({
+    username = optional(string)
+    password = optional(string)
+    keys     = optional(list(string))
+  })
+  sensitive = true
 }
 
 ### Network Variables
