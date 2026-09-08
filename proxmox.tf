@@ -78,6 +78,8 @@ module "ubuntu_templates" {
 
   # Image Variables
   image_url                = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
+  image_filename           = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2" # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
+  image_content_type       = "import"
   image_checksum           = each.value.image_checksum
   image_checksum_algorithm = "sha256"
   image_overwrite          = false
