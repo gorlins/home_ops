@@ -22,8 +22,11 @@ provider "proxmox" {
 
 locals {
   local_datastore  = "local_vols"
+  any_node         = "pve-3"
   shared_datastore = "cephy"
   shared_fs        = "cephfs"
+
+  ci_vendor_data = "${proxmox_virtual_environment_file.cloud_vendor_config.datastore_id}:${proxmox_virtual_environment_file.cloud_vendor_config.content_type}/${proxmox_virtual_environment_file.cloud_vendor_config.file_name}"
 
   ci_username = data.sops_file.secrets.data["ci.username"]
   ci_password = data.sops_file.secrets.data["ci.password"]
@@ -33,7 +36,7 @@ locals {
 
 # Create a custom cloud-init config using BPG provider
 resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
-  node_name    = "pve-3"
+  node_name    = local.any_node
   datastore_id = local.shared_fs
   content_type = "snippets"
 
@@ -92,7 +95,7 @@ module "ubuntu_templates" {
   tags             = ["ubuntu"]
   disk_size        = 32
   qemu_guest_agent = true
-  ci_vendor_data   = "${local.shared_fs}:snippets/vendor-data.yaml"
+  ci_vendor_data   = local.ci_vendor_data
 
   vcpu            = 4
   memory          = 4096
@@ -125,10 +128,10 @@ module "sle_leap_templates" {
   vm_id            = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
   vm_name          = "opensuse-leap-${each.key}"
   description      = "OpenSUSE LEAP ${each.key}.${each.value.point}"
-  tags             = ["sle", "leap"]
+  tags             = ["leap", "sle"]
   disk_size        = 32
   qemu_guest_agent = true
-  ci_vendor_data   = "${local.shared_fs}:snippets/vendor-data.yaml"
+  ci_vendor_data   = local.ci_vendor_data
 
   vcpu            = 4
   memory          = 4096
