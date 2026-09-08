@@ -1,6 +1,10 @@
+ephemeral "sops_file" "secrets" {
+  source_file = "secrets.enc.yaml"
+}
+
 provider "proxmox" {
-  endpoint  = data.sops_file.secrets.data["proxmox.endpoint"]
-  api_token = join("=", [data.sops_file.secrets.data["proxmox.token_id"], data.sops_file.secrets.data["proxmox.secret"]])
+  endpoint  = ephemeral.sops_file.secrets.data["proxmox.endpoint"]
+  api_token = join("=", [ephemeral.sops_file.secrets.data["proxmox.token_id"], ephemeral.sops_file.secrets.data["proxmox.secret"]])
   # api_token = "blog_example@pam!terraform=your-api-token-secret"
   insecure = false # set to false if using a valid TLS certificate
   ssh {
