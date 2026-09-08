@@ -53,6 +53,7 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     network_data_file_id = var.ci_network_data
     # user_data_file_id    = var.ci_user_data
     vendor_data_file_id = var.ci_vendor_data
+    upgrade             = false
 
     user_account {
       username = var.ci_username

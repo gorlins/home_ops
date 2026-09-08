@@ -43,7 +43,7 @@ resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
       #cloud-config
       packages:
         - qemu-guest-agent
-      package_update: true
+      # package_update: false  # Better to create quickly and upgrade later.  Also, specify in UI directly
       runcmd:
         - systemctl enable --now qemu-guest-agent
       EOF
