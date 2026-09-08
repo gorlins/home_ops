@@ -53,7 +53,7 @@ variable "image_upload_timeout" {
 variable "node" {
   description = "Name of Proxmox node to provision VM on, e.g. `pve`."
   type        = string
-  default = "pve-3"
+  default     = "pve-3"
 }
 
 variable "vm_id" {
@@ -114,7 +114,6 @@ variable "vcpu" {
 variable "vcpu_type" {
   description = "CPU type."
   type        = string
-  # default     = "host"
   default     = "x86-64-v2-AES"
 }
 
@@ -149,10 +148,10 @@ variable "efi_disk_pre_enrolled_keys" {
   default     = true
 }
 
-variable "disk_storage" {
-  description = "Disk storage location."
+variable "datastore_id" {
+  description = "Datastore for all disks"
   type        = string
-  default     = "cephy"
+  default     = "local-lvm"
 }
 
 variable "disk_interface" {
@@ -195,12 +194,6 @@ variable "disk_discard" {
 }
 
 ## Cloud-init Variables
-variable "ci_datastore_id" {
-  description = "Disk storage location for the cloud-init disk."
-  type        = string
-  default     = "cephy"
-}
-
 variable "ci_interface" {
   description = "Hardware interface for cloud-init configuration data."
   type        = string
@@ -247,6 +240,7 @@ variable "ci_password" {
   description = "The SSH password"
   type        = string
   default     = null
+  sensitive   = true
 }
 
 variable "ci_keys" {

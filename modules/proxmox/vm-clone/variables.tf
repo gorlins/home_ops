@@ -186,12 +186,6 @@ variable "disks" {
   }]
 }
 
-variable "efi_disk_storage" {
-  description = "EFI disk storage location."
-  type        = string
-  default     = "local-lvm"
-}
-
 variable "efi_disk_format" {
   description = "EFI disk storage format."
   type        = string

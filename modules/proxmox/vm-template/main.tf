@@ -38,7 +38,7 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
 
   agent {
     enabled = var.qemu_guest_agent
-    trim = true
+    trim    = true
   }
 
   operating_system {
@@ -46,18 +46,18 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
   }
   # cloud-init config
   initialization {
-    datastore_id         = var.ci_datastore_id
+    datastore_id         = var.datastore_id
     interface            = var.ci_interface
     type                 = var.ci_datasource_type
     meta_data_file_id    = var.ci_meta_data
     network_data_file_id = var.ci_network_data
     # user_data_file_id    = var.ci_user_data
-    vendor_data_file_id  = var.ci_vendor_data
+    vendor_data_file_id = var.ci_vendor_data
 
     user_account {
       username = var.ci_username
       password = var.ci_password
-      keys = var.ci_keys
+      keys     = var.ci_keys
     }
 
     ip_config {
@@ -77,16 +77,16 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     floating  = var.memory_floating
   }
   network_device {
-    model   = var.vnic_model
-    bridge  = var.vnic_bridge
-    vlan_id = var.vlan_tag
-    mtu     = var.vnic_mtu
+    model    = var.vnic_model
+    bridge   = var.vnic_bridge
+    vlan_id  = var.vlan_tag
+    mtu      = var.vnic_mtu
     firewall = false
   }
   dynamic "efi_disk" {
     for_each = (var.bios == "ovmf" ? [1] : [])
     content {
-      datastore_id      = var.disk_storage
+      datastore_id      = var.datastore_id
       file_format       = var.efi_disk_format
       type              = var.efi_disk_type
       pre_enrolled_keys = var.efi_disk_pre_enrolled_keys
@@ -95,7 +95,7 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
 
   disk {
     file_id      = module.cloud_image.id
-    datastore_id = var.disk_storage
+    datastore_id = var.datastore_id
     interface    = var.disk_interface
     size         = var.disk_size
     file_format  = var.disk_format
@@ -108,8 +108,8 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
   scsi_hardware = var.scsi_hardware
 
   tpm_state {
-    datastore_id = var.disk_storage
-    version = "v2.0"
+    datastore_id = var.datastore_id
+    version      = "v2.0"
   }
 
   rng {

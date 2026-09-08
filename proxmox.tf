@@ -1,5 +1,12 @@
 ephemeral "sops_file" "secrets" {
   source_file = "secrets.enc.yaml"
+  input_type  = "yaml"
+}
+
+data "sops_file" "secrets" {
+  # ephemeral should be used where possible, but this file is used for everything else
+  source_file = "terraform_data_secrets.enc.yaml"
+  input_type  = "yaml"
 }
 
 provider "proxmox" {
@@ -13,10 +20,21 @@ provider "proxmox" {
   }
 }
 
+locals {
+  local_datastore  = "local_vols"
+  shared_datastore = "cephy"
+  shared_fs        = "cephfs"
+
+  ci_username = data.sops_file.secrets.data["ci.username"]
+  ci_password = data.sops_file.secrets.data["ci.password"]
+  # sops provider can't read arrays for some reason - parse it manually
+  ci_keys = yamldecode(data.sops_file.secrets.raw)["ci"]["keys"]
+}
+
 # Create a custom cloud-init config using BPG provider
 resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
   node_name    = "pve-3"
-  datastore_id = "cephfs"
+  datastore_id = local.shared_fs
   content_type = "snippets"
 
   source_raw {
@@ -41,6 +59,16 @@ module "ubuntu_templates" {
       release_date   = "20250624"
       image_checksum = "18f2977d77dfea1b74aee14533bd21c34f789139e949c57023b7364894b7e5e9"
     }
+    jammy = {
+      year           = 22
+      release_date   = "20260826"
+      image_checksum = "c0a5af17e6c0f76351fe07e2fffef3011dab1facb8a8ed5701dcf648dabd4f0a"
+    }
+    # noble = {
+    #   year           = 24
+    #   release_date   = "20260826"
+    #   image_checksum = "d0fe84bb5f80853425fa6be28e2c106f30104c3cfe8611933f2e65c9b63f0e30"
+    # }
     resolute = {
       year           = 26
       release_date   = "20260823"
@@ -55,21 +83,22 @@ module "ubuntu_templates" {
   image_overwrite          = false
 
   # VM Template Variables
+  datastore_id     = local.shared_datastore
   vm_id            = tonumber("${each.value.year}04")
   vm_name          = "ubuntu-${each.value.year}-LTS-${each.key}"
   description      = "Ubuntu LTS ${each.value.year}.04 ${each.key} (release date ${each.value.release_date})"
   tags             = ["ubuntu"]
   disk_size        = 32
   qemu_guest_agent = true
-  ci_vendor_data   = "cephfs:snippets/vendor-data.yaml"
+  ci_vendor_data   = "${local.shared_fs}:snippets/vendor-data.yaml"
 
   vcpu            = 4
   memory          = 4096
   memory_floating = 2048
 
-  ci_username = "ansible"
-  ci_password = "ansible"
-  ci_keys     = []
+  ci_username = local.ci_username
+  ci_password = local.ci_password
+  ci_keys     = local.ci_keys
 }
 
 module "sle_leap_templates" {
@@ -90,29 +119,29 @@ module "sle_leap_templates" {
   image_content_type       = "import"
 
   # VM Template Variables
+  datastore_id     = local.shared_datastore
   vm_id            = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
   vm_name          = "opensuse-leap-${each.key}"
   description      = "OpenSUSE LEAP ${each.key}.${each.value.point}"
   tags             = ["sle", "leap"]
   disk_size        = 32
   qemu_guest_agent = true
-  ci_vendor_data   = "cephfs:snippets/vendor-data.yaml"
+  ci_vendor_data   = "${local.shared_fs}:snippets/vendor-data.yaml"
 
   vcpu            = 4
   memory          = 4096
   memory_floating = 2048
 
-  ci_username = "ansible"
-  ci_password = "ansible"
-  ci_keys     = []
+  ci_username = local.ci_username
+  ci_password = local.ci_password
+  ci_keys     = local.ci_keys
 }
 
-# resource "proxmox_virtual_environment_vm" "my_vm" {
-#   name      = "my-vm"
-#   node_name = "pve-3"
-#
-#   vm_id = 200
-#   clone {
-#     vm_id = 2604
-#   }
-# }
+resource "proxmox_virtual_environment_vm" "dc1" {
+  name      = "dc1"
+  node_name = "pve-3"
+
+  clone {
+    vm_id = 2604
+  }
+}
