@@ -20,11 +20,19 @@ provider "proxmox" {
   }
 }
 
+data "proxmox_virtual_environment_nodes" "all" {}
+
 locals {
+  pve_nodes        = toset(data.proxmox_virtual_environment_nodes.all.names)
   local_datastore  = "local_vols"
   template_node    = "pve-3"
   shared_datastore = "cephy"
   shared_fs        = "cephfs"
+
+  # online_nodes = [
+  #   for i, name in data.proxmox_virtual_environment_nodes.all.names :
+  #   name if data.proxmox_virtual_environment_nodes.all.online[i]
+  # ]
 
   ci_vendor_data = "${proxmox_virtual_environment_file.cloud_vendor_config.datastore_id}:${proxmox_virtual_environment_file.cloud_vendor_config.content_type}/${proxmox_virtual_environment_file.cloud_vendor_config.file_name}"
 
@@ -127,6 +135,23 @@ resource "proxmox_cloned_vm" "samba-ad-dc" {
   name      = "dc1"
   node_name = "pve-3"
   clone = {
-    source_vm_id = module.ubuntu_templates["resolute"].id
+    source_vm_id     = module.ubuntu_templates["noble"].id
+    source_node_name = module.ubuntu_templates["noble"].node_name
   }
 }
+
+# resource "proxmox_cloned_vm" "k3s" {
+#   for_each  = local.pve_nodes
+#   node_name = each.key
+#   name      = "k3s-${each.key}"
+#   clone = {
+#     source_vm_id     = module.ubuntu_templates["noble"].id
+#     source_node_name = module.ubuntu_templates["noble"].node_name
+#     # target_datastore = local.local_datastore  # Doesn't work yet - cannot clone from shared to local storage
+#     full = true
+#   }
+#   cpu = {
+#     type = "host"
+#   }
+#   # Todo: ignore changes when template source node changes
+# }
