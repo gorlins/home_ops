@@ -1,15 +1,37 @@
 ## VM Variables
-variable "node" {
+variable "import_from" {
+  description = "Reference to import image (<datastore_id>:<content_type>/<file_name>)"
+  type        = string
+}
+
+variable "node_name" {
   description = "Name of Proxmox node to provision VM on, e.g. `pve`."
   type        = string
+}
+variable "boot_disk" {
+  description = "Details for the boot disk"
+  type = object({
+    interface = optional(string, "scsi0")
+    size      = optional(number, 32)
+    cache     = optional(string)
+    iothread  = optional(bool, true)
+    ssd       = optional(bool, true)
+    discard   = optional(string, "on")
+  })
+  default = {}
+}
+variable "datastore_id" {
+  description = "Target data storage for all disks"
+  default     = "local-lvm"
 }
 
 variable "vm_id" {
   description = "ID number for new VM."
   type        = number
+  default     = null
 }
 
-variable "vm_name" {
+variable "name" {
   description = "VM name, must be alphanumeric (may contain dash: `-`). Defaults to using PVE naming, e.g. 'Copy-of-VM-<template_name>'."
   type        = string
   default     = null
@@ -24,50 +46,12 @@ variable "description" {
 variable "tags" {
   description = "Proxmox tags for the VM."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
-variable "template_node" {
-  description = "Name of Proxmox node where the template resides, e.g. `pve`."
-  type        = string
-  default     = null # same node as the target node `var.node` above
-}
-
-variable "template_id" {
-  description = "Proxmox template ID to clone."
-  type        = number
-}
 
 variable "full_clone" {
   description = "Create a full independent clone; setting to `false` will create a linked clone."
-  type        = bool
-  default     = true
-}
-
-variable "os_type" {
-  description = "QEMU OS type, e.g. `l26` for Linux 6.x - 2.6 kernel."
-  type        = string
-  default     = "l26"
-}
-
-variable "bios" {
-  description = "VM bios, setting to `ovmf` will automatically create a EFI disk."
-  type        = string
-  default     = "seabios"
-  validation {
-    condition     = contains(["seabios", "ovmf"], var.bios)
-    error_message = "Invalid bios setting: ${var.bios}. Valid options: 'seabios' or 'ovmf'."
-  }
-}
-
-variable "machine" {
-  description = "QEMU machine type, e.g. `q35`."
-  type        = string
-  default     = "q35"
-}
-
-variable "qemu_guest_agent" {
-  description = "Enable QEMU guest agent."
   type        = bool
   default     = true
 }
@@ -100,39 +84,34 @@ variable "display_memory" {
   default = 16
 }
 
-variable "vcpu" {
-  description = "Number of CPU cores."
+variable "cpu_sockets" {
+  description = "Number of CPU sockets"
   type        = number
-  default     = 1
+  default     = null
 }
 
-variable "vcpu_type" {
+variable "cpu_cores" {
+  description = "Number of CPU cores."
+  type        = number
+  default     = null
+}
+
+variable "cpu_type" {
   description = "CPU type."
   type        = string
-  default     = "host"
+  default     = null
 }
 
 variable "memory" {
   description = "Memory size in `MiB`."
   type        = number
-  default     = 1024
+  default     = null
 }
 
 variable "memory_floating" {
   description = "Minimum memory size in `MiB`, setting this value enables memory ballooning."
   type        = number
-  default     = 1024
-}
-
-variable "numa" {
-  description = "Emulate NUMA architecture."
-  type        = bool
-  default     = false
-}
-
-variable "numa_device" {
-  type    = string
-  default = null
+  default     = null
 }
 
 variable "numa_cpus" {
@@ -162,28 +141,17 @@ variable "scsihw" {
   default     = "virtio-scsi-pci"
 }
 
-variable "disks" {
+variable "additional_disks" {
   type = list(object({
-    disk_storage   = optional(string, "local-lvm")
-    disk_interface = optional(string, "scsi0")
-    disk_size      = optional(number, 8)
-    disk_format    = optional(string, "raw")
-    disk_cache     = optional(string, "writeback")
-    disk_iothread  = optional(bool, false)
-    disk_ssd       = optional(bool, true)
-    disk_discard   = optional(string, "on")
+    interface = string
+    size      = number
+    cache     = optional(string)
+    iothread  = optional(bool, true)
+    ssd       = optional(bool, true)
+    discard   = optional(string, "on")
     }
   ))
-  default = [{
-    disk_storage   = "local-lvm"
-    disk_interface = "scsi0"
-    disk_size      = 8
-    disk_format    = "raw"
-    disk_cache     = "writeback"
-    disk_iothread  = false
-    disk_ssd       = true
-    disk_discard   = "on"
-  }]
+  default = []
 }
 
 variable "efi_disk_format" {
@@ -205,6 +173,17 @@ variable "efi_disk_pre_enrolled_keys" {
 }
 
 ### Network Variables
+variable "network_devices" {
+  description = "List of nics"
+  type = list(object({
+    bridge  = optional(string)
+    model   = optional(string)
+    mtu     = optional(number)
+    vlan_id = optional(number)
+    address = optional(string, "dhcp")
+  }))
+  default = [{}]
+}
 variable "vnic_model" {
   description = "Networking adapter model, e.g. `virtio`."
   type        = string
@@ -238,6 +217,7 @@ variable "user_account" {
     keys     = optional(list(string))
   })
   sensitive = true
+  default   = {}
 }
 
 variable "ci_dns_domain" {
@@ -282,7 +262,7 @@ variable "ci_user_data" {
   default     = null
 }
 
-variable "ci_vendor_data" {
+variable "vendor_data_file_id" {
   description = "Add a custom cloud-init `vendor` configuration file, e.g `local:snippets/vendor-data.yaml`."
   type        = string
   default     = null
