@@ -123,11 +123,10 @@ module "sle_leap_templates" {
   user_account = local.user_account
 }
 
-resource "proxmox_virtual_environment_vm" "dc1" {
+resource "proxmox_cloned_vm" "samba-ad-dc" {
   name      = "dc1"
   node_name = "pve-3"
-
-  clone {
-    vm_id = 2604
+  clone = {
+    source_vm_id = module.ubuntu_templates["resolute"].id
   }
 }
