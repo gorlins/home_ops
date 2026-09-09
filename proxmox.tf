@@ -140,13 +140,13 @@ resource "proxmox_cloned_vm" "samba-ad-dc" {
   }
 }
 
-# module "k3s" {
-#   source    = "./modules/proxmox/vm_from_image"
-#   for_each  = local.pve_nodes
-#   node_name = each.key
-#   name      = "k3s-${each.key}"
-#
-#   import_from  = "cephfs:import/ubuntu-24.04-server-cloudimg-amd64.qcow2"
-#   datastore_id = local.local_datastore
-#   cpu_type     = "host"
-# }
+module "k3s" {
+  source    = "./modules/proxmox/vm_from_image"
+  for_each  = local.pve_nodes
+  node_name = each.key
+  name      = "k3s-${each.key}"
+
+  import_from  = "cephfs:import/ubuntu-24.04-server-cloudimg-amd64.qcow2"
+  datastore_id = local.local_datastore
+  cpu_type     = "host"
+}
