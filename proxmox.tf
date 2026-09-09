@@ -22,7 +22,7 @@ provider "proxmox" {
 
 locals {
   local_datastore  = "local_vols"
-  any_node         = "pve-3"
+  template_node    = "pve-3"
   shared_datastore = "cephy"
   shared_fs        = "cephfs"
 
@@ -37,7 +37,7 @@ locals {
 
 # Create a custom cloud-init config using BPG provider
 resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
-  node_name    = local.any_node
+  node_name    = local.template_node
   datastore_id = local.shared_fs
   content_type = "snippets"
 
@@ -81,26 +81,18 @@ module "ubuntu_templates" {
   }
 
   # Image Variables
-  image_url                = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
-  image_filename           = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2" # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
-  image_content_type       = "import"
-  image_checksum           = each.value.image_checksum
-  image_checksum_algorithm = "sha256"
-  image_overwrite          = false
+  image_url          = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
+  image_filename     = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2" # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
+  image_content_type = "import"
+  image_checksum     = each.value.image_checksum
 
   # VM Template Variables
-  datastore_id     = local.shared_datastore
-  vm_id            = tonumber("${each.value.year}04")
-  vm_name          = "ubuntu-${each.value.year}-LTS-${each.key}"
-  description      = "Ubuntu LTS ${each.value.year}.04 ${each.key} (release date ${each.value.release_date})"
-  tags             = ["ubuntu"]
-  disk_size        = 32
-  qemu_guest_agent = true
-  ci_vendor_data   = local.ci_vendor_data
-
-  vcpu            = 4
-  memory          = 4096
-  memory_floating = 2048
+  datastore_id   = local.shared_datastore
+  vm_id          = tonumber("${each.value.year}04")
+  name           = "ubuntu-${each.value.year}-LTS-${each.key}"
+  description    = "Ubuntu LTS ${each.value.year}.04 ${each.key} (release date ${each.value.release_date})"
+  tags           = ["ubuntu"]
+  ci_vendor_data = local.ci_vendor_data
 
   user_account = local.user_account
 }
@@ -116,25 +108,17 @@ module "sle_leap_templates" {
   }
 
   # Image Variables
-  image_url                = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
-  image_checksum           = each.value.image_checksum
-  image_checksum_algorithm = "sha256"
-  image_overwrite          = false
-  image_content_type       = "import"
+  image_url          = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
+  image_checksum     = each.value.image_checksum
+  image_content_type = "import"
 
   # VM Template Variables
-  datastore_id     = local.shared_datastore
-  vm_id            = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
-  vm_name          = "opensuse-leap-${each.key}"
-  description      = "OpenSUSE LEAP ${each.key}.${each.value.point}"
-  tags             = ["leap", "sle"]
-  disk_size        = 32
-  qemu_guest_agent = true
-  ci_vendor_data   = local.ci_vendor_data
-
-  vcpu            = 4
-  memory          = 4096
-  memory_floating = 2048
+  datastore_id   = local.shared_datastore
+  vm_id          = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
+  name           = "opensuse-leap-${each.key}"
+  description    = "OpenSUSE LEAP ${each.key}.${each.value.point}"
+  tags           = ["leap", "sle"]
+  ci_vendor_data = local.ci_vendor_data
 
   user_account = local.user_account
 }

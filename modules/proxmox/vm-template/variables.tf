@@ -50,7 +50,7 @@ variable "image_upload_timeout" {
 }
 
 ## VM Variables
-variable "node" {
+variable "node_name" {
   description = "Name of Proxmox node to provision VM on, e.g. `pve`."
   type        = string
   default     = "pve-3"
@@ -59,10 +59,11 @@ variable "node" {
 variable "vm_id" {
   description = "ID number for new VM."
   type        = number
+  default     = null
 }
 
-variable "vm_name" {
-  description = "Name, must be alphanumeric (may contain dash: `-`). Defaults to PVE naming, `VM <VM_ID>`."
+variable "name" {
+  description = "VM name, must be alphanumeric (may contain dash: `-`). Defaults to PVE naming, `VM <VM_ID>`."
   type        = string
   default     = null
 }
@@ -105,13 +106,19 @@ variable "machine_type" {
   }
 }
 
-variable "vcpu" {
-  description = "Number of CPU cores."
+variable "cpu_sockets" {
+  description = "Number of CPU sockets"
   type        = number
   default     = 1
 }
 
-variable "vcpu_type" {
+variable "cpu_cores" {
+  description = "Number of CPU cores."
+  type        = number
+  default     = 4
+}
+
+variable "cpu_type" {
   description = "CPU type."
   type        = string
   default     = "x86-64-v2-AES"
@@ -120,13 +127,13 @@ variable "vcpu_type" {
 variable "memory" {
   description = "Memory size in `MiB`."
   type        = number
-  default     = 1024
+  default     = 4096
 }
 
 variable "memory_floating" {
   description = "Minimum memory size in `MiB`, setting this value enables memory ballooning."
   type        = number
-  default     = null
+  default     = 2048
 }
 
 ## Disk Variables
@@ -162,7 +169,7 @@ variable "disk_interface" {
 
 variable "disk_size" {
   type    = number
-  default = 8
+  default = 32
 }
 
 variable "disk_format" {
@@ -230,6 +237,12 @@ variable "ci_vendor_data" {
   default     = null
 }
 
+variable "upgrade" {
+  description = "Upgrade packages on first boot"
+  type        = bool
+  default     = true
+}
+
 variable "user_account" {
   description = "Credentials for cloud init user"
   type = object({
@@ -238,6 +251,7 @@ variable "user_account" {
     keys     = optional(list(string))
   })
   sensitive = true
+  default   = {}
 }
 
 ### Network Variables
@@ -281,4 +295,10 @@ variable "os_type" {
   description = "The Operating System configuration. type"
   type        = string
   default     = "l26"
+}
+
+variable "on_boot" {
+  description = "Whether to start the VM on node boot"
+  type        = bool
+  default     = true
 }

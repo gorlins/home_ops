@@ -11,7 +11,7 @@ terraform {
 module "cloud_image" {
   source = "../image"
 
-  node                     = var.node
+  node                     = var.node_name
   image_content_type       = var.image_content_type
   image_datastore_id       = var.image_datastore_id
   image_filename           = var.image_filename
@@ -25,16 +25,16 @@ module "cloud_image" {
 resource "proxmox_virtual_environment_vm" "vm_template" {
   depends_on = [module.cloud_image]
 
-  node_name   = var.node
+  node_name   = var.node_name
   vm_id       = var.vm_id
-  name        = var.vm_name
+  name        = var.name
   description = var.description
   tags        = var.tags
   bios        = var.bios
   machine     = var.machine_type
   started     = false
   template    = true
-  on_boot     = false
+  on_boot     = var.on_boot
 
   agent {
     enabled = var.qemu_guest_agent
@@ -51,9 +51,8 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
     type                 = var.ci_datasource_type
     meta_data_file_id    = var.ci_meta_data
     network_data_file_id = var.ci_network_data
-    # user_data_file_id    = var.ci_user_data
-    vendor_data_file_id = var.ci_vendor_data
-    upgrade             = false
+    vendor_data_file_id  = var.ci_vendor_data
+    upgrade              = var.upgrade
 
     user_account {
       username = var.user_account.username
@@ -69,8 +68,9 @@ resource "proxmox_virtual_environment_vm" "vm_template" {
   }
 
   cpu {
-    cores = var.vcpu
-    type  = var.vcpu_type
+    sockets = var.cpu_sockets
+    cores   = var.cpu_cores
+    type    = var.cpu_type
   }
 
   memory {
