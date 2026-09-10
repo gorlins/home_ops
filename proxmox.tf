@@ -159,6 +159,8 @@ module "k3s" {
   node_name = each.key
   name      = "k3s-${each.key}"
 
+  tags = ["k8s", "ubuntu"]
+
   import_from  = module.ubuntu_img["noble"].id
   datastore_id = local.local_datastore
 

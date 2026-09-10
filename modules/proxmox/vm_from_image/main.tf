@@ -13,8 +13,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
   vm_id       = var.vm_id
   name        = var.name
   description = var.description
+  tags        = var.tags
   migrate     = true # Required to allow for cloning to non-shared storage on other hosts
   template    = var.template
+  started     = var.template ? false : true
 
   # Machine config
   bios          = var.bios
@@ -96,6 +98,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
     enabled = var.agent
     # trim    = true
     # type    = "virtio"
+
+    wait_for_ip {
+      disabled = true
+    }
   }
   on_boot = var.on_boot
 
