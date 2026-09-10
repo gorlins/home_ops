@@ -148,5 +148,12 @@ module "k3s" {
 
   import_from  = "cephfs:import/ubuntu-24.04-server-cloudimg-amd64.qcow2"
   datastore_id = local.local_datastore
-  cpu_type     = "host"
+
+  cpu_type        = "host"
+  cpu_cores       = 4
+  memory          = 4096
+  memory_floating = 2048
+
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
 }

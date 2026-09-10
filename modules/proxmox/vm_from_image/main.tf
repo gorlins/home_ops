@@ -8,13 +8,21 @@ terraform {
   }
 }
 
-
 resource "proxmox_virtual_environment_vm" "vm" {
   node_name   = var.node_name
   vm_id       = var.vm_id
   name        = var.name
   description = var.description
   migrate     = true # Required to allow for cloning to non-shared storage on other hosts
+
+  # Machine config
+  bios          = var.bios
+  machine       = var.machine
+  scsi_hardware = var.scsi_hardware
+
+  operating_system {
+    type = var.operating_system
+  }
 
   cpu {
     sockets = var.cpu_sockets
@@ -27,7 +35,23 @@ resource "proxmox_virtual_environment_vm" "vm" {
     floating  = var.memory_floating
   }
 
+  rng {
+    source = var.rng_source
+  }
+
+  tpm_state {
+    datastore_id = var.datastore_id
+  }
+
   # Boot disk
+  dynamic "efi_disk" {
+    for_each = (var.bios == "ovmf" ? [1] : [])
+    content {
+      datastore_id      = var.datastore_id
+      type              = "4m"
+      pre_enrolled_keys = true
+    }
+  }
   disk {
     import_from  = var.import_from
     datastore_id = var.datastore_id
@@ -66,9 +90,19 @@ resource "proxmox_virtual_environment_vm" "vm" {
     }
   }
 
+  # VM config
+  agent {
+    enabled = var.agent
+    # trim    = true
+    # type    = "virtio"
+  }
+  on_boot = var.on_boot
+
   # cloud-init config
   initialization {
-    datastore_id        = var.datastore_id
+    datastore_id = var.datastore_id
+    interface    = "scsi30"
+
     vendor_data_file_id = var.vendor_data_file_id
 
     user_account {
@@ -77,10 +111,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
       keys     = var.user_account.keys
     }
 
-    dns {
-      domain  = var.ci_dns_domain
-      servers = (var.ci_dns_server != null ? [var.ci_dns_server] : [])
-    }
+    # dns { # Issues with reapplying empty strings
+    #   domain  = var.ci_dns_domain
+    #   servers = var.ci_dns_servers
+    # }
 
     ip_config {
       dynamic "ipv4" {
