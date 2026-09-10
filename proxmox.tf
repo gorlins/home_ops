@@ -62,83 +62,96 @@ resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
   }
 }
 
-module "ubuntu_templates" {
-  source = "./modules/proxmox/vm-template"
-
-  for_each = {
+locals {
+  ubuntu_lts_releases = {
     focal = {
-      year           = 20
-      release_date   = "20250624"
-      image_checksum = "18f2977d77dfea1b74aee14533bd21c34f789139e949c57023b7364894b7e5e9"
+      year         = 20
+      release_date = "20250624"
+      checksum     = "18f2977d77dfea1b74aee14533bd21c34f789139e949c57023b7364894b7e5e9"
     }
     jammy = {
-      year           = 22
-      release_date   = "20260826"
-      image_checksum = "c0a5af17e6c0f76351fe07e2fffef3011dab1facb8a8ed5701dcf648dabd4f0a"
+      year         = 22
+      release_date = "20260826"
+      checksum     = "c0a5af17e6c0f76351fe07e2fffef3011dab1facb8a8ed5701dcf648dabd4f0a"
     }
     noble = {
-      year           = 24
-      release_date   = "20260826"
-      image_checksum = "d0fe84bb5f80853425fa6be28e2c106f30104c3cfe8611933f2e65c9b63f0e30"
+      year         = 24
+      release_date = "20260826"
+      checksum     = "d0fe84bb5f80853425fa6be28e2c106f30104c3cfe8611933f2e65c9b63f0e30"
     }
     resolute = {
-      year           = 26
-      release_date   = "20260823"
-      image_checksum = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
+      year         = 26
+      release_date = "20260823"
+      checksum     = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
     }
   }
-
-  # Image Variables
-  image_url          = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
-  image_filename     = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2" # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
-  image_content_type = "import"
-  image_checksum     = each.value.image_checksum
-
-  # VM Template Variables
-  datastore_id   = local.shared_datastore
-  vm_id          = tonumber("${each.value.year}04")
-  name           = "ubuntu-${each.value.year}-LTS-${each.key}"
-  description    = "Ubuntu LTS ${each.value.year}.04 ${each.key} (release date ${each.value.release_date})"
-  tags           = ["ubuntu"]
-  ci_vendor_data = local.ci_vendor_data
-
-  user_account = local.user_account
 }
 
-module "sle_leap_templates" {
-  source = "./modules/proxmox/vm-template"
+module "ubuntu_img" {
+  source = "./modules/proxmox/shared_image"
+
+  node_name    = local.template_node
+  datastore_id = local.shared_fs
+
+  for_each = local.ubuntu_lts_releases
+
+  # Image Variables
+  url       = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
+  file_name = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2"
+  # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
+  checksum = each.value.checksum
+}
+
+module "ubuntu_template" {
+  source   = "./modules/proxmox/vm_from_image"
+  template = true
+  for_each = local.ubuntu_lts_releases
+
+  node_name    = local.template_node
+  datastore_id = local.shared_datastore
+  import_from  = module.ubuntu_img[each.key].id
+
+  # VM Template Variables
+  vm_id       = tonumber("${each.value.year}04")
+  name        = "ubuntu-${each.value.year}-LTS-${each.key}"
+  description = "Ubuntu LTS (${each.value.year}.04 ${each.key})"
+  tags        = ["ubuntu"]
+
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
+}
+
+module "sle_leap_img" {
+  source = "./modules/proxmox/shared_image"
 
   for_each = {
     16 = {
-      point          = 1
-      image_checksum = "79deb563e392fb7ba86ca9e844b90a1a73846ce468d2c44b81d2f583b2ebb76b"
+      point    = 1
+      checksum = "79deb563e392fb7ba86ca9e844b90a1a73846ce468d2c44b81d2f583b2ebb76b"
     }
   }
 
   # Image Variables
-  image_url          = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
-  image_checksum     = each.value.image_checksum
-  image_content_type = "import"
-
-  # VM Template Variables
-  datastore_id   = local.shared_datastore
-  vm_id          = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
-  name           = "opensuse-leap-${each.key}"
-  description    = "OpenSUSE LEAP ${each.key}.${each.value.point}"
-  tags           = ["leap", "sle"]
-  ci_vendor_data = local.ci_vendor_data
-
-  user_account = local.user_account
+  node_name    = local.template_node
+  url          = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
+  checksum     = each.value.checksum
+  datastore_id = local.shared_fs
+  # vm_id          = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
+  # name           = "opensuse-leap-${each.key}"
+  # description    = "OpenSUSE LEAP ${each.key}.${each.value.point}"
+  # tags           = ["leap", "sle"]
+  # ci_vendor_data = local.ci_vendor_data
+  # user_account = local.user_account
 }
 
-resource "proxmox_cloned_vm" "samba-ad-dc" {
-  name      = "dc1"
-  node_name = "pve-3"
-  clone = {
-    source_vm_id     = module.ubuntu_templates["noble"].id
-    source_node_name = module.ubuntu_templates["noble"].node_name
-  }
-}
+# resource "proxmox_cloned_vm" "samba-ad-dc" {
+#   name      = "dc1"
+#   node_name = "pve-3"
+#   clone = {
+#     source_vm_id     = module.ubuntu_templates["noble"].id
+#     source_node_name = module.ubuntu_templates["noble"].node_name
+#   }
+# }
 
 module "k3s" {
   source    = "./modules/proxmox/vm_from_image"
@@ -146,7 +159,7 @@ module "k3s" {
   node_name = each.key
   name      = "k3s-${each.key}"
 
-  import_from  = "cephfs:import/ubuntu-24.04-server-cloudimg-amd64.qcow2"
+  import_from  = module.ubuntu_img["noble"].id
   datastore_id = local.local_datastore
 
   cpu_type        = "host"

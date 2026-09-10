@@ -14,6 +14,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   name        = var.name
   description = var.description
   migrate     = true # Required to allow for cloning to non-shared storage on other hosts
+  template    = var.template
 
   # Machine config
   bios          = var.bios

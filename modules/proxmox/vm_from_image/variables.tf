@@ -216,3 +216,9 @@ variable "timeout_stop_vm" {
   type        = number
   default     = 300
 }
+
+variable "template" {
+  description = "Whether image should be turned into a template"
+  type        = bool
+  default     = false
+}
