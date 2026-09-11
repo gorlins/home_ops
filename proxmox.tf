@@ -63,6 +63,18 @@ resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
 }
 
 locals {
+  debian_releases = {
+    bookworm = {
+      v            = 12
+      release_iden = "20260909-2596"
+      checksum     = "e95cf7e6fcd8cf9c1bc525cfaa265b9dfc54af5abe07c98186cd533925f228b2b7f9eaec2f650a1923ae9ab56cf09869fe2d17c74037ce8285d955e38365d7ae"
+    }
+    trixie = {
+      v            = 13
+      release_iden = "20260831-2587"
+      checksum     = "e4f716b1fb48be24085c0907bd1a0a31f03b7bf2adfbd46d9f39595a225dc38741a4b5d79910e61fa1d885ac043e5ea0663fe805f26944e1dc1211a3206022c2"
+    }
+  }
   ubuntu_lts_releases = {
     focal = {
       year         = 20
@@ -127,6 +139,40 @@ module "ubuntu_template" {
   name        = "ubuntu-${each.value.year}-LTS-${each.key}"
   description = "Ubuntu LTS (${each.value.year}.04 ${each.key})"
   tags        = ["ubuntu"]
+
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
+}
+
+module "debian_img" {
+  source = "./modules/proxmox/shared_image"
+
+  node_name    = local.template_node
+  datastore_id = local.shared_fs
+
+  for_each = local.debian_releases
+
+  # Image Variables
+  url = "https://cloud.debian.org/images/cloud/${each.key}/${each.value.release_iden}/debian-${each.value.v}-nocloud-amd64-${each.value.release_iden}.qcow2"
+  # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
+  checksum           = each.value.checksum
+  checksum_algorithm = "sha512"
+}
+
+module "debian_template" {
+  source   = "./modules/proxmox/vm_from_image"
+  template = true
+  for_each = local.debian_releases
+
+  node_name    = local.template_node
+  datastore_id = local.shared_datastore
+  import_from  = module.debian_img[each.key].id
+
+  # VM Template Variables
+  vm_id       = tonumber("${each.value.v}00")
+  name        = "debian-${each.value.v}-${each.key}"
+  description = "Debian ${each.value.v} ${each.key}"
+  tags        = ["debian"]
 
   vendor_data_file_id = local.ci_vendor_data
   user_account        = local.user_account
