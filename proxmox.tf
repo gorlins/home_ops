@@ -87,6 +87,17 @@ locals {
   }
 }
 
+
+module "microos_img" {
+  source = "./modules/proxmox/shared_image"
+
+  node_name    = local.template_node
+  datastore_id = local.shared_fs
+
+  # Image Variables
+  url = "https://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-kvm-and-xen.qcow2"
+}
+
 module "ubuntu_img" {
   source = "./modules/proxmox/shared_image"
 
@@ -157,7 +168,7 @@ module "k3s" {
   source    = "./modules/proxmox/vm_from_image"
   for_each  = local.pve_nodes
   node_name = each.key
-  name      = "k3s-${each.key}"
+  name      = join("-", ["k3s", trimprefix(each.key, "pve-")])
 
   tags = ["k8s", "ubuntu"]
 
