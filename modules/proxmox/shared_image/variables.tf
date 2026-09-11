@@ -19,6 +19,7 @@ variable "url" {
 variable "checksum" {
   description = "Image checksum value."
   type        = string
+  default     = null
 }
 
 variable "checksum_algorithm" {

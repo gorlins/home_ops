@@ -15,7 +15,7 @@ resource "proxmox_download_file" "img" {
   file_name          = var.file_name
   url                = var.url
   checksum           = var.checksum
-  checksum_algorithm = var.checksum_algorithm
+  checksum_algorithm = var.checksum == null ? null : var.checksum_algorithm
   overwrite          = var.overwrite
 
   lifecycle {
