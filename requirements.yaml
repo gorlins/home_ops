@@ -1,0 +1,5 @@
+collections:
+  - name: community.sops
+  - name: https://github.com/k3s-io/k3s-ansible.git
+    type: git
+    version: 1.2.2
