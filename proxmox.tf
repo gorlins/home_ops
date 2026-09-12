@@ -253,19 +253,11 @@ module "komodo" {
 
 
 # HA
-
-resource "proxmox_haresource" "komodo" {
-  resource_id = "vm:${module.komodo.id}"
-  state       = "started"
-  comment     = "Managed by Terraform"
-}
-
-
 resource "proxmox_harule" "racks_v3" {
   rule      = "racks_v3"
   type      = "node-affinity"
   comment   = "Run VM's on x86-64v3 and above"
-  resources = [proxmox_haresource.komodo.resource_id]
+  resources = [module.komodo.ha_resource_id]
 
   nodes = {
     pve-2 = null

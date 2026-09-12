@@ -148,3 +148,11 @@ resource "proxmox_virtual_environment_vm" "vm" {
     ]
   }
 }
+
+resource "proxmox_haresource" "ha" {
+  count       = var.ha ? 1 : 0
+  resource_id = "vm:${proxmox_virtual_environment_vm.vm.vm_id}"
+  state       = var.ha ? "started" : "stopped"
+  comment     = "Managed by Terraform"
+}
+

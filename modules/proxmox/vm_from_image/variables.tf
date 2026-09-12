@@ -234,3 +234,8 @@ variable "started" {
   type        = bool
   default     = true
 }
+
+variable "ha" {
+  type    = bool
+  default = false
+}
