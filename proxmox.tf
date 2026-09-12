@@ -230,3 +230,47 @@ module "k3s" {
   vendor_data_file_id = local.ci_vendor_data
   user_account        = local.user_account
 }
+
+
+module "komodo" {
+  source    = "./modules/proxmox/vm_from_image"
+  node_name = local.template_node
+  name      = "komodo"
+
+  tags = ["docker", "ubuntu"]
+
+  import_from  = module.ubuntu_img["noble"].id
+  datastore_id = local.shared_datastore
+
+  cpu_cores       = 4
+  memory          = 4096
+  memory_floating = 2048
+
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
+  ha                  = true
+}
+
+
+# HA
+
+resource "proxmox_haresource" "komodo" {
+  resource_id = "vm:${module.komodo.id}"
+  state       = "started"
+  comment     = "Managed by Terraform"
+}
+
+
+resource "proxmox_harule" "racks_v3" {
+  rule      = "racks_v3"
+  type      = "node-affinity"
+  comment   = "Run VM's on x86-64v3 and above"
+  resources = [proxmox_haresource.komodo.resource_id]
+
+  nodes = {
+    pve-2 = null
+    pve-3 = null
+  }
+
+  strict = true
+}
