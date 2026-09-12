@@ -178,8 +178,8 @@ module "debian_template" {
   user_account        = local.user_account
 }
 
-module "sle_leap_img" {
-  source = "./modules/proxmox/shared_image"
+module "sle_leap" {
+  source = "./modules/proxmox/shared_template"
 
   for_each = {
     16 = {
@@ -189,16 +189,17 @@ module "sle_leap_img" {
   }
 
   # Image Variables
-  node_name    = local.template_node
-  url          = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
-  checksum     = each.value.checksum
-  datastore_id = local.shared_fs
-  # vm_id          = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
-  # name           = "opensuse-leap-${each.key}"
-  # description    = "OpenSUSE LEAP ${each.key}.${each.value.point}"
-  # tags           = ["leap", "sle"]
-  # ci_vendor_data = local.ci_vendor_data
-  # user_account = local.user_account
+  node_name = local.template_node
+  url       = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
+  checksum  = each.value.checksum
+
+  # Template vars
+  vm_id               = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
+  name                = "opensuse-leap-${each.key}"
+  description         = "OpenSUSE LEAP ${each.key}.${each.value.point}"
+  tags                = ["leap", "sle"]
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
 }
 
 # resource "proxmox_cloned_vm" "samba-ad-dc" {

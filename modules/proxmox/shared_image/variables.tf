@@ -53,9 +53,3 @@ variable "overwrite" {
   type        = bool
   default     = false
 }
-
-variable "tags" {
-  description = "Tags to add"
-  type        = list(string)
-  default     = null
-}

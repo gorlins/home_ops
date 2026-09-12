@@ -1,9 +1,4 @@
 ## VM Variables
-variable "import_from" {
-  description = "Reference to import image (<datastore_id>:<content_type>/<file_name>)"
-  type        = string
-}
-
 variable "node_name" {
   description = "Name of Proxmox node to provision VM on, e.g. `pve`."
   type        = string
@@ -22,9 +17,14 @@ variable "boot_disk" {
   default = {}
 }
 
+variable "img_datastore_id" {
+  description = "Target data storage for the image"
+  default     = "cephfs"
+}
+
 variable "datastore_id" {
   description = "Target data storage for all disks"
-  default     = "local-lvm"
+  default     = "cephy"
 }
 
 variable "vm_id" {
@@ -53,11 +53,6 @@ variable "tags" {
 
 variable "agent" {
   description = "Enable QEMU guest agent."
-  type        = bool
-  default     = true
-}
-variable "on_boot" {
-  description = "Whether to start the VM on node boot"
   type        = bool
   default     = true
 }
@@ -93,67 +88,11 @@ variable "rng_source" {
   default     = "/dev/urandom"
 }
 
-variable "cpu_sockets" {
-  description = "Number of CPU sockets"
-  type        = number
-  default     = null
-}
-
-variable "cpu_cores" {
-  description = "Number of CPU cores."
-  type        = number
-  default     = null
-}
-
-variable "cpu_type" {
-  description = "CPU type."
-  type        = string
-  default     = null
-}
-
-variable "memory" {
-  description = "Memory size in `MiB`."
-  type        = number
-  default     = null
-}
-
-variable "memory_floating" {
-  description = "Minimum memory size in `MiB`, setting this value enables memory ballooning."
-  type        = number
-  default     = null
-}
-
 ### Disk Variables
 variable "scsi_hardware" {
   description = "Storage controller, e.g. `virtio-scsi-pci`."
   type        = string
   default     = "virtio-scsi-single"
-}
-
-variable "additional_disks" {
-  type = list(object({
-    interface = string
-    size      = number
-    cache     = optional(string)
-    iothread  = optional(bool, true)
-    ssd       = optional(bool, true)
-    discard   = optional(string, "on")
-    }
-  ))
-  default = []
-}
-
-### Network Variables
-variable "network_devices" {
-  description = "List of nics"
-  type = list(object({
-    bridge  = optional(string)
-    model   = optional(string)
-    mtu     = optional(number)
-    vlan_id = optional(number)
-    address = optional(string, "dhcp")
-  }))
-  default = [{}]
 }
 
 ### Cloud-init Variables
@@ -174,63 +113,47 @@ variable "vendor_data_file_id" {
   default     = null
 }
 
-### Timeout Variables
-variable "timeout_clone" {
-  description = "Timeout in seconds for cloning a VM."
-  type        = number
-  default     = 1800
+
+# Image vars
+variable "file_name" {
+  description = "Filename, default `null` will extract name from URL."
+  type        = string
+  default     = null
 }
 
-variable "timeout_create" {
-  description = "Timeout in seconds for creating a VM."
-  type        = number
-  default     = 1800
+variable "url" {
+  description = "Image URL."
+  type        = string
 }
 
-variable "timeout_migrate" {
-  description = "Timeout in seconds for migrating a VM."
-  type        = number
-  default     = 1800
+variable "checksum" {
+  description = "Image checksum value."
+  type        = string
+  default     = null
 }
 
-variable "timeout_reboot" {
-  description = "Timeout in seconds for rebooting a VM."
-  type        = number
-  default     = 1800
+variable "checksum_algorithm" {
+  description = "Image checksum algorithm."
+  type        = string
+  default     = "sha256"
+  validation {
+    condition     = contains(["md5", "sha1", "sha224", "sha256", "sha384", "sha512"], var.checksum_algorithm)
+    error_message = "Invalid checksum setting: ${var.checksum_algorithm}."
+  }
 }
 
-variable "timeout_shutdown_vm" {
-  description = "Timeout in seconds for shutting down a VM."
-  type        = number
-  default     = 1800
+variable "content_type" {
+  description = "File content type, `iso` for VM images or `vztmpl` for LXC images."
+  type        = string
+  default     = "import"
+  validation {
+    condition     = contains(["iso", "vztmpl", "import"], var.content_type)
+    error_message = "Invalid content type: ${var.content_type}."
+  }
 }
 
-variable "timeout_start_vm" {
-  description = "Timeout in seconds for starting a VM."
-  type        = number
-  default     = 1800
-}
-
-variable "timeout_stop_vm" {
-  description = "Timeout in seconds for stopping a VM."
-  type        = number
-  default     = 300
-}
-
-variable "template" {
-  description = "Whether image should be turned into a template"
+variable "overwrite" {
+  description = "Overwrite pre-existing image on PVE host."
   type        = bool
   default     = false
-}
-
-variable "migrate" {
-  description = "Migrate machine rather than recreate when node name changes"
-  type        = bool
-  default     = true
-}
-
-variable "started" {
-  description = "Whether VM should be started"
-  type        = bool
-  default     = true
 }

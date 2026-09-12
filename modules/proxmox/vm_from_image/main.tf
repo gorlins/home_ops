@@ -1,5 +1,4 @@
 terraform {
-  required_version = ">=1.5.0"
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
@@ -14,9 +13,9 @@ resource "proxmox_virtual_environment_vm" "vm" {
   name        = var.name
   description = var.description
   tags        = var.tags
-  migrate     = true # Required to allow for cloning to non-shared storage on other hosts
+  migrate     = var.migrate
   template    = var.template
-  started     = var.template ? false : true
+  started     = var.template ? false : var.started
 
   # Machine config
   bios          = var.bios
