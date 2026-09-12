@@ -108,7 +108,7 @@ variable "cpu_cores" {
 variable "cpu_type" {
   description = "CPU type."
   type        = string
-  default     = null
+  default     = "x86-64-v3"
 }
 
 variable "memory" {
