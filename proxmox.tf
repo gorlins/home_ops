@@ -24,7 +24,7 @@ data "proxmox_virtual_environment_nodes" "all" {}
 
 locals {
   pve_nodes        = toset(data.proxmox_virtual_environment_nodes.all.names)
-  local_datastore  = "local_vols"
+  local_datastore  = "local-lvm"
   template_node    = "pve-3"
   shared_datastore = "cephy"
   shared_fs        = "cephfs"
