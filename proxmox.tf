@@ -29,6 +29,8 @@ locals {
   shared_datastore = "cephy"
   shared_fs        = "cephfs"
 
+  cluster_bridge = "cluster"
+
   # online_nodes = [
   #   for i, name in data.proxmox_virtual_environment_nodes.all.names :
   #   name if data.proxmox_virtual_environment_nodes.all.online[i]
@@ -250,7 +252,7 @@ module "alexandria" {
   ha                  = true
 
   network_devices = [
-    { bridge = "cluster" },
+    { bridge = local.cluster_bridge },
     { bridge = "home" }
   ]
 }
@@ -272,6 +274,8 @@ module "komodo" {
   vendor_data_file_id = local.ci_vendor_data
   user_account        = local.user_account
   ha                  = true
+
+  network_devices = [{ bridge = local.cluster_bridge }]
 }
 
 
