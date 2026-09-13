@@ -122,11 +122,11 @@ resource "proxmox_virtual_environment_vm" "vm" {
     #   servers = var.ci_dns_servers
     # }
 
-    ip_config {
-      dynamic "ipv4" {
-        for_each = var.network_devices
-        iterator = nic
-        content {
+    dynamic "ip_config" {
+      for_each = var.network_devices
+      iterator = nic
+      content {
+        ipv4 {
           address = nic.value.address
         }
       }

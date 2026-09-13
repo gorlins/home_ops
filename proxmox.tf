@@ -231,6 +231,29 @@ module "k3s" {
   user_account        = local.user_account
 }
 
+module "alexandria" {
+  source    = "./modules/proxmox/vm_from_image"
+  node_name = local.template_node
+  name      = "alexandria"
+
+  tags = ["docker", "ubuntu"]
+
+  import_from  = module.ubuntu_img["jammy"].id # 45 drives repos aren't updated :(
+  datastore_id = local.shared_datastore
+
+  cpu_cores       = 4
+  memory          = 4096
+  memory_floating = 2048
+
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
+  ha                  = true
+
+  network_devices = [
+    { bridge = "cluster" },
+    { bridge = "home" }
+  ]
+}
 
 module "komodo" {
   source    = "./modules/proxmox/vm_from_image"
@@ -254,10 +277,13 @@ module "komodo" {
 
 # HA
 resource "proxmox_harule" "racks_v3" {
-  rule      = "racks_v3"
-  type      = "node-affinity"
-  comment   = "Run VM's on x86-64v3 and above"
-  resources = [module.komodo.ha_resource_id]
+  rule    = "racks_v3"
+  type    = "node-affinity"
+  comment = "Run VM's on x86-64v3 and above"
+  resources = [
+    module.alexandria.ha_resource_id,
+    module.komodo.ha_resource_id,
+  ]
 
   nodes = {
     pve-2 = null
