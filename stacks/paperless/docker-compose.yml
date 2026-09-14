@@ -66,9 +66,10 @@ services:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media
 #      - ./export:/usr/src/paperless/export
-      - omv_export:/usr/src/paperless/export
+#      - omv_export:/usr/src/paperless/export
 #      - ./consume:/usr/src/paperless/consume
-      - omv_consume:/usr/src/paperless/consume
+      - /mnt/cephfs/volumes/apps/paperless/f94e44e6-525a-404e-95f7-e43cabe3dedc/export:/usr/src/paperless/export
+      - /mnt/cephfs/volumes/apps/paperless/f94e44e6-525a-404e-95f7-e43cabe3dedc/consume:/usr/src/paperless/consume
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_URL: https://paperless.soybagel.com
@@ -82,18 +83,18 @@ volumes:
   media:
   pgdata:
   redisdata:
-  omv_export:
-    driver: local
-    driver_opts:
-      type: "cifs"
-      device: "//omv.soybagel.com/paperless_export"
-      o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
-  omv_consume:
-    driver: local
-    driver_opts:
-      type: "cifs"
-      device: "//omv.soybagel.com/paperless_consume"
-      o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
+#  omv_export:
+#    driver: local
+#    driver_opts:
+#      type: "cifs"
+#      device: "//omv.soybagel.com/paperless_export"
+#      o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
+#  omv_consume:
+#    driver: local
+#    driver_opts:
+#      type: "cifs"
+#      device: "//omv.soybagel.com/paperless_consume"
+#      o: "addr=omv.soybagel.com,username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,uid=1000,gid=100"
 
 networks:
   public:
