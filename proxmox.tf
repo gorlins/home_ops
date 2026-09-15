@@ -106,6 +106,22 @@ module "ubuntu_template" {
   checksum = each.value.checksum
 }
 
+module "microos_template" {
+  source = "./modules/proxmox/shared_template"
+
+  # Image Variables
+  url = "https://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-kvm-and-xen.qcow2"
+
+  # Template vars
+  vm_id        = 5000
+  name         = "microos"
+  description  = "OpenSUSE MicroOS"
+  tags         = ["microos", "sle"]
+  user_account = local.user_account
+  node_name    = local.template_node
+  datastore_id = local.shared_datastore
+}
+
 module "debian_template" {
   source = "./modules/proxmox/shared_template"
 
