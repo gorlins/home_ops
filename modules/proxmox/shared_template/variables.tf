@@ -158,3 +158,8 @@ variable "overwrite" {
   type        = bool
   default     = false
 }
+
+variable "cdrom_file_id" {
+  type    = string
+  default = null
+}

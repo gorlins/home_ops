@@ -48,4 +48,5 @@ module "template" {
   agent               = var.agent
   vendor_data_file_id = var.vendor_data_file_id
   user_account        = var.user_account
+  cdrom_file_id       = var.cdrom_file_id
 }

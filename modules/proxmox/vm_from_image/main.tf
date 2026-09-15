@@ -81,6 +81,14 @@ resource "proxmox_virtual_environment_vm" "vm" {
     }
   }
 
+  dynamic "cdrom" {
+    for_each = var.cdrom_file_id == null ? [] : [var.cdrom_file_id]
+    iterator = file_id
+    content {
+      file_id = file_id.value
+    }
+  }
+
   dynamic "network_device" {
     for_each = var.network_devices
     iterator = nic

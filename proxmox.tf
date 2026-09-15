@@ -43,6 +43,7 @@ locals {
     password = data.sops_file.secrets.data["ci.password"]
     keys     = yamldecode(data.sops_file.secrets.raw)["ci"]["keys"] # sops provider can't read arrays for some reason - parse it manually
   }
+  ansible_ignition = "cephfs:iso/ansible_ignition.iso"
 }
 
 # Create a custom cloud-init config using BPG provider
@@ -113,13 +114,13 @@ module "microos_template" {
   url = "https://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-kvm-and-xen.qcow2"
 
   # Template vars
-  vm_id        = 5000
-  name         = "microos"
-  description  = "OpenSUSE MicroOS"
-  tags         = ["microos", "sle"]
-  user_account = local.user_account
-  node_name    = local.template_node
-  datastore_id = local.shared_datastore
+  vm_id         = 5000
+  name          = "microos"
+  description   = "OpenSUSE MicroOS"
+  tags          = ["microos", "sle"]
+  node_name     = local.template_node
+  datastore_id  = local.shared_datastore
+  cdrom_file_id = local.ansible_ignition
 }
 
 module "debian_template" {
