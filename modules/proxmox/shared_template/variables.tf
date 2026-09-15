@@ -2,6 +2,7 @@
 variable "node_name" {
   description = "Name of Proxmox node to provision VM on, e.g. `pve`."
   type        = string
+  default     = "pve-3"
 }
 
 variable "boot_disk" {

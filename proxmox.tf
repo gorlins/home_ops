@@ -64,20 +64,10 @@ resource "proxmox_virtual_environment_file" "cloud_vendor_config" {
   }
 }
 
-locals {
-  debian_releases = {
-    bookworm = {
-      v            = 12
-      release_iden = "20260909-2596"
-      checksum     = "e95cf7e6fcd8cf9c1bc525cfaa265b9dfc54af5abe07c98186cd533925f228b2b7f9eaec2f650a1923ae9ab56cf09869fe2d17c74037ce8285d955e38365d7ae"
-    }
-    trixie = {
-      v            = 13
-      release_iden = "20260831-2587"
-      checksum     = "e4f716b1fb48be24085c0907bd1a0a31f03b7bf2adfbd46d9f39595a225dc38741a4b5d79910e61fa1d885ac043e5ea0663fe805f26944e1dc1211a3206022c2"
-    }
-  }
-  ubuntu_lts_releases = {
+module "ubuntu_template" {
+  source = "./modules/proxmox/shared_template"
+
+  for_each = {
     focal = {
       year         = 20
       release_date = "20250624"
@@ -99,42 +89,6 @@ locals {
       checksum     = "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
     }
   }
-}
-
-
-module "microos_img" {
-  source = "./modules/proxmox/shared_image"
-
-  node_name    = local.template_node
-  datastore_id = local.shared_fs
-
-  # Image Variables
-  url = "https://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-kvm-and-xen.qcow2"
-}
-
-module "ubuntu_img" {
-  source = "./modules/proxmox/shared_image"
-
-  node_name    = local.template_node
-  datastore_id = local.shared_fs
-
-  for_each = local.ubuntu_lts_releases
-
-  # Image Variables
-  url       = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
-  file_name = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2"
-  # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
-  checksum = each.value.checksum
-}
-
-module "ubuntu_template" {
-  source   = "./modules/proxmox/vm_from_image"
-  template = true
-  for_each = local.ubuntu_lts_releases
-
-  node_name    = local.template_node
-  datastore_id = local.shared_datastore
-  import_from  = module.ubuntu_img[each.key].id
 
   # VM Template Variables
   vm_id       = tonumber("${each.value.year}04")
@@ -144,31 +98,35 @@ module "ubuntu_template" {
 
   vendor_data_file_id = local.ci_vendor_data
   user_account        = local.user_account
+
+  # Image Variables
+  url       = "https://cloud-images.ubuntu.com/releases/${each.value.year}.04/release-${each.value.release_date}/ubuntu-${each.value.year}.04-server-cloudimg-amd64.img"
+  file_name = "ubuntu-${each.value.year}.04-server-cloudimg-amd64.qcow2"
+  # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
+  checksum = each.value.checksum
 }
 
-module "debian_img" {
-  source = "./modules/proxmox/shared_image"
+module "debian_template" {
+  source = "./modules/proxmox/shared_template"
 
-  node_name    = local.template_node
-  datastore_id = local.shared_fs
-
-  for_each = local.debian_releases
+  for_each = {
+    bookworm = {
+      v            = 12
+      release_iden = "20260909-2596"
+      checksum     = "e95cf7e6fcd8cf9c1bc525cfaa265b9dfc54af5abe07c98186cd533925f228b2b7f9eaec2f650a1923ae9ab56cf09869fe2d17c74037ce8285d955e38365d7ae"
+    }
+    trixie = {
+      v            = 13
+      release_iden = "20260831-2587"
+      checksum     = "e4f716b1fb48be24085c0907bd1a0a31f03b7bf2adfbd46d9f39595a225dc38741a4b5d79910e61fa1d885ac043e5ea0663fe805f26944e1dc1211a3206022c2"
+    }
+  }
 
   # Image Variables
   url = "https://cloud.debian.org/images/cloud/${each.key}/${each.value.release_iden}/debian-${each.value.v}-nocloud-amd64-${each.value.release_iden}.qcow2"
   # Ubuntu uses the 'wrong' extension and we need to rename it to show in the right place for proxmox
   checksum           = each.value.checksum
   checksum_algorithm = "sha512"
-}
-
-module "debian_template" {
-  source   = "./modules/proxmox/vm_from_image"
-  template = true
-  for_each = local.debian_releases
-
-  node_name    = local.template_node
-  datastore_id = local.shared_datastore
-  import_from  = module.debian_img[each.key].id
 
   # VM Template Variables
   vm_id       = tonumber("${each.value.v}00")
@@ -191,9 +149,8 @@ module "sle_leap" {
   }
 
   # Image Variables
-  node_name = local.template_node
-  url       = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
-  checksum  = each.value.checksum
+  url      = "https://download.opensuse.org/distribution/leap/${each.key}.${each.value.point}/appliances/Leap-${each.key}.${each.value.point}-Minimal-VM.x86_64-Cloud-Build2.${each.key}.qcow2"
+  checksum = each.value.checksum
 
   # Template vars
   vm_id               = tonumber(join("", [each.key, format("%02d", each.value.point), "0"]))
@@ -221,7 +178,7 @@ module "k3s" {
 
   tags = ["k8s", "ubuntu"]
 
-  import_from  = module.ubuntu_img["noble"].id
+  import_from  = module.ubuntu_template["noble"].img.id
   datastore_id = local.local_datastore
 
   cpu_type        = "host"
@@ -240,7 +197,7 @@ module "alexandria" {
 
   tags = ["docker", "ubuntu"]
 
-  import_from  = module.ubuntu_img["jammy"].id # 45 drives repos aren't updated :(
+  import_from  = module.ubuntu_template["jammy"].img.id # 45 drives repos aren't updated :(
   datastore_id = local.shared_datastore
 
   cpu_cores       = 4
@@ -264,7 +221,7 @@ module "komodo" {
 
   tags = ["docker", "ubuntu"]
 
-  import_from  = module.ubuntu_img["noble"].id
+  import_from  = module.ubuntu_template["noble"].img.id
   datastore_id = local.shared_datastore
 
   cpu_cores       = 4
