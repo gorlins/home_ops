@@ -13,6 +13,7 @@
   gather_facts: false
   become: true
   roles:
+    - role: k3s_server
     - role: k3s.orchestration.k3s_server
 
 - name: Setup K3S agent

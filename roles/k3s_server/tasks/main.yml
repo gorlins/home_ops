@@ -1,0 +1,10 @@
+# curl -fsSL https://kube-vip.io/manifests/rbac.yaml -o /var/lib/rancher/k3s/server/manifests/kube-vip-rbac.yaml
+- name: Copy bootstrap manifests
+  become: true
+  template:
+    src: "templates/{{ item }}"
+    dest: /var/lib/rancher/k3s/server/manifests/
+  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
+  loop:
+    - kube-vip.yaml
+    - kube-vip-rbac.yaml
