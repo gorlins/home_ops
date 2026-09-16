@@ -1,8 +1,16 @@
+microos:
+  hosts:
+    mini:
+    uk3s-[1:3]:
+  vars:
+    ansible_user: root
+
 k3s_cluster:
   children:
     server:
       hosts:
-        k3s-[1:3]:
+        uk3s-[1:3]:
+        mini:
     agent:
       hosts:
 

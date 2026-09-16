@@ -113,29 +113,32 @@ resource "proxmox_virtual_environment_vm" "vm" {
   on_boot = var.on_boot
 
   # cloud-init config
-  initialization {
-    datastore_id = var.datastore_id
-    interface    = "scsi30"
+  dynamic "initialization" {
+    for_each = var.initialization ? [{}] : []
+    content {
+      datastore_id = var.datastore_id
+      interface    = "scsi30"
 
-    vendor_data_file_id = var.vendor_data_file_id
+      vendor_data_file_id = var.vendor_data_file_id
 
-    user_account {
-      username = var.user_account.username
-      password = var.user_account.password
-      keys     = var.user_account.keys
-    }
+      user_account {
+        username = var.user_account.username
+        password = var.user_account.password
+        keys     = var.user_account.keys
+      }
 
-    # dns { # Issues with reapplying empty strings
-    #   domain  = var.ci_dns_domain
-    #   servers = var.ci_dns_servers
-    # }
+      # dns { # Issues with reapplying empty strings
+      #   domain  = var.ci_dns_domain
+      #   servers = var.ci_dns_servers
+      # }
 
-    dynamic "ip_config" {
-      for_each = var.network_devices
-      iterator = nic
-      content {
-        ipv4 {
-          address = nic.value.address
+      dynamic "ip_config" {
+        for_each = var.network_devices
+        iterator = nic
+        content {
+          ipv4 {
+            address = nic.value.address
+          }
         }
       }
     }

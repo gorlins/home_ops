@@ -40,6 +40,7 @@ module "template" {
   scsi_hardware    = var.scsi_hardware
   boot_disk        = var.boot_disk
   operating_system = var.operating_system
+  memory           = 1024 # reasonable default.  some vms (microos) need sufficient for boot
 
   datastore_id = var.datastore_id
   rng_source   = var.rng_source
@@ -49,4 +50,5 @@ module "template" {
   vendor_data_file_id = var.vendor_data_file_id
   user_account        = var.user_account
   cdrom_file_id       = var.cdrom_file_id
+  initialization      = var.initialization
 }

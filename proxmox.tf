@@ -43,7 +43,7 @@ locals {
     password = data.sops_file.secrets.data["ci.password"]
     keys     = yamldecode(data.sops_file.secrets.raw)["ci"]["keys"] # sops provider can't read arrays for some reason - parse it manually
   }
-  ansible_ignition = "cephfs:iso/ansible_ignition.iso"
+  ignition_file_id = "cephfs:iso/ansible_ignition.iso"
 }
 
 # Create a custom cloud-init config using BPG provider
@@ -114,13 +114,13 @@ module "microos_template" {
   url = "https://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-kvm-and-xen.qcow2"
 
   # Template vars
-  vm_id         = 5000
-  name          = "microos"
-  description   = "OpenSUSE MicroOS"
-  tags          = ["microos", "sle"]
-  node_name     = local.template_node
-  datastore_id  = local.shared_datastore
-  cdrom_file_id = local.ansible_ignition
+  vm_id       = 5000
+  name        = "microos"
+  description = "OpenSUSE MicroOS"
+  tags        = ["microos", "sle"]
+
+  cdrom_file_id  = local.ignition_file_id
+  initialization = false
 }
 
 module "debian_template" {
@@ -187,15 +187,15 @@ module "sle_leap" {
 #   }
 # }
 
-module "k3s" {
+module "uk3s" {
   source    = "./modules/proxmox/vm_from_image"
   for_each  = local.pve_nodes
   node_name = each.key
-  name      = join("-", ["k3s", trimprefix(each.key, "pve-")])
+  name      = join("-", ["uk3s", trimprefix(each.key, "pve-")])
 
-  tags = ["k8s", "ubuntu"]
+  tags = ["k8s", "microos"]
 
-  import_from  = module.ubuntu_template["noble"].img.id
+  import_from  = module.microos_template.img.id
   datastore_id = local.local_datastore
 
   cpu_type        = "host"
@@ -203,8 +203,11 @@ module "k3s" {
   memory          = 4096
   memory_floating = 2048
 
-  vendor_data_file_id = local.ci_vendor_data
-  user_account        = local.user_account
+  cdrom_file_id = local.ignition_file_id
+  network_devices = [{
+    bridge = local.cluster_bridge
+  }]
+  initialization = false
 }
 
 module "alexandria" {

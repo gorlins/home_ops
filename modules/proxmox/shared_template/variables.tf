@@ -163,3 +163,7 @@ variable "cdrom_file_id" {
   type    = string
   default = null
 }
+variable "initialization" {
+  type    = bool
+  default = true
+}
