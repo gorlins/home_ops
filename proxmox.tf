@@ -201,7 +201,7 @@ module "uk3s" {
   cpu_type        = "host"
   cpu_cores       = 4
   memory          = 4096
-  memory_floating = 2048
+  memory_floating = null # badness with k3s?
 
   cdrom_file_id = local.ignition_file_id
   network_devices = [{
