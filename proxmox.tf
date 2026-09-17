@@ -44,6 +44,8 @@ locals {
     keys     = yamldecode(data.sops_file.secrets.raw)["ci"]["keys"] # sops provider can't read arrays for some reason - parse it manually
   }
   ignition_file_id = "cephfs:iso/ansible_ignition.iso"
+
+  talos_schematic = "b56a539b12ecc6c822bb4cc7d53eae1db898799815705aa278dab74f38404b47"
 }
 
 # Create a custom cloud-init config using BPG provider
@@ -272,4 +274,37 @@ resource "proxmox_harule" "racks_v3" {
   }
 
   strict = true
+}
+
+resource "proxmox_download_file" "talos_img" {
+  datastore_id = local.shared_fs
+  content_type = "import"
+  node_name    = local.template_node
+  url          = "https://factory.talos.dev/image/${local.talos_schematic}/v1.14.1/metal-amd64-secureboot.qcow2"
+  file_name    = "talos-v1.14.1-metal-amd64-secureboot.qcow2"
+}
+
+module "talos" {
+  source = "./modules/proxmox/vm_from_image"
+
+  for_each  = local.pve_nodes
+  node_name = each.key
+  name      = join("-", ["newtalos", trimprefix(each.key, "pve-")])
+
+  tags = ["talos"]
+
+  import_from  = proxmox_download_file.talos_img.id
+  datastore_id = local.local_datastore
+
+  cpu_cores       = 4
+  memory          = 4096
+  memory_floating = null
+  cpu_type        = "host"
+
+  scsi_hardware = "virtio-scsi-pci"
+  network_devices = [
+    { bridge = local.cluster_bridge },
+  ]
+  initialization    = false
+  pre_enrolled_keys = false # Required for talos to enroll own secure boot keys
 }

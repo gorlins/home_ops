@@ -249,3 +249,9 @@ variable "initialization" {
   type    = bool
   default = true
 }
+
+variable "pre_enrolled_keys" {
+  description = "Add EFI pre-enrolled keys"
+  type        = bool
+  default     = true
+}

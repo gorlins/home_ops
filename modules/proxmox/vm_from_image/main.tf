@@ -51,7 +51,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     content {
       datastore_id      = var.datastore_id
       type              = "4m"
-      pre_enrolled_keys = true
+      pre_enrolled_keys = var.pre_enrolled_keys
     }
   }
   disk {
