@@ -69,8 +69,8 @@
       ignoreTests: true,
     },
     {
-      description: "Auto-merge patches",
-      matchUpdateTypes: ["patch"],
+      description: "Auto-merge minor/patches",
+      matchUpdateTypes: ["minor", "patch"],
       matchCurrentVersion: "!/^0/",
       automerge: true,
       automergeType: "branch",
