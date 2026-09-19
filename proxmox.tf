@@ -217,10 +217,11 @@ module "alexandria" {
   node_name = local.template_node
   name      = "alexandria"
 
-  tags = ["docker", "ubuntu"]
+  tags = ["ubuntu"]
 
   import_from  = module.ubuntu_template["jammy"].img.id # 45 drives repos aren't updated :(
   datastore_id = local.shared_datastore
+  description  = "Ubuntu NAS runnin Jammy"
 
   cpu_cores       = 4
   memory          = 4096
@@ -257,6 +258,26 @@ module "komodo" {
   network_devices = [{ bridge = local.cluster_bridge }]
 }
 
+module "docker" {
+  source    = "./modules/proxmox/vm_from_image"
+  node_name = local.template_node
+  name      = "docker"
+
+  tags = ["komodo-agent", "ubuntu"]
+
+  import_from  = module.ubuntu_template["resolute"].img.id
+  datastore_id = local.shared_datastore
+
+  cpu_cores       = 4
+  memory          = 4096
+  memory_floating = 2048
+
+  vendor_data_file_id = local.ci_vendor_data
+  user_account        = local.user_account
+  ha                  = true
+
+  network_devices = [{ bridge = local.cluster_bridge }]
+}
 
 # HA
 resource "proxmox_harule" "racks_v3" {
@@ -266,6 +287,7 @@ resource "proxmox_harule" "racks_v3" {
   resources = [
     module.alexandria.ha_resource_id,
     module.komodo.ha_resource_id,
+    module.docker.ha_resource_id,
   ]
 
   nodes = {
