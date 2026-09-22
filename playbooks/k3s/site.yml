@@ -4,6 +4,7 @@
   gather_facts: true
   become: true
   roles:
+    - k3s_storage
     - role: k3s.orchestration.prereq
 #    - role: airgap
 #    - role: raspberrypi

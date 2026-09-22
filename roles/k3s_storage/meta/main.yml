@@ -1,0 +1,15 @@
+dependencies:
+  - role: partition
+    name: Mount local path provisioner
+    part_device: "{{ lpp_device }}"
+    part_no: "{{ lpp_part_no }}"
+    part_fstype: ext4
+    part_label: "LOCAL_PATH"
+    part_path: /var/lib/rancher/k3s/storage
+  - role: partition
+    name: Mount longhorn partition
+    part_device: "{{ longhorn_device }}"
+    part_no: "{{ longhorn_part_no }}"
+    part_fstype: xfs
+    part_label: "LONGHORN"
+    part_path: /var/lib/longhorn

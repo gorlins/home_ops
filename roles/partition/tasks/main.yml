@@ -1,0 +1,52 @@
+- name: Ensure parted utility is installed on MicroOS
+  become: true
+  community.general.zypper:
+    name: parted
+    state: present
+  register: package_install
+
+- name: Reboot MicroOS to apply the new read-only snapshot
+  become: true
+  ansible.builtin.reboot:
+    msg: "Rebooting to apply transactional-update containing parted"
+  when: package_install.changed
+
+- name: Create the partition
+  community.general.parted:
+    device: "{{ part_device }}"
+    name: "{{ part_label }}"
+    number: "{{ part_no | int}}"
+    resize: true
+    label: gpt
+    state: present
+    fs_type: "{{ part_fstype }}"
+    part_end: "100%"
+
+#- name: Clear old filesystem signature to force re-formatting
+#  community.general.filesystem:
+#    dev: "{{ part_device }}-part{{ part_no }}"
+#    state: absent
+
+- name: Create the filesystem
+  community.general.filesystem:
+    fstype: "{{ part_fstype }}"
+    dev: "{{ part_device }}-part{{ part_no }}"
+#    label: "{{ part_label }}"  # only for fgs2
+    opts: "-L {{ part_label }}"
+    resizefs: true
+
+- name: Create mounting target
+  become: true
+  file:
+    path: "{{ part_path }}"
+    state: directory
+
+- name: Mount the target
+  become: true
+  ansible.posix.mount:
+    path: "{{ part_path }}"
+    src: "LABEL={{ part_label }}"
+    fstype: "{{ part_fstype }}"
+    opts: defaults,noatime,nodiratime
+    state: mounted
+    passno: 2

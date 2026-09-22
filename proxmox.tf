@@ -210,6 +210,17 @@ module "uk3s" {
     bridge = local.cluster_bridge
   }]
   initialization = false
+
+  additional_disks = {
+    scsi1 = {
+      # local path provisioner
+      size = 4,
+    },
+    scsi2 = {
+      # Longhorn
+      size = 4
+    }
+  }
 }
 
 module "alexandria" {

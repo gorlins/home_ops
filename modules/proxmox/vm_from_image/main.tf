@@ -70,9 +70,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
   dynamic "disk" {
     for_each = var.additional_disks
     iterator = disk
+
     content {
       datastore_id = var.datastore_id
-      interface    = disk.value.interface
+      interface    = disk.key
       size         = disk.value.size
       cache        = disk.value.cache
       iothread     = disk.value.iothread

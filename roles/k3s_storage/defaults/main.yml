@@ -1,0 +1,4 @@
+lpp_device: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
+lpp_part_no: 1
+longhorn_device: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi2
+longhorn_part_no: 1

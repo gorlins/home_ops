@@ -1,0 +1,5 @@
+part_device: "" # /dev/sdx
+part_no: 1
+part_fstype: ext4
+part_label: ""
+part_path: "" # /mnt/dir

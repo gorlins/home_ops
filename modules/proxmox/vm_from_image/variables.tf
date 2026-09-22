@@ -131,16 +131,16 @@ variable "scsi_hardware" {
 }
 
 variable "additional_disks" {
-  type = list(object({
-    interface = string
-    size      = number
-    cache     = optional(string)
-    iothread  = optional(bool, true)
-    ssd       = optional(bool, true)
-    discard   = optional(string, "on")
+  type = map(object({
+    size = number,
+    # interface = string,
+    cache    = optional(string)
+    iothread = optional(bool, true)
+    ssd      = optional(bool, true)
+    discard  = optional(string, "on")
     }
   ))
-  default = []
+  default = {}
 }
 
 ### Network Variables
