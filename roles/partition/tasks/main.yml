@@ -20,7 +20,8 @@
     label: gpt
     state: present
     fs_type: "{{ part_fstype }}"
-    part_end: "100%"
+#    part_end: "100%"
+  when: part_no == 1 # Only if it's the only partition, otherwise would need to calculate part_end. TODO: handle case when it's the first but not only
 
 #- name: Clear old filesystem signature to force re-formatting
 #  community.general.filesystem:
