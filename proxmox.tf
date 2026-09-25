@@ -313,16 +313,22 @@ resource "proxmox_download_file" "talos_img" {
   datastore_id = local.shared_fs
   content_type = "import"
   node_name    = local.template_node
-  url          = "https://factory.talos.dev/image/${local.talos_schematic}/v1.14.1/metal-amd64-secureboot.qcow2"
-  file_name    = "talos-v1.14.1-metal-amd64-secureboot.qcow2"
+  # qcow2 images are not explicitly listed in documentation, but apparently are available
+  url       = "https://factory.talos.dev/image/${local.talos_schematic}/v1.13.9/metal-amd64-secureboot.qcow2"
+  file_name = "talos-v1.13.9-metal-amd64-secureboot.qcow2"
 }
 
-module "talos" {
-  source = "./modules/proxmox/vm_from_image"
-
-  for_each  = local.pve_nodes
+# terraform import 'module.talos_cp["pve-2"].proxmox_virtual_environment_vm.vm' pve-2/109
+module "talos_cp" {
+  source  = "./modules/proxmox/vm_from_image"
+  migrate = false
+  for_each = {
+    pve-1 = {},
+    pve-2 = {},
+    pve-3 = {},
+  }
   node_name = each.key
-  name      = join("-", ["newtalos", trimprefix(each.key, "pve-")])
+  name      = join("", ["talos-", "c", trimprefix(each.key, "pve-")])
 
   tags = ["talos"]
 
@@ -334,6 +340,7 @@ module "talos" {
   memory_floating = null
   cpu_type        = "host"
 
+  # TODO: WARN: iothread is only valid with virtio disk or virtio-scsi-single controller, ignoring
   scsi_hardware = "virtio-scsi-pci"
   network_devices = [
     { bridge = local.cluster_bridge },
