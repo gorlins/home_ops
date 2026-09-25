@@ -1,0 +1,91 @@
+- name: Ensure there is no snap docker
+  become: true
+  community.general.snap:
+    name: docker
+    state: absent
+  when: ansible_facts['distribution'] == 'Ubuntu'
+
+- name: Install required system packages
+  become: true
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - net-tools
+#      - software-properties-common  # Removed in trixie - not needed?
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+      - python3-apt
+      - cron
+
+- name: Install the docker repos
+  block:
+    - name: docker | no apt key
+      become: true
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/{{ ansible_facts["distribution"] | lower }}/gpg
+        dest: /etc/apt/keyrings/docker.asc
+
+    - name: docker | apt source
+      become: true
+      template:
+        src: templates/docker.sources
+        dest: /etc/apt/sources.list.d/docker.sources
+
+    - name: remove old source file
+      become: true
+      file:
+        path: /etc/apt/sources.list.d/download_docker_com_linux_{{ ansible_facts["distribution"] | lower }}.list
+        state: absent
+
+- name: Update apt and install docker-ce
+  become: true
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: true
+
+- name: Install docker components
+  become: true
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+
+# sudo groupadd docker
+- name: Create "docker" group
+  become: true
+  group:
+    name: "docker"
+    state: present
+
+# sudo usermod -aG docker root
+- name: Add ansible user to the docker group
+  become: true
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
+- name: Ensure docker socket is writeable by docker group
+  become: true
+  file:
+    path: /var/run/docker.sock
+    group: docker
+
+
+- name: Periodically prune and clean docker system
+  become: true
+  ansible.builtin.cron:
+    name: docker prune
+    special_time: "daily"
+    user: "{{ ansible_user }}"
+    job: "docker system prune -f --volumes"
+    cron_file: docker_prune

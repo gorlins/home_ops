@@ -1,0 +1,23 @@
+issuer: https://auth.internal:5556
+
+storage:
+  type: memory
+
+web:
+  https: 0.0.0.0:5556
+  tlsCert: /etc/dex/tls/server-chain.pem
+  tlsKey: /etc/dex/tls/server-key.pem
+
+enablePasswordDB: true
+
+staticClients:
+  - name: Omni
+    id: omni
+    secret: omni-dex-secret
+    redirectURIs:
+      - https://omni.internal/oidc/consume
+
+staticPasswords:
+  - email: "scottgorlin+omni@gmail.com"
+    username: "admin"
+    hashFromEnv: DEX_USER_PASSWORD

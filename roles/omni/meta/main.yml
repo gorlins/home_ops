@@ -1,0 +1,10 @@
+---
+dependencies:
+  - role: docker
+  - role: partition
+    name: Mount omni data directory
+    part_device: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi10"
+    part_fstype: ext4
+    part_label: "OMNI"
+    part_path: /var/mnt/omni
+

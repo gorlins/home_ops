@@ -1,0 +1,13 @@
+- name: Install required system packages
+  become: true
+  apt:
+    pkg:
+      - golang-cfssl
+
+#- name: Add all inventory hosts to /etc/hosts
+#  ansible.builtin.lineinfile:
+#    path: /etc/hosts
+#    regexp: '.*{{ item }}$'
+#    line: "{{ hostvars[item].ansible_host | default(hostvars[item].ansible_ssh_host) }} {{ item }}"
+#    state: present
+

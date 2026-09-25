@@ -1,0 +1,56 @@
+services:
+  web:
+    image: ghcr.io/siderolabs/omni:v1.12.2
+    restart: unless-stopped
+    volumes:
+      - /var/mnt/omni/combined-ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro,Z
+      - /var/mnt/omni/server-key.pem:/server-key.pem:ro,Z
+      - /var/mnt/omni/server-chain.pem:/server-chain.pem:ro,Z
+      - /var/mnt/omni/omni.asc:/omni.asc:ro,Z
+      - /var/mnt/omni/etcd:/_out/etcd:rw,Z
+      - /var/mnt/omni/sqlite:/_out/sqlite:rw,Z
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN      # Allows configuring network interfaces
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      CLOUDFLARE_API_TOKEN:
+    command: --name=omni \
+      --cert=/server-chain.pem \
+      --key=/server-key.pem \
+      --machine-api-cert=/server-chain.pem \
+      --machine-api-key=/server-key.pem \
+      --machine-api-bind-addr=0.0.0.0:8090 \
+      --private-key-source=file:///omni.asc \
+      --event-sink-port=8091 \
+      --bind-addr=0.0.0.0:443 \
+      --k8s-proxy-bind-addr=0.0.0.0:8100 \
+      --advertised-api-url=https://${OMNI_ENDPOINT}/ \
+      --siderolink-api-advertised-url=https://${OMNI_ENDPOINT}:8090/ \
+      --siderolink-wireguard-advertised-addr=${HOST_PUBLIC_IP}:50180 \
+      --advertised-kubernetes-proxy-url=https://${OMNI_ENDPOINT}:8100/ \
+      --auth-auth0-enabled=false \
+      --auth-oidc-enabled=true \
+      --auth-oidc-provider-url=https://${AUTH_ENDPOINT}:5556 \
+      --auth-oidc-client-id=omni \
+      --auth-oidc-client-secret=omni-dex-secret \
+      --auth-oidc-scopes=openid \
+      --auth-oidc-scopes=profile \
+      --auth-oidc-scopes=email \
+      --sqlite-storage-path=/_out/sqlite/omni.db \
+      --initial-users=${OMNI_USER_EMAIL} \
+      --eula-accept-name="${EULA_NAME}" \
+      --eula-accept-email="${EULA_EMAIL}"
+  dex:
+    restart: unless-stopped
+    ports:
+      - 5556:5556
+    image: ghcr.io/dexidp/dex:v2.41.1
+    volumes:
+      - ./dex.yaml:/etc/dex/dex.yaml:ro,Z
+      - /var/mnt/omni/server-key.pem:/etc/dex/tls/server-key.pem:ro,Z
+      - /var/mnt/omni/server-chain.pem:/etc/dex/tls/server-chain.pem:ro,Z
+
+    command:
+      - dex serve /etc/dex/dex.yaml
