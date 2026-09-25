@@ -4,6 +4,7 @@
     name: parted
     state: present
   register: package_install
+  when: ansible_facts['os_family'] == "Suse"
 
 - name: Reboot MicroOS to apply the new read-only snapshot
   become: true
@@ -12,6 +13,7 @@
   when: package_install.changed
 
 - name: Create the partition
+  become: true
   community.general.parted:
     device: "{{ part_device }}"
     name: "{{ part_label }}"
@@ -29,6 +31,7 @@
 #    state: absent
 
 - name: Create the filesystem
+  become: true
   community.general.filesystem:
     fstype: "{{ part_fstype }}"
     dev: "{{ part_device }}-part{{ part_no }}"
