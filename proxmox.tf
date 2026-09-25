@@ -341,3 +341,33 @@ module "talos" {
   initialization    = false
   pre_enrolled_keys = false # Required for talos to enroll own secure boot keys
 }
+
+# module "omni" {
+#   source    = "./modules/proxmox/vm_from_image"
+#   node_name = local.template_node
+#   name      = "omni"
+#
+#   tags = ["ubuntu"]
+#
+#   import_from  = module.ubuntu_template["resolute"].img.id
+#   datastore_id = local.shared_datastore
+#   description  = "Omni control plane for Talos"
+#
+#   cpu_cores       = 4
+#   memory          = 8192
+#   memory_floating = 4096
+#
+#   vendor_data_file_id = local.ci_vendor_data
+#   user_account        = local.user_account
+#   ha                  = true
+#
+#   additional_disks = {
+#     scsi10 = {
+#       size = 128
+#     }
+#   }
+#
+#   network_devices = [
+#     { bridge = local.cluster_bridge }
+#   ]
+# }
