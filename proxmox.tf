@@ -349,6 +349,50 @@ module "talos_cp" {
   pre_enrolled_keys = false # Required for talos to enroll own secure boot keys
 }
 
+# terraform import 'module.talos_worker["pve-3"].proxmox_virtual_environment_vm.vm' pve-3/112
+module "talos_worker" {
+  source  = "./modules/proxmox/vm_from_image"
+  migrate = false
+  for_each = {
+    pve-1 = { mac_address = "BC:24:11:2A:38:98" },
+    pve-2 = { mac_address = "bc:24:11:f6:d0:d5" },
+    pve-3 = { mac_address = "BC:24:11:88:E4:96" },
+  }
+  node_name = each.key
+  name      = join("", ["talos-", "w", trimprefix(each.key, "pve-")])
+
+  tags = ["talos"]
+
+  import_from  = proxmox_download_file.talos_img.id
+  datastore_id = local.local_datastore
+
+  cpu_cores       = 12
+  memory          = 32764
+  memory_floating = null
+  cpu_type        = "host"
+
+  # TODO: WARN: iothread is only valid with virtio disk or virtio-scsi-single controller, ignoring
+  scsi_hardware = "virtio-scsi-pci"
+  network_devices = [
+    {
+      bridge      = local.cluster_bridge,
+      mac_address = each.value.mac_address,
+    },
+  ]
+  boot_disk = {
+    size   = 64
+    backup = false
+  }
+  additional_disks = {
+    scsi1 = {
+      size   = 192
+      backup = false
+    }
+  }
+  initialization    = false
+  pre_enrolled_keys = false # Required for talos to enroll own secure boot keys
+}
+
 # module "omni" {
 #   source    = "./modules/proxmox/vm_from_image"
 #   node_name = local.template_node

@@ -27,7 +27,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = each.key
   config_patches = [
     templatefile("${path.module}/templates/install-disk-and-hostname.yaml.tmpl", {
-      hostname     = each.value.hostname == null ? format("%s-cp-%s", var.cluster_name, index(keys(var.node_data.controlplanes), each.key)) : each.value.hostname
+      hostname     = each.key
       install_disk = each.value.install_disk
     }),
     file("${path.module}/files/cp-scheduling.yaml"),

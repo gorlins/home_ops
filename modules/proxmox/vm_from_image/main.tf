@@ -64,6 +64,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     iothread  = var.boot_disk.iothread
     ssd       = var.boot_disk.ssd
     discard   = var.boot_disk.discard
+    backup    = var.boot_disk.backup
   }
 
   # Other disks
@@ -79,6 +80,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
       iothread     = disk.value.iothread
       ssd          = disk.value.ssd
       discard      = disk.value.discard
+      backup       = disk.value.backup
     }
   }
 
@@ -94,10 +96,11 @@ resource "proxmox_virtual_environment_vm" "vm" {
     for_each = var.network_devices
     iterator = nic
     content {
-      bridge  = nic.value.bridge
-      model   = nic.value.model
-      mtu     = nic.value.mtu
-      vlan_id = nic.value.vlan_id
+      bridge      = nic.value.bridge
+      model       = nic.value.model
+      mtu         = nic.value.mtu
+      vlan_id     = nic.value.vlan_id
+      mac_address = nic.value.mac_address
     }
   }
 

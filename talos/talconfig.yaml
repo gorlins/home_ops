@@ -59,12 +59,12 @@ nodes:
     talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:6a:00:a5"
-        dhcp: false
-        mtu: 9000
-        addresses:
-          - "10.10.11.118/24"
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:6a:00:a5"
+#        dhcp: false
+#        mtu: 9000
+#        addresses:
+#          - "10.10.11.118/24"
       - deviceSelector:
           hardwareAddr: "bc:24:11:2a:38:98"
         dhcp: true
@@ -76,12 +76,12 @@ nodes:
     talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:c3:46:2a"
-        dhcp: false
-        mtu: 9000
-        addresses:
-          - "10.10.11.119/24"
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:c3:46:2a"
+#        dhcp: false
+#        mtu: 9000
+#        addresses:
+#          - "10.10.11.119/24"
       - deviceSelector:
           hardwareAddr: "bc:24:11:f6:d0:d5"
         dhcp: true
@@ -93,12 +93,12 @@ nodes:
     talosImageURL: factory.talos.dev/installer-secureboot/${pveSchematic}
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:bd:11:9a"
-        dhcp: false
-        mtu: 9000
-        addresses:
-          - "10.10.11.112/24"
+#      - deviceSelector:
+#          hardwareAddr: "bc:24:11:bd:11:9a"
+#        dhcp: false
+#        mtu: 9000
+#        addresses:
+#          - "10.10.11.112/24"
       - deviceSelector:
           hardwareAddr: "bc:24:11:88:e4:96"
         dhcp: true
@@ -113,12 +113,12 @@ nodes:
       - deviceSelector:
           hardwareAddr: "98:b7:85:20:1e:fc"
         dhcp: true
-      - deviceSelector:
-          hardwareAddr: "98:b7:85:20:1e:fd"
-        dhcp: false
-        mtu: 9000
-        addresses:
-          - "10.10.11.70/24"
+#      - deviceSelector:
+#          hardwareAddr: "98:b7:85:20:1e:fd"
+#        dhcp: false
+#        mtu: 9000
+#        addresses:
+#          - "10.10.11.70/24"
 
 # Global patches
 patches:

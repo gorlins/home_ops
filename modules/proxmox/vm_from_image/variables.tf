@@ -18,6 +18,7 @@ variable "boot_disk" {
     iothread  = optional(bool, true)
     ssd       = optional(bool, true)
     discard   = optional(string, "on")
+    backup    = optional(bool, true)
   })
   default = {}
 }
@@ -138,6 +139,7 @@ variable "additional_disks" {
     iothread = optional(bool, true)
     ssd      = optional(bool, true)
     discard  = optional(string, "on")
+    backup   = optional(bool, true)
     }
   ))
   default = {}
@@ -147,11 +149,12 @@ variable "additional_disks" {
 variable "network_devices" {
   description = "List of nics"
   type = list(object({
-    bridge  = optional(string)
-    model   = optional(string)
-    mtu     = optional(number)
-    vlan_id = optional(number)
-    address = optional(string, "dhcp")
+    bridge      = optional(string)
+    model       = optional(string)
+    mtu         = optional(number)
+    vlan_id     = optional(number)
+    address     = optional(string, "dhcp")
+    mac_address = optional(string)
   }))
   default = [{}]
 }
