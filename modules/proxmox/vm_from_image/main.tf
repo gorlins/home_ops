@@ -61,7 +61,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     interface = var.boot_disk.interface
     size      = var.boot_disk.size
     cache     = var.boot_disk.cache
-    iothread  = var.boot_disk.iothread
+    iothread  = var.boot_disk.iothread && var.scsi_hardware == "virtio-scsi-single" ? true : false
     ssd       = var.boot_disk.ssd
     discard   = var.boot_disk.discard
     backup    = var.boot_disk.backup
@@ -77,7 +77,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
       interface    = disk.key
       size         = disk.value.size
       cache        = disk.value.cache
-      iothread     = disk.value.iothread
+      iothread     = disk.value.iothread && var.scsi_hardware == "virtio-scsi-single" ? true : false
       ssd          = disk.value.ssd
       discard      = disk.value.discard
       backup       = disk.value.backup
