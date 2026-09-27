@@ -3,52 +3,34 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "talos_version" {
+  type    = string
+  default = "v1.13.9"
+}
+
+variable "schematic_id" {
+  description = "Default schematic id for nodes, unless overridden"
+  type        = string
+  default     = null
+}
+
 variable "vip" {
   description = "VIP address"
   type        = string
   default     = null
 }
-# variable "cluster_endpoint" {
-#   description = "The endpoint for the Talos cluster"
-#   type        = string
-#   default     = ul
-# }
 
-variable "node_data" {
-  description = "A map of node data"
-  type = object({
-    controlplanes = map(object({
-      install_disk = optional(string, "/dev/sda")
-      hostname     = optional(string)
-    }))
-    workers = map(object({
-      install_disk = optional(string, "/dev/sda")
-      hostname     = optional(string)
-    }))
-  })
-  default = {
-    controlplanes = {
-      #   "10.5.0.2" = {
-      #     install_disk = "/dev/sda"
-      #   },
-      #   "10.5.0.3" = {
-      #     install_disk = "/dev/sda"
-      #   },
-      #   "10.5.0.4" = {
-      #     install_disk = "/dev/sda"
-      #   }
-    }
-    workers = {
-      #   "10.5.0.5" = {
-      #     install_disk = "/dev/nvme0n1"
-      #     hostname     = "worker-1"
-      #   },
-      #   "10.5.0.6" = {
-      #     install_disk = "/dev/nvme0n1"
-      #     hostname     = "worker-2"
-      #   }
-    }
-  }
+variable "nodes" {
+  description = "List of node data"
+  type = map(object({
+    install_disk = optional(string, "/dev/sda")
+    hostname     = optional(string)
+    schematic_id = optional(string)
+    secureboot   = optional(bool, false)
+    controlplane = optional(bool, false)
+    patches      = optional(list(string), [])
+    platform     = optional(string, "metal")
+  }))
 }
 
 variable "global_patches" {
