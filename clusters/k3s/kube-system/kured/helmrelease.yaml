@@ -8,6 +8,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kured
+  values:
+    configuration:
+      # openSUSE MicroOS reboot sentinel path
+      rebootSentinel: "/run/reboot-needed"
 
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
