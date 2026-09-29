@@ -26,6 +26,10 @@ spec:
           - 10.42.0.0/16
     bpf:
       masquerade: true
+    gatewayAPI:
+      enabled: true
+    l2announcements:
+      enabled: true
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
