@@ -16,10 +16,16 @@ spec:
     remediation:
       retries: 3
   values:
+    k8sServiceHost: 10.10.10.88  # The cluster VIP
+    k8sServicePort: 6443
+    kubeProxyReplacement: true
     ipam:
+      mode: kubernetes # recommended for k3s compatibility
       operator:
         clusterPoolIPv4PodCIDRList:
           - 10.42.0.0/16
+    bpf:
+      masquerade: true
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository

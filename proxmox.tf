@@ -201,8 +201,8 @@ module "uk3s" {
   datastore_id = local.local_datastore
 
   cpu_type        = "host"
-  cpu_cores       = 4
-  memory          = 4096
+  cpu_cores       = 8
+  memory          = 8192
   memory_floating = null # badness with k3s?
 
   cdrom_file_id = local.ignition_file_id
