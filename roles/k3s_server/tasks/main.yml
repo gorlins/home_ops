@@ -8,3 +8,10 @@
   loop:
     - kube-vip.yaml
     - kube-vip-rbac.yaml
+
+- name: Set reboot policy for updates
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/transactional-update.conf
+    line: REBOOT_METHOD=kured
+    create: true
