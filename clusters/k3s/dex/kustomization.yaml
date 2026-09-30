@@ -5,4 +5,5 @@ namespace: dex
 components:
   - ../../components/common
 resources:
+  - ./namespace.yaml  # Needed first to allow for secrets to sync before build
   - ./dex/ks.yaml
