@@ -18,3 +18,5 @@ brew "yq"
 brew "bash"
 # Package manager for kubectl plugins
 brew "krew"
+# Network, Service & Security Observability for Kubernetes using eBPF
+brew "hubble"
