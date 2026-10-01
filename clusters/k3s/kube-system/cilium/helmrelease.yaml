@@ -30,6 +30,12 @@ spec:
       enabled: true
     l2announcements:
       enabled: true
+    hubble:
+      enabled: true
+      relay:
+        enabled: true
+      ui:
+        enabled: true
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
