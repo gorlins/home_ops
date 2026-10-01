@@ -35,7 +35,7 @@ spec:
          namespace: kube-system
          sectionName: web
       hostnames:
-        - "https://dex.${SECRET_DOMAIN}"
+        - "dex.${SECRET_DOMAIN}"
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
