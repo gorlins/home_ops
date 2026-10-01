@@ -107,3 +107,9 @@ kubectl delete pod authentik-postgres-6 -n authentik --grace-period=0 --force
 # Scale back to 3
 kubectl patch cluster authentik-postgres -n authentik --type merge -p '{"spec":{"instances": 3}}'
 ```
+
+## To get SOPS decryption going in flux
+
+```bash
+cat age.key | kubectl create secret generic sops-age --namespace=flux-system --from-file=age.agekey=/dev/stdin
+```
