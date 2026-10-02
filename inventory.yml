@@ -52,12 +52,12 @@ k3s_cluster:
       #   This is now an inner yaml file. Maintain the indentation.
       #   YAML here will be placed as the content of /etc/rancher/k3s/config.yaml
       #   See https://docs.k3s.io/installation/configuration#configuration-file
-      flannel-backend: "none"
-      disable:
-        - network-policy
-        - kube-proxy
-        - traefik
-        - servicelb
+      flannel-backend: "vxlan"
+#      disable:
+#        - network-policy
+#        - kube-proxy
+#        - traefik
+#        - servicelb
 
     # agent_config_yaml:  |
     #   Same as server_config_yaml, but for the agent nodes.
