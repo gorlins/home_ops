@@ -21,3 +21,7 @@ spec:
     - ^eno[0-9]+$
     - ^ens[0-9]+$
     - ^eth[0-9]+$
+  serviceSelector: # necessary on microos/k3s?
+    matchExpressions:
+      - key: io.kubernetes.by-cilium/gateway # Binds specifically to Cilium Gateway services
+        operator: Exists
