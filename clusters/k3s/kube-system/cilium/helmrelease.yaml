@@ -26,6 +26,11 @@ spec:
       operator:
         clusterPoolIPv4PodCIDRList:
           - 10.42.0.0/16
+
+    # Simplify routing on a single L2 - these values together
+    autoDirectNodeRoutes: true
+    routingMode: native
+
     bpf:
       masquerade: true
     gatewayAPI:
