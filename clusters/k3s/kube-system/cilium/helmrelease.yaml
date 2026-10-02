@@ -33,6 +33,7 @@ spec:
 
     bpf:
       masquerade: true
+      hostLegacyRouting: true # Necessary for cross-vlan traffic to clients??
     gatewayAPI:
       enabled: true
     l2announcements:
