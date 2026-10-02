@@ -19,6 +19,7 @@ spec:
   # NOTE: interfaces might need to be set if you have more than one active NIC on your hosts
   interfaces:
     - ^eno[0-9]+$
+    - ^ens[0-9]+$
     - ^eth[0-9]+$
   nodeSelector:
     matchLabels:
