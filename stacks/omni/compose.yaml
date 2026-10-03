@@ -46,7 +46,7 @@ services:
     restart: unless-stopped
     ports:
       - 5556:5556
-    image: ghcr.io/dexidp/dex:v2.41.1
+    image: ghcr.io/dexidp/dex:v2.45.1
     volumes:
       - ./dex.yaml:/etc/dex/dex.yaml:ro,Z
       - /var/mnt/omni/server-key.pem:/etc/dex/tls/server-key.pem:ro,Z
