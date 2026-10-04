@@ -23,6 +23,7 @@ spec:
     # Simplify routing on a single L2 - these values together
     autoDirectNodeRoutes: true
     routingMode: native
+    ipv4NativeRoutingCIDR: "10.10.10.0/24"
 
     bpf:
       masquerade: true
