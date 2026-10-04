@@ -24,7 +24,11 @@ spec:
     autoDirectNodeRoutes: true
     routingMode: native
     ipv4NativeRoutingCIDR: "10.10.10.0/24"
-
+    ipv4:
+      enabled: true
+    masquerade: true
+    
+    # Other options
     bpf:
       masquerade: true
       hostLegacyRouting: true # Necessary for cross-vlan traffic to clients??
