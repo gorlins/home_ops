@@ -1,0 +1,17 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: cilium
+spec:
+  gatewayClassName: cilium
+  listeners:
+  - protocol: HTTP
+    port: 80
+    name: web
+    allowedRoutes:
+      namespaces:
+        from: All
+  addresses:
+    - type: IPAddress
+      value: "10.10.10.16"
