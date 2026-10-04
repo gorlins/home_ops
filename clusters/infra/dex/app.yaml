@@ -31,7 +31,7 @@ spec:
     httpRoute:
       enabled: true
       parentRefs:
-       - name: cilium
+       - name: traefik-gateway
          namespace: kube-system
          sectionName: web
       hostnames:

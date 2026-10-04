@@ -5,6 +5,8 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    api:
+      dashboard: true
     providers:
       kubernetesGateway:
         enabled: true
@@ -17,3 +19,10 @@ spec:
         port: 8443
         exposedPort: 443
         protocol: TCP
+    service:
+      spec:
+        # 1. Assign the exact static IP you want from your MetalLB pool
+        loadBalancerIP: 10.10.10.195
+
+        # 2. Recommended: Preserves the true client source IP in logs/rules
+        externalTrafficPolicy: Local

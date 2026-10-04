@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: metallb
 resources:
   - ./app.yaml
+  - ./config.yaml

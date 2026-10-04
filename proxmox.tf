@@ -205,6 +205,10 @@ module "uk3s" {
   memory          = 8192
   memory_floating = null # badness with k3s?
 
+  boot_disk = {
+    size = 64
+  }
+
   cdrom_file_id = local.ignition_file_id
   network_devices = [{
     bridge = local.cluster_bridge
