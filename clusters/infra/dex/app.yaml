@@ -19,7 +19,7 @@ spec:
   values:
     config:
       # Set it to a valid URL
-      issuer: "http://${SECRET_DOMAIN}"
+      issuer: "https://dex.${SECRET_DOMAIN}"
 
       # See https://dexidp.io/docs/storage/ for more options
       storage:
