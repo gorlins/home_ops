@@ -33,7 +33,7 @@ spec:
       parentRefs:
        - name: cilium
          namespace: kube-system
-         sectionName: web
+         sectionName: websecure
       hostnames:
         - "dex.${SECRET_DOMAIN}"
 ---

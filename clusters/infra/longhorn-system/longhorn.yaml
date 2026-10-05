@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app longhorn
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: longhorn
+      version: 1.12.1
+      sourceRef:
+        kind: HelmRepository
+        name: *app
+  values:
+    defaultSettings:
+      defaultDataLocality: best-effort
+      snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: true
+      snapshotDataIntegrity: enabled
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
+
+#    defaultBackupStore:
+#      backupTarget: "s3://scottgorlin-k8s-backup@backblaze/longhorn/"
+#      backupTargetCredentialSecret: backblaze-credentials
+
+    persistence:
+      defaultDataLocality: best-effort
+
+    httproute:
+      enabled: true
+      hostnames:
+        "lh.${SECRET_DOMAIN}"
+
+      parentRefs:
+       - name: cilium
+         namespace: kube-system
+         sectionName: websecure
+
+    metrics:
+      serviceMonitor:
+        enabled: true
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: longhorn
+spec:
+  interval: 60m
+  url: https://charts.longhorn.io

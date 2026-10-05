@@ -12,6 +12,12 @@ spec:
     allowedRoutes:
       namespaces:
         from: All
+  - protocol: HTTPS
+    port: 443
+    name: websecure
+    allowedRoutes:
+      namespaces:
+        from: All
   addresses:
     - type: IPAddress
       value: "10.10.10.160"
