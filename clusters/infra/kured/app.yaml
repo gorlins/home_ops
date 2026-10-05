@@ -2,24 +2,21 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kured
-  namespace: kured
+  name: &app kured
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: kured
+    name: *app
   values:
     configuration:
       # openSUSE MicroOS reboot sentinel path
       rebootSentinel: "/run/reboot-needed"
-
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: kured
-  namespace: kured
 spec:
   interval: 15m
   layerSelector:
