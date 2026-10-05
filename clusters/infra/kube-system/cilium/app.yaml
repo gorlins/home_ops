@@ -27,7 +27,7 @@ spec:
     ipv4:
       enabled: true
     masquerade: true
-    
+
     # Other options
     bpf:
       masquerade: true
