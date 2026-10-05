@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
 #- ./manifests/traefik-config.yaml
-- ./cilium/
+- ./cilium
