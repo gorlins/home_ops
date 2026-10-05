@@ -4,4 +4,4 @@ namespace: kube-system
 resources:
   - ./app.yaml
   - ./network.yaml
-  - ./gateway
+  - ./gateway.yaml
