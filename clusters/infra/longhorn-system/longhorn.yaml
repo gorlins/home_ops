@@ -30,7 +30,7 @@ spec:
     httproute:
       enabled: true
       hostnames:
-        "lh.${SECRET_DOMAIN}"
+        - "lh.${SECRET_DOMAIN}"
 
       parentRefs:
        - name: cilium
