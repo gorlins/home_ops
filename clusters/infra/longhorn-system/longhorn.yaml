@@ -37,9 +37,9 @@ spec:
          namespace: kube-system
          sectionName: websecure
 
-    metrics:
-      serviceMonitor:
-        enabled: true
+#    metrics:
+#      serviceMonitor:
+#        enabled: true
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
