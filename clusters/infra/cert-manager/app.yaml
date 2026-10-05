@@ -10,12 +10,9 @@ metadata:
   name: &app cert-manager
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: *app
-      sourceRef:
-        kind: HelmRepository
-        name: *app
+  chartRef:
+    kind: OCIRepository
+    name: *app
   values:
     crds:
       enabled: true
