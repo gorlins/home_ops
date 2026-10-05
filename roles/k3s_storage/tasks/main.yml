@@ -1,0 +1,7 @@
+- name: Install packages needed for storage
+  become: true
+  community.general.zypper:
+    name: open-iscsi
+    state: present
+  register: package_install
+  when: ansible_facts['os_family'] == "Suse"
