@@ -5,3 +5,4 @@ resources:
   - ./app.yaml
   - ./network.yaml
   - ./gateway.yaml
+  - ./certificate.yaml

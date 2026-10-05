@@ -6,4 +6,3 @@ resources:
   - ./app.yaml
   - ./secret.sops.yaml
   - ./clusterissuer.yaml
-  - ./certificate.yaml
