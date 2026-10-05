@@ -37,6 +37,12 @@ spec:
          namespace: kube-system
          sectionName: websecure
 
+    service:
+      ui:
+        type: ClusterIP
+        # Forces Cilium's Envoy to recognize WebSocket connection switches correctly
+        appProtocol: "kubernetes.io/ws"
+
 #    metrics:
 #      serviceMonitor:
 #        enabled: true
