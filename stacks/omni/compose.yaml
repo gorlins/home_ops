@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/siderolabs/omni:v1.12.2
+    image: ghcr.io/siderolabs/omni:v1.12.3
     restart: unless-stopped
     volumes:
       - /var/mnt/omni/combined-ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro,Z
