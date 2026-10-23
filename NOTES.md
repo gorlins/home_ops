@@ -94,18 +94,19 @@ kubectl get cephcluster -n rook-ceph-pve
 ## Check and fix a cnpg cluster
 
 ```bash
-kubectl-cnpg status -n authentik authentik-postgres
+export N=immich
+kubectl-cnpg status -n $N $N-postgres
 
 # Scale down to 2
-kubectl patch cluster authentik-postgres -n authentik --type merge -p '{"spec":{"instances": 2}}'
-kubectl scale cluster authentik-postgres --replicas=2 -n authentik  
+kubectl patch cluster $N-postgres -n $N --type merge -p '{"spec":{"instances": 2}}'
+kubectl scale cluster $N-postgres --replicas=2 -n $N  
 
 # Delete the bad pod
-kubectl cnpg destroy -n authentik  authentik-postgres authentik-postgres-6
-kubectl delete pod authentik-postgres-6 -n authentik --grace-period=0 --force
+kubectl cnpg destroy -n $N  $N-postgres $N-postgres-6
+kubectl delete pod $N-postgres-6 -n $N --grace-period=0 --force
 
 # Scale back to 3
-kubectl patch cluster authentik-postgres -n authentik --type merge -p '{"spec":{"instances": 3}}'
+kubectl patch cluster $N-postgres -n $N --type merge -p '{"spec":{"instances": 3}}'
 ```
 
 ## To get SOPS decryption going in flux
