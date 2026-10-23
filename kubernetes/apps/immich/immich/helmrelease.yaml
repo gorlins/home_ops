@@ -23,6 +23,8 @@ spec:
           # Automatically creating the library volume is not supported by this chart
           # You have to specify an existing PVC to use
           existingClaim: immich-library
+    valkey:
+      enabled: true
     server:
       controllers:
         main:
