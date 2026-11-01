@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.15"
+  required_version = ">= 1.15"
   required_providers {
     sops = {
       source  = "carlpett/sops"
@@ -7,11 +7,11 @@ terraform {
     }
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.113.1"
+      version = "~> 0.119"
     }
     talos = {
       source  = "siderolabs/talos"
-      version = "0.12.0"
+      version = "~> 0.12"
     }
   }
   cloud {
