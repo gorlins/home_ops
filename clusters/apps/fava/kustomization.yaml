@@ -3,8 +3,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: fava
-components:
-  - ../../components/common
 resources:
   - ./namespace.yaml
-  - ./fava/ks.yaml
+  - ./ocirepository.yaml
+  - ./app.yaml
+  # Create and encrypt this before uncommenting -- see ./README.md
+  # - ./secret.sops.yaml

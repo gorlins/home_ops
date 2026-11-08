@@ -5,8 +5,12 @@ the ledger. The ledger comes from a private git repo: an init container clones
 it, and a git-sync sidecar pulls changes every 60s into an `emptyDir`. Fava
 mounts that `emptyDir` read-only. Your git repo stays the source of truth.
 
-The UI is at `https://fava.${SECRET_DOMAIN}`, served by Traefik behind the
-`traefik-authentik` forward-auth middleware.
+The UI is at `https://fava.${SECRET_DOMAIN}` via an HTTPRoute on the `cilium`
+Gateway (`websecure` listener, LAN address 10.10.10.160).
+
+> **No authentication yet.** The k3s cluster has no forward-auth in front of the
+> gateway, so anyone on the LAN who can reach the gateway can view the ledger.
+> Plan: oauth2-proxy backed by the existing Dex instance.
 
 ## One-time setup
 
@@ -23,7 +27,7 @@ The UI is at `https://fava.${SECRET_DOMAIN}`, served by Traefik behind the
    ssh-keyscan -t ed25519 github.com > known_hosts   # or your gitea host/port
    ```
 
-3. Write `fava/app/secret.sops.yaml`, then encrypt it:
+3. Write `clusters/apps/fava/secret.sops.yaml`, then encrypt it:
 
    ```yaml
    apiVersion: v1
@@ -41,14 +45,11 @@ The UI is at `https://fava.${SECRET_DOMAIN}`, served by Traefik behind the
    ```
 
    ```sh
-   sops -e -i kubernetes/apps/fava/fava/app/secret.sops.yaml
+   sops -e -i clusters/apps/fava/secret.sops.yaml
    ```
 
-4. Uncomment `./secret.sops.yaml` in `fava/app/kustomization.yaml`.
+4. Uncomment `./secret.sops.yaml` in `clusters/apps/fava/kustomization.yaml`.
 
 5. If your main file isn't `main.beancount` at the repo root, change
-   `BEANCOUNT_FILE` in `fava/app/helmrelease.yaml`. Paths are relative to
+   `BEANCOUNT_FILE` in `clusters/apps/fava/app.yaml`. Paths are relative to
    `/git/current/`.
-
-6. In Authentik, create a proxy provider/application (forward auth, single
-   application) for `fava.<domain>` and add it to the embedded outpost.
