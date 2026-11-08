@@ -9,113 +9,46 @@ spec:
   chartRef:
     kind: OCIRepository
     name: fava
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       fava:
         initContainers:
           # One-shot clone so the ledger exists before Fava starts.
           git-clone:
-            image:
+            image: &gitSyncImage
               repository: registry.k8s.io/git-sync/git-sync
               tag: v4.4.0
-            envFrom:
-              # Provides GITSYNC_REPO (and optionally GITSYNC_REF)
+            envFrom: &gitSyncEnvFrom
               - secretRef:
-                  name: fava-git
+                  name: fava-git # GITSYNC_REPO
             env:
-              GITSYNC_ROOT: /git
-              GITSYNC_LINK: current
-              GITSYNC_DEPTH: 1
-              GITSYNC_SSH_KEY_FILE: /etc/git-secret/ssh-privatekey
-              GITSYNC_SSH_KNOWN_HOSTS: true
-              GITSYNC_SSH_KNOWN_HOSTS_FILE: /etc/git-secret/known_hosts
+              GITSYNC_ROOT: /git # required, no default
+              GITSYNC_LINK: current # default is the repo name; keep the path stable
               GITSYNC_ONE_TIME: true
-            securityContext: &securityContext
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 128Mi
           # Native sidecar that keeps the checkout up to date.
           git-sync:
             dependsOn: git-clone
-            image:
-              repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.4.0
-            envFrom:
-              - secretRef:
-                  name: fava-git
+            image: *gitSyncImage
+            envFrom: *gitSyncEnvFrom
             env:
               GITSYNC_ROOT: /git
               GITSYNC_LINK: current
-              GITSYNC_DEPTH: 1
-              GITSYNC_SSH_KEY_FILE: /etc/git-secret/ssh-privatekey
-              GITSYNC_SSH_KNOWN_HOSTS: true
-              GITSYNC_SSH_KNOWN_HOSTS_FILE: /etc/git-secret/known_hosts
-              GITSYNC_PERIOD: 60s
             restartPolicy: Always
-            securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 128Mi
         containers:
           app:
             image:
               repository: docker.io/yegle/fava
               tag: v1.30@sha256:d94c2011d7ed9f0adf2576c640b8f0164586fe23f32d982b5b80259f102e025e
             env:
-              # Path of the main ledger file inside your git repo, under /git/current
               BEANCOUNT_FILE: /git/current/main.beancount
-              FAVA_HOST: 0.0.0.0
-              FAVA_PORT: &port 5000
               FAVA_READ_ONLY: true
-              # git-sync swaps a symlink on update; polling picks that up reliably
+              # The default inotify watcher never re-watches after git-sync swaps the symlink
               FAVA_POLL_WATCHER: true
-              TZ: America/New_York
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: *port
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 50m
-              limits:
-                memory: 1Gi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        # git-sync's default uid/gid
-        runAsUser: 65533
-        runAsGroup: 65533
-        fsGroup: 65533
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: {type: RuntimeDefault}
     service:
       app:
         ports:
           http:
-            port: *port
+            port: 5000
     route:
       app:
         hostnames:
@@ -127,28 +60,15 @@ spec:
     persistence:
       git:
         type: emptyDir
-        advancedMounts:
-          fava:
-            git-clone:
-              - path: /git
-            git-sync:
-              - path: /git
-            app:
-              - path: /git
-                readOnly: true
+        globalMounts:
+          - path: /git
+      # Mounted where git-sync looks by default: keys `ssh` and `known_hosts`
       git-secret:
         type: secret
         name: fava-git
-        defaultMode: 288 # 0440
         advancedMounts:
           fava:
             git-clone:
               - path: /etc/git-secret
-                readOnly: true
             git-sync:
               - path: /etc/git-secret
-                readOnly: true
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp

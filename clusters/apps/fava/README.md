@@ -2,8 +2,8 @@
 
 Fava runs with `--read-only` (`FAVA_READ_ONLY=true`), so the web UI can't edit
 the ledger. The ledger comes from a private git repo: an init container clones
-it, and a git-sync sidecar pulls changes every 60s into an `emptyDir`. Fava
-mounts that `emptyDir` read-only. Your git repo stays the source of truth.
+it, and a git-sync sidecar pulls changes every 10s (git-sync default) into an `emptyDir`. Fava
+reads from that `emptyDir`. Your git repo stays the source of truth.
 
 The UI is at `https://fava.${SECRET_DOMAIN}` via an HTTPRoute on the `cilium`
 Gateway (`websecure` listener, LAN address 10.10.10.160).
@@ -37,7 +37,7 @@ Gateway (`websecure` listener, LAN address 10.10.10.160).
    stringData:
      GITSYNC_REPO: git@github.com:<you>/<ledger-repo>.git
      # GITSYNC_REF: main           # optional, defaults to remote HEAD
-     ssh-privatekey: |
+     ssh: |
        -----BEGIN OPENSSH PRIVATE KEY-----
        ...
      known_hosts: |
