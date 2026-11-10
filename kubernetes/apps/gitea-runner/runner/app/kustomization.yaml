@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: gitea-runner
 resources:
   # TODO: create and encrypt secret.sops.yaml (see ../../README.md), then uncomment.
-  # - ./secret.sops.yaml
+  - ./secret.sops.yaml
   - ./repository.yaml
   - ./helmrelease.yaml
   - ./podmonitor.yaml
