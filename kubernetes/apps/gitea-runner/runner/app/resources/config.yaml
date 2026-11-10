@@ -1,0 +1,36 @@
+# act_runner config. Full reference: `act_runner generate-config`
+log:
+  level: info
+runner:
+  # Registration state lives on the Longhorn PVC so restarts don't re-register.
+  file: /data/.runner
+  capacity: 2
+  timeout: 3h
+  shutdown_timeout: 3m
+  fetch_timeout: 5s
+  fetch_interval: 2s
+  labels:
+    - "ubuntu-latest:docker://docker.gitea.com/runner-images:ubuntu-latest"
+    - "ubuntu-24.04:docker://docker.gitea.com/runner-images:ubuntu-24.04"
+    - "ubuntu-22.04:docker://docker.gitea.com/runner-images:ubuntu-22.04"
+cache:
+  enabled: true
+  # actions/cache storage, persisted on the Longhorn PVC.
+  dir: /data/actcache
+  host: ""
+  port: 0
+container:
+  network: ""
+  # Job containers are NOT privileged; they still get the dind socket mounted
+  # (docker_host: "") so `docker build` works inside jobs.
+  privileged: false
+  options:
+  valid_volumes: []
+  docker_host: ""
+  # Reuse cached job images in the dind daemon instead of pulling every job.
+  force_pull: false
+  require_docker: true
+  docker_timeout: 60s
+metrics:
+  enabled: true
+  addr: ":9101"
