@@ -1,0 +1,11 @@
+---
+# Separate namespace so only the runner gets the privileged Pod Security level;
+# the gitea namespace itself stays at the Talos default (baseline).
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: gitea-runner
+  labels:
+    # The docker:dind sidecar must run privileged.
+    pod-security.kubernetes.io/enforce: privileged
+    kustomize.toolkit.fluxcd.io/prune: disabled

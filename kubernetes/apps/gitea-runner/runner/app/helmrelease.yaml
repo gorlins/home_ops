@@ -1,0 +1,135 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitea-runner
+spec:
+  interval: 1h
+  chart:
+    spec:
+      # Official chart: https://gitea.com/gitea/helm-actions
+      chart: actions
+      version: 0.1.3
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+  values:
+    enabled: true
+    giteaRootURL: http://gitea-http.gitea.svc.cluster.local:3000
+    existingSecret: gitea-runner-token
+    existingSecretKey: token
+
+    global:
+      storageClass: longhorn
+
+    statefulset:
+      replicas: 1
+      # Optional: pin to a dedicated node
+      # nodeSelector:
+      #   kubernetes.io/hostname: talos-w1
+
+      # Registration state (/data/.runner) and actions/cache live here.
+      persistence:
+        size: 10Gi
+
+      # Docker's image/layer cache. Without this it lands in the dind
+      # container's writable layer with no size bound. Kept on the node (not
+      # Longhorn) on purpose: heavy build I/O stays local and a replicated
+      # cache isn't worth the space.
+      extraVolumes:
+        - name: docker-data
+          emptyDir:
+            sizeLimit: 50Gi
+
+      runner:
+        # act_runner was renamed to gitea/runner (chart default tag is stale).
+        registry: docker.io
+        repository: gitea/runner
+        tag: 5.4.1@sha256:a19f8dd10e66398e77429806e4fe10587cc7e9bade450f069cf5ad525d8a2b5d
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            memory: 512Mi
+        extraEnvs:
+          - name: GITEA_RUNNER_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+        config: |
+          log:
+            level: info
+          runner:
+            capacity: 2
+            timeout: 3h
+            shutdown_timeout: 3m
+            labels:
+              - "ubuntu-latest:docker://docker.gitea.com/runner-images:ubuntu-latest"
+              - "ubuntu-24.04:docker://docker.gitea.com/runner-images:ubuntu-24.04"
+              - "ubuntu-22.04:docker://docker.gitea.com/runner-images:ubuntu-22.04"
+          cache:
+            enabled: true
+            # On the Longhorn PVC.
+            dir: /data/actcache
+          container:
+            # Job containers are NOT privileged; they still get the dind socket
+            # (docker_host: "") so `docker build` works inside jobs.
+            privileged: false
+            docker_host: ""
+            force_pull: false
+            require_docker: true
+            docker_timeout: 300s
+          metrics:
+            enabled: true
+            addr: ":9101"
+
+      dind:
+        registry: docker.io
+        repository: docker
+        tag: 29.9.3-dind@sha256:08a98015fce594af7c382883bea080ea206de74402a95da9dc52b6428c8cd121
+        # Starting args with `dockerd` skips the image's default TCP listener
+        # (tcp://0.0.0.0:2376), so the daemon is reachable only via the socket
+        # shared with the runner container.
+        # Cilium runs native routing (pod MTU == node MTU), so docker's default
+        # MTU matches. If you switch to tunnel mode, add `--mtu=<pod MTU>`.
+        extraArgs:
+          - dockerd
+          - --host=unix:///var/run/docker.sock
+        extraVolumeMounts:
+          - name: docker-data
+            mountPath: /var/lib/docker
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            memory: 8Gi
+
+  # The chart exposes no ports/probes for the runner; add the metrics port
+  # (for the PodMonitor) and a liveness check on /healthz.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: StatefulSet
+              name: gitea-runner-runner
+            patch: |
+              apiVersion: apps/v1
+              kind: StatefulSet
+              metadata:
+                name: gitea-runner-runner
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: runner
+                        ports:
+                          - name: metrics
+                            containerPort: 9101
+                        livenessProbe:
+                          httpGet:
+                            path: /healthz
+                            port: metrics
+                          periodSeconds: 30
