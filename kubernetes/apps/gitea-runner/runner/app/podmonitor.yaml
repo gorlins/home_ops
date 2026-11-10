@@ -6,7 +6,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/component: act-runner
+      app.kubernetes.io/name: actions-runner
+      app.kubernetes.io/instance: gitea-runner
   podMetricsEndpoints:
     - port: metrics
       path: /metrics

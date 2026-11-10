@@ -1,10 +1,12 @@
 # gitea-runner
 
-Gitea Actions runner (`act_runner`) with a privileged `docker:dind` sidecar.
+Gitea Actions runner deployed with the official `actions` Helm chart
+(<https://gitea.com/gitea/helm-actions>): a `gitea/runner` container plus a
+privileged `docker:dind` native sidecar.
 
 - Namespace `gitea-runner` is labelled `pod-security.kubernetes.io/enforce: privileged`
   (Talos enforces `baseline` by default); only the dind sidecar is privileged.
-- dockerd listens only on a unix socket shared between the two containers.
+- dockerd listens only on a unix socket shared with the runner container (no TCP).
 - `/data` (registration state + actions/cache) is a Longhorn PVC; the docker
   image cache is an emptyDir (50Gi limit) on the node.
 
@@ -30,7 +32,7 @@ Gitea Actions runner (`act_runner`) with a privileged `docker:dind` sidecar.
 3. Uncomment `./secret.sops.yaml` in `runner/app/kustomization.yaml` and push.
 
 The token is only used on first registration; the result is stored in
-`/data/.runner`. To re-register, delete the `data-gitea-runner-0` PVC.
+`/data/.runner`. To re-register, delete the `data-runner-gitea-runner-runner-0` PVC.
 
 ## Notes
 
@@ -39,3 +41,6 @@ The token is only used on first registration; the result is stored in
   from pods.
 - Security: anything a workflow runs can reach the privileged dind daemon,
   i.e. root on the node. Only run trusted repos on this runner.
+- `gitea/runner` 5.x also supports a `kubernetes://` label that runs each job
+  as a pod with no Docker daemon (and no privileged pod). The Helm chart doesn't
+  deploy that mode yet; see the runner repo's `docs/kubernetes.md`.
