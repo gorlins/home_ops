@@ -1,0 +1,74 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: fava
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: fava
+  values:
+    controllers:
+      fava:
+        initContainers:
+          # One-shot clone so the ledger exists before Fava starts.
+          git-clone:
+            image: &gitSyncImage
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.4.0
+            envFrom: &gitSyncEnvFrom
+              - secretRef:
+                  name: fava-git # GITSYNC_REPO
+            env:
+              GITSYNC_ROOT: /git # required, no default
+              GITSYNC_LINK: current # default is the repo name; keep the path stable
+              GITSYNC_ONE_TIME: true
+          # Native sidecar that keeps the checkout up to date.
+          git-sync:
+            dependsOn: git-clone
+            image: *gitSyncImage
+            envFrom: *gitSyncEnvFrom
+            env:
+              GITSYNC_ROOT: /git
+              GITSYNC_LINK: current
+            restartPolicy: Always
+        containers:
+          app:
+            image:
+              repository: docker.io/yegle/fava
+              tag: v1.30@sha256:d94c2011d7ed9f0adf2576c640b8f0164586fe23f32d982b5b80259f102e025e
+            env:
+              BEANCOUNT_FILE: /git/current/main.beancount
+              FAVA_READ_ONLY: true
+              # The default inotify watcher never re-watches after git-sync swaps the symlink
+              FAVA_POLL_WATCHER: true
+    service:
+      app:
+        ports:
+          http:
+            port: 5000
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: cilium
+            namespace: kube-system
+            sectionName: websecure
+    persistence:
+      git:
+        type: emptyDir
+        globalMounts:
+          - path: /git
+      # Mounted where git-sync looks by default: keys `ssh` and `known_hosts`
+      git-secret:
+        type: secret
+        name: fava-git
+        advancedMounts:
+          fava:
+            git-clone:
+              - path: /etc/git-secret
+            git-sync:
+              - path: /etc/git-secret
