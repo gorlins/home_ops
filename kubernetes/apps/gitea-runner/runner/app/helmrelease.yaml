@@ -10,7 +10,7 @@ spec:
     spec:
       # Official chart: https://gitea.com/gitea/helm-actions
       chart: actions
-      version: 0.1.3
+      version: 0.1.4
       sourceRef:
         kind: HelmRepository
         name: gitea
