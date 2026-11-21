@@ -34,7 +34,7 @@ services:
     networks:
       - backend
   db:
-    image: docker.io/library/postgres:18
+    image: docker.io/library/postgres:19
     restart: unless-stopped
     volumes:
       - /mnt/app_data/paperless/f94e44e6-525a-404e-95f7-e43cabe3dedc/pgdata:/var/lib/postgresql
